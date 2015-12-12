@@ -11,7 +11,7 @@
 |
 */
 
-Route::controller('/administracija','Administracija');
+Route::controller('/administracija','AdministracijaKO');
 
 Route::get('/', function () {
     return view('welcome');
