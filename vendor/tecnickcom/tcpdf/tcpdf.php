@@ -3402,13 +3402,13 @@ class TCPDF {
 				$this->x = $this->original_lMargin;
 			}
 			if (($headerdata['logo']) AND ($headerdata['logo'] != K_BLANK_IMAGE)) {
-				$imgtype = TCPDF_IMAGES::getImageFileType(K_PATH_IMAGES.$headerdata['logo']);
+				$imgtype = TCPDF_IMAGES::getImageFileType($headerdata['logo']);
 				if (($imgtype == 'eps') OR ($imgtype == 'ai')) {
-					$this->ImageEps(K_PATH_IMAGES.$headerdata['logo'], '', '', $headerdata['logo_width']);
+					$this->ImageEps($headerdata['logo'], '', '', $headerdata['logo_width']);
 				} elseif ($imgtype == 'svg') {
-					$this->ImageSVG(K_PATH_IMAGES.$headerdata['logo'], '', '', $headerdata['logo_width']);
+					$this->ImageSVG($headerdata['logo'], '', '', $headerdata['logo_width']);
 				} else {
-					$this->Image(K_PATH_IMAGES.$headerdata['logo'], '', '', $headerdata['logo_width']);
+					$this->Image($headerdata['logo'], '', '', $headerdata['logo_width']);
 				}
 				$imgy = $this->getImageRBY();
 			} else {
