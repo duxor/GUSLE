@@ -1,3 +1,6 @@
+@extends('master')
+
+@section('body')
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,7 +42,9 @@
         <div class="container">
             <div class="content">
                 <div class="title">Laravel 5</div>
+                <a href="/auth/login">Login</a>
             </div>
         </div>
     </body>
 </html>
+@endsection
