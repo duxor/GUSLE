@@ -25,35 +25,27 @@ class KreiranjeBaze extends Migration {
             $table->string('adresa', 250)->nullable();
             $table->string('grad', 250)->nullable();
 			$table->unsignedBigInteger('prava_pristupa_id');
-			$table->foreign('prava_pristupa_id')->references('id')->on('prava_pristupa');
-			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-			$table->timestamp('updated_at')->nullable();
+            $table->foreign('prava_pristupa_id')->references('id')->on('prava_pristupa');
 			$table->string('telefon',45)->nullable();
 			$table->text('opis')->nullable();
-			$table->tinyInteger('aktivan')->default(1);
 			$table->string('jmbg',45)->nullable();
 			$table->string('broj_licne_karte',45)->nullable();
+            $table->tinyInteger('online')->default(1);
+            $table->tinyInteger('aktivan')->default(1);
 			$table->string('foto',250)->nullable();
-
-            $table->string('naziv',250)->nullable();
-            $table->string('jib',250)->nullable();
-            $table->string('pib',250)->nullable();
-            $table->string('pdv',250)->nullable();
-            $table->string('ziro_racun_1',250)->nullable();
-            $table->string('banka_1',250)->nullable();
-            $table->string('ziro_racun_2',250)->nullable();
-            $table->string('banka_2',250)->nullable();
-            $table->string('registracija',250)->nullable();
-            $table->string('broj_upisa',250)->nullable();
+            $table->rememberToken();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->nullable();
 		});
 		Schema::create('log', function(Blueprint $table)
 		{
 			$table->bigIncrements('id');
 			$table->unsignedBigInteger('korisnici_id');
 			$table->string('ip',45)->nullable();
-			$table->foreign('korisnici_id')->references('id')->on('korisnici');
+			$table->foreign('korisnici_id')->references('id')->on('korisnici')->onDelete('cascade');
 			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 		});
+
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
@@ -71,7 +63,6 @@ class KreiranjeBaze extends Migration {
 	public function down()
 	{
         Schema::drop('users');Schema::drop('password_resets');
-
 
 		Schema::drop('log');
 		Schema::drop('korisnici');
