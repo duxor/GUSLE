@@ -11,7 +11,22 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 class AdministracijaKO extends Controller
 {
+    public function __construct(){
+        $this->middleware('privilegije', ['only'=>'privilegije1']);
+    }
+
     public function getIndex(){
 
     }
+
+    public function privilegije1()
+    {
+        return "Privilegije 1";
+    }
+
+    public function privilegije2()
+    {
+        return "Privilegije 2";
+    }
+
 }
