@@ -12,8 +12,9 @@ use Illuminate\Support\Facades\Auth;
 class AdministracijaKO extends Controller
 {
     public function __construct(){
-        $this->middleware('privilegije', ['only'=>'privilegije1']);
+        $this->middleware('privilegije', ['except'=>'getIndex']);
     }
+
 
     public function getIndex(){
 

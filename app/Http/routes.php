@@ -41,6 +41,3 @@ Route::get('/', function () {
 });
 
 
-//Jovic radio
-Route::get('/privilegije1', 'AdministracijaKO@privilegije1');
-Route::get('/privilegije2', 'AdministracijaKO@privilegije2');
