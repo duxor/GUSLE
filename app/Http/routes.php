@@ -32,11 +32,12 @@ Route::controllers([
 Route::controller('/administracija','AdministracijaKO');
 
 Route::get('/home',function(){
-    return Auth::user();
-    return '<a href="/auth/logout">Logout</a>';
+    print 'Pravo pristua korisnika: '.Auth::user()->prava_pristupa_id;
+    return '<br><br><a href="/administracija/privilegije1">Privilegije 1 - [2 i 3]</a>
+            <br><a href="/administracija/privilegije2">Privilegije 2 - samo [3]</a>
+            <br><br><a href="/auth/logout">Logout</a>';
 });
 Route::get('/', function () {
-    //dd(Session::all());
     return view('welcome');
 });
 
