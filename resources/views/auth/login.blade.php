@@ -14,5 +14,8 @@
                     {!!Form::password('password',['value'=>'12345678'])!!}
                     {!!Form::submit('Login')!!}
                 {!!Form::close()!!}
-                <button onclick="popuni()">Popuni</button>
-                <script>function popuni(){document.getElementsByName('password')[0].value='12345678';}</script>
+                <p>Potrebno je ponovo uraditi migraciju i seed kako bi se prava pristupa podesila za sve korisnike.</p>
+                <button onclick="popuni('dusan.perisic','12345678')">Korisnik Pravo 1</button>
+                <button onclick="popuni('petar.petrovic','12345678')">Korisnik Pravo 2</button>
+                <button onclick="popuni('milovan.milosevic','12345678')">Korisnik Pravo 3</button>
+                <script>function popuni(u,p){document.getElementsByName('password')[0].value=p;document.getElementsByName('username')[0].value=u;}</script>
