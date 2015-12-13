@@ -12,6 +12,8 @@
 */
 
 // Authentication routes...
+use Illuminate\Support\Facades\Auth;
+
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
@@ -19,6 +21,7 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+
 
 
 Route::controllers([
@@ -29,9 +32,15 @@ Route::controllers([
 Route::controller('/administracija','AdministracijaKO');
 
 Route::get('/home',function(){
+    return Auth::user();
     return '<a href="/auth/logout">Logout</a>';
 });
 Route::get('/', function () {
     //dd(Session::all());
     return view('welcome');
 });
+
+
+//Jovic radio
+Route::get('/privilegije1', 'AdministracijaKO@privilegije1');
+Route::get('/privilegije2', 'AdministracijaKO@privilegije2');

@@ -46,6 +46,8 @@ class KreiranjeBaze extends Migration {
 			$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
 		});
 
+
+
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
@@ -54,16 +56,17 @@ class KreiranjeBaze extends Migration {
             $table->rememberToken();
             $table->timestamps();
         });
+
         Schema::create('password_resets', function (Blueprint $table) {
             $table->string('email')->index();
             $table->string('token')->index();
             $table->timestamp('created_at');
         });
 	}
+
 	public function down()
 	{
         Schema::drop('users');Schema::drop('password_resets');
-
 		Schema::drop('log');
 		Schema::drop('korisnici');
 		Schema::drop('prava_pristupa');
