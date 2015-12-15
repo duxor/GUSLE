@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Korisnici;
+
+
+
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -48,7 +50,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             'username' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+           // 'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
         ]);
     }
@@ -68,14 +70,14 @@ class AuthController extends Controller
             'username' => $data['username'],
             'email' => $data['email'],
             'adresa'=>$data['adresa'],
-            'grad'=>$data['grad'],
+            'grad_id'=>$data['grad_id'],
             'prava_pristupa_id'=>$data['prava_pristupa_id'],
             'telefon'=>$data['telefon'],
-            'opis'=>$data['opis'],
-            'jmbg'=>$data['jmbg'],
-            'broj_licne_karte'=>$data['broj_licne_karte'],
+            'opis'=>$data['bio'],
             'foto'=>$data['foto'],
+            'token'=>$data['_token']
         ]);
     }
-
 }
+
+
