@@ -20,18 +20,20 @@
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
+							<label class="col-md-4 control-label">Име</label>
+							<div class="col-md-6">
+								<input type="text" class="form-control" name="ime" value="{{ old('ime') }}">
+							</div>
+						</div>
+
+						<div class="form-group">
 						<label class="col-md-4 control-label">Презиме</label>
 						<div class="col-md-6">
 							<input type="text" class="form-control" name="prezime" value="{{ old('prezime') }}">
 						</div>
 
 						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label">Ime</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" name="ime" value="{{ old('ime') }}">
-							</div>
-						</div>
+
 						<div class="form-group">
 							<label class="col-md-4 control-label">Корисничко име</label>
 							<div class="col-md-6">
@@ -67,9 +69,9 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-4 control-label">Гград</label>
+							<label class="col-md-4 control-label">Град</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="grad" value="{{ old('grad') }}">
+								<input type="text" class="form-control" name="grad_id" value="{{ old('grad_id') }}">
 							</div>
 						</div>
 						<div class="form-group">
@@ -85,22 +87,9 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-md-4 control-label">Опис</label>
+							<label class="col-md-4 control-label">Биографија</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="opis" value="{{ old('opis') }}">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label">ЈМБГ</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" name="jmbg" value="{{ old('jmbg') }}">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Број личне карте</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" name="broj_licne_karte" value="{{ old('broj_licne_karte') }}">
+								<input type="text" class="form-control" name="bio" value="{{ old('bio') }}">
 							</div>
 						</div>
 
