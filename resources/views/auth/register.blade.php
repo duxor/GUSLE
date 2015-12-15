@@ -1,4 +1,5 @@
-@extends('layouts.head')
+@include('layouts.head')
+
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
@@ -16,18 +17,18 @@
 						</div>
 					@endif
 
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}">
+					<form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="{{ url('/auth/register') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Име</label>
+							<label class="col-md-4 control-label">* Име</label>
 							<div class="col-md-6">
 								<input type="text" class="form-control" name="ime" value="{{ old('ime') }}">
 							</div>
 						</div>
 
 						<div class="form-group">
-						<label class="col-md-4 control-label">Презиме</label>
+						<label class="col-md-4 control-label">* Презиме</label>
 						<div class="col-md-6">
 							<input type="text" class="form-control" name="prezime" value="{{ old('prezime') }}">
 						</div>
@@ -35,28 +36,28 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Корисничко име</label>
+							<label class="col-md-4 control-label">* Корисничко име</label>
 							<div class="col-md-6">
 								<input type="text" class="form-control" name="username" value="{{ old('username') }}">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">E-mail адреса</label>
+							<label class="col-md-4 control-label">* E-mail адреса</label>
 							<div class="col-md-6">
 								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Шифра</label>
+							<label class="col-md-4 control-label">* Шифра</label>
 							<div class="col-md-6">
 								<input type="password" class="form-control" name="password">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Потврдите шифру</label>
+							<label class="col-md-4 control-label">* Потврдите шифру</label>
 							<div class="col-md-6">
 								<input type="password" class="form-control" name="password_confirmation">
 							</div>
@@ -68,12 +69,31 @@
 								<input type="text" class="form-control" name="adresa" value="{{ old('adresa') }}">
 							</div>
 						</div>
+
 						<div class="form-group">
-							<label class="col-md-4 control-label">Град</label>
+							<label class="col-md-4 control-label">* Град</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="grad_id" value="{{ old('grad_id') }}">
+								<div class="row">
+									<div class="col-md-6">
+
+										<input type="text" class="form-control" name="novi_grad" id="grad_tex_id">
+									<select class="form-control" name="grad_id" id="grad_select_id">
+										<option value="0">Изаберите град</option>
+										@foreach($gradovi as $grad)
+											<option value="{{$grad->id}}">{{$grad->naziv}}</option>
+										@endforeach
+										<input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
+									</select>
+									</div>
+									<div class="col-md-6">
+										<button type="button" id="dodaj_grad" class="btn btn-primary">
+											Додај нови град
+										</button>
+									</div>
+								</div>
 							</div>
 						</div>
+
 						<div class="form-group">
 							<label class="col-md-4 control-label">Права приступа</label>
 							<div class="col-md-6">
@@ -89,14 +109,14 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">Биографија</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="bio" value="{{ old('bio') }}">
+								<input type="textarea" class="form-control" name="bio" value="{{ old('bio') }}">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Слика</label>
+							<label class="col-md-4 control-label">* Слика</label>
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="foto" value="{{ old('foto') }}">
+								<input type="file" class="form-control" name="foto" value="{{ old('foto') }}">
 							</div>
 						</div>
 
@@ -112,7 +132,18 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#grad_tex_id").hide();
+			$('#dodaj_grad').click(function(){
+				$("#grad_select_id").hide();
+				$("#grad_tex_id").show();
+			});
+		});
+	</script>
 </div>
+
+
 
 
 

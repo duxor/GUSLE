@@ -136,7 +136,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -199,7 +199,8 @@ return [
 
         'Form'      => Illuminate\Html\FormFacade::class,
         'HTML'	    => Illuminate\Html\HtmlFacade::class,
-        'PDF'       =>  Elibyy\TCPDF\Facades\TCPdf::class,
+        'PDF'       => Elibyy\TCPDF\Facades\TCPdf::class,
+        'Image'     => Intervention\Image\Facades\Image::class,
     ],
 
 ];
