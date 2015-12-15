@@ -2,26 +2,62 @@
 
 use Illuminate\Database\Seeder;
 use App\User as Korisnici;
-use App\Log;
 use App\PravaPristupa;
-
+use App\VrstaKorisnika;
+use App\VrstaProizvoda;
+use App\StanjeProizvoda;
+use App\Grad;
+use App\Galerija;
+use App\VrstaSadrzaja;
 class KonfiguracioniPodaci extends Seeder{
     public function run(){
         PravaPristupa::insert([
-            ['naziv'=>'Test1'],
-            ['naziv'=>'Test2'],
-            ['naziv'=>'Test3'],
+            ['naziv'=>'Забрањен приступ'],//1
+            ['naziv'=>'Корисник'],//2
+            ['naziv'=>'Нижи модератор'],//3
+            ['naziv'=>'Модератор'],//4
+            ['naziv'=>'Администратор'],//5
+            ['naziv'=>'Супер администратор'],//6
+        ]);
+        Grad::insert([
+            ['naziv'=>'Недефинисано'],
+            ['naziv'=>'Београд'],
+            ['naziv'=>'Краљево'],
+            ['naziv'=>'Фоча'],
         ]);
         Korisnici::insert([
-            ['username'=>'dusan.perisic','password'=>bcrypt('12345678'),'email'=>'email.1@gmail.com','prava_pristupa_id'=>1],
-            ['username'=>'petar.petrovic','password'=>bcrypt('12345678'),'email'=>'email.2@gmail.com','prava_pristupa_id'=>2],
-            ['username'=>'milovan.milosevic','password'=>bcrypt('12345678'),'email'=>'email.3@gmail.com','prava_pristupa_id'=>3],
+            ['username'=>'SuperAdmin','password'=>bcrypt('SuperAdmin'),'email'=>'super.admin@gmail.com','prava_pristupa_id'=>6],//1
         ]);
-        Log::insert([
-            ['korisnici_id'=>1,'ip'=>'.1'],
-            ['korisnici_id'=>1,'ip'=>'.1'],
-            ['korisnici_id'=>2,'ip'=>'.22'],
-            ['korisnici_id'=>3,'ip'=>'.33'],
+        VrstaKorisnika::insert([
+            ['naziv'=>'Посматрач'],
+            ['naziv'=>'Гуслар'],
+            ['naziv'=>'Градитељ гусала'],
+            ['naziv'=>'Фрулаш'],
+            ['naziv'=>'Градитељ фрула'],
+            ['naziv'=>'Градитељ дувачких инструмената'],
+            ['naziv'=>'Дуборезац'],
+        ]);
+        VrstaProizvoda::insert([
+            ['naziv'=>'Гусле'],
+            ['naziv'=>'Иконе'],
+            ['naziv'=>'Народне ношње'],
+            ['naziv'=>'Фруле'],
+            ['naziv'=>'Двојнице'],
+            ['naziv'=>'Други дувачки инструменти'],
+        ]);
+        StanjeProizvoda::insert([
+            ['naziv'=>'Активан'],
+            ['naziv'=>'Резервисан'],
+            ['naziv'=>'У фази испоруке'],
+            ['naziv'=>'Продат'],
+        ]);
+        Galerija::insert([
+            ['naziv'=>'Недефинисано'],//1
+            ['naziv'=>'Портфолио'],//2
+        ]);
+        VrstaSadrzaja::insert([
+            ['naziv'=>'Фотографија'],
+            ['naziv'=>'Видео'],
         ]);
     }
 }

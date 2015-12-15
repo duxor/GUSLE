@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call(KonfiguracioniPodaci::class);
+        $this->call(TestPodaci::class);
 
         Model::reguard();
     }
