@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Korisnici;
+use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -60,10 +61,20 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return Korisnici::create([
+        return User::create([
+            'prezime'=>$data['prezime'],
+            'ime'=>$data['ime'],
+            'password' => bcrypt($data['password']),
             'username' => $data['username'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'adresa'=>$data['adresa'],
+            'grad'=>$data['grad'],
+            'prava_pristupa_id'=>$data['prava_pristupa_id'],
+            'telefon'=>$data['telefon'],
+            'opis'=>$data['opis'],
+            'jmbg'=>$data['jmbg'],
+            'broj_licne_karte'=>$data['broj_licne_karte'],
+            'foto'=>$data['foto'],
         ]);
     }
 

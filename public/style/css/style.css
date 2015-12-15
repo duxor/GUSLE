@@ -1,0 +1,42 @@
+.jumbotron {
+  /*  background-color: #1c94c4; /* Plava */
+  /*  color: #ffffff;/*Boja slova*/
+
+    background-image: url("http://4.bp.blogspot.com/-T0RiuXBYqtM/Uwi7_IWA2YI/AAAAAAAABDk/4BfFFQiUYsE/s1600/1622534_672434112795385_1018485406_o.jpg");
+   color:white;
+}
+
+/*Navigacija*************************************/
+.navbar {
+    margin-bottom: 0;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+    font-family: Montserrat, sans-serif;
+}
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #f4511e !important;
+    background-color: #fff !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+/*Footer*************************************/
+footer .glyphicon {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #1c94c4;
+}
+.center-blue{
+    border-bottom: solid;
+    border-bottom-color: #31b0d5;
+}

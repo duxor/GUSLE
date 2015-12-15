@@ -42,3 +42,7 @@ Route::get('/', function () {
 });
 
 
+Route::get('/pocetna',function(){
+    return view('pocetna');
+});
+
