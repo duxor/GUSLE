@@ -21,3 +21,5 @@ vendor/composer/autoload_classmap.php
 .idea/vcs.xml
 .idea/blade.xml
 .idea/workspace.xml
+.idea/blade.xml
+.idea/blade.xml
