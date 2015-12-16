@@ -29,6 +29,17 @@ Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 
+//Objava
+Route::get('objava/index', 'ObjavaController@index');
+Route::get('objava/create', 'ObjavaController@create');
+Route::post('objava/store', 'ObjavaController@store');
+Route::get('objava/{id}/edit', 'ObjavaController@edit');
+Route::PATCH('objava/{id}', 'ObjavaController@update');
+Route::GET('objava/destroy/{id}', 'ObjavaController@destroy');
+
+
+
+
 Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
