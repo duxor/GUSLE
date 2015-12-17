@@ -77,10 +77,10 @@ class OutputFormatter implements OutputFormatterInterface
     }
 
     /**
-     * Sets a new style.
+     * Sets a new aj.
      *
-     * @param string                        $name  The style name
-     * @param OutputFormatterStyleInterface $style The style instance
+     * @param string                        $name  The aj name
+     * @param OutputFormatterStyleInterface $style The aj instance
      */
     public function setStyle($name, OutputFormatterStyleInterface $style)
     {
@@ -88,7 +88,7 @@ class OutputFormatter implements OutputFormatterInterface
     }
 
     /**
-     * Checks if output formatter has style with specified name.
+     * Checks if output formatter has aj with specified name.
      *
      * @param string $name
      *
@@ -100,18 +100,18 @@ class OutputFormatter implements OutputFormatterInterface
     }
 
     /**
-     * Gets style options from style with specified name.
+     * Gets aj options from aj with specified name.
      *
      * @param string $name
      *
      * @return OutputFormatterStyleInterface
      *
-     * @throws \InvalidArgumentException When style isn't defined
+     * @throws \InvalidArgumentException When aj isn't defined
      */
     public function getStyle($name)
     {
         if (!$this->hasStyle($name)) {
-            throw new \InvalidArgumentException(sprintf('Undefined style: %s', $name));
+            throw new \InvalidArgumentException(sprintf('Undefined aj: %s', $name));
         }
 
         return $this->styles[strtolower($name)];
@@ -120,7 +120,7 @@ class OutputFormatter implements OutputFormatterInterface
     /**
      * Formats a message according to the given styles.
      *
-     * @param string $message The message to style
+     * @param string $message The message to aj
      *
      * @return string The styled message
      */
@@ -176,7 +176,7 @@ class OutputFormatter implements OutputFormatterInterface
     }
 
     /**
-     * Tries to create new style instance from string.
+     * Tries to create new aj instance from string.
      *
      * @param string $string
      *
@@ -213,7 +213,7 @@ class OutputFormatter implements OutputFormatterInterface
     }
 
     /**
-     * Applies current style from stack to text, if must be applied.
+     * Applies current aj from stack to text, if must be applied.
      *
      * @param string $text Input text
      *

@@ -100,7 +100,7 @@ $pdf->Bookmark('Paragraph 1.3', 1, 0, '', '', array(128,0,0));
 $pdf->Cell(0, 10, 'Paragraph 1.3', 0, 1, 'L');
 
 // fixed link to the first page using the * character
-$html = '<a href="#*1" style="color:blue;">link to INDEX (page 1)</a>';
+$html = '<a href="#*1" aj="color:blue;">link to INDEX (page 1)</a>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
 

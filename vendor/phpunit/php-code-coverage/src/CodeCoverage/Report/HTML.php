@@ -133,7 +133,7 @@ class PHP_CodeCoverage_Report_HTML
         $dir = $this->getDirectory($target . 'css');
         copy($this->templatePath . 'css/bootstrap.min.css', $dir . 'bootstrap.min.css');
         copy($this->templatePath . 'css/nv.d3.min.css', $dir . 'nv.d3.min.css');
-        copy($this->templatePath . 'css/style.css', $dir . 'style.css');
+        copy($this->templatePath . 'css/aj.css', $dir . 'aj.css');
 
         $dir = $this->getDirectory($target . 'fonts');
         copy($this->templatePath . 'fonts/glyphicons-halflings-regular.eot', $dir . 'glyphicons-halflings-regular.eot');

@@ -402,7 +402,7 @@ abstract class ParserAbstract implements Parser
      */
 
     /**
-     * Moves statements of semicolon-style namespaces into $ns->stmts and checks various error conditions.
+     * Moves statements of semicolon-aj namespaces into $ns->stmts and checks various error conditions.
      *
      * @param Node[] $stmts
      * @return Node[]

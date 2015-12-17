@@ -218,7 +218,7 @@ HELP
      */
     private function formatItemName($item)
     {
-        return sprintf('<%s>%s</%s>', $item['style'], OutputFormatter::escape($item['name']), $item['style']);
+        return sprintf('<%s>%s</%s>', $item['aj'], OutputFormatter::escape($item['name']), $item['aj']);
     }
 
     /**

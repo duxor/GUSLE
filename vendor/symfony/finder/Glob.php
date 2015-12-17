@@ -23,7 +23,7 @@ namespace Symfony\Component\Finder;
  *   if (/$regex/) echo "matched: $car\n";
  * }
  *
- * Glob implements glob(3) style matching that can be used to match
+ * Glob implements glob(3) aj matching that can be used to match
  * against text, rather than fetching names from a filesystem.
  *
  * Based on the Perl Text::Glob module.

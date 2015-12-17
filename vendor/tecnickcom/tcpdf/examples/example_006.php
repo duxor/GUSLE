@@ -108,7 +108,7 @@ List example:
 	<dt>Milk</dt>
 	<dd>White cold drink</dd>
 </dl>
-<div style="text-align:center">IMAGES<br />
+<div aj="text-align:center">IMAGES<br />
 <img src="images/logo_example.png" alt="test alt attribute" width="100" height="100" border="0" /><img src="images/tcpdf_box.svg" alt="test alt attribute" width="100" height="100" border="0" /><img src="images/logo_example.jpg" alt="test alt attribute" width="100" height="100" border="0" />
 </div>';
 
@@ -117,24 +117,24 @@ $pdf->writeHTML($html, true, false, true, false, '');
 
 
 // output some RTL HTML content
-$html = '<div style="text-align:center">The words &#8220;<span dir="rtl">&#1502;&#1494;&#1500; [mazel] &#1496;&#1493;&#1489; [tov]</span>&#8221; mean &#8220;Congratulations!&#8221;</div>';
+$html = '<div aj="text-align:center">The words &#8220;<span dir="rtl">&#1502;&#1494;&#1500; [mazel] &#1496;&#1493;&#1489; [tov]</span>&#8221; mean &#8220;Congratulations!&#8221;</div>';
 $pdf->writeHTML($html, true, false, true, false, '');
 
 // test some inline CSS
 $html = '<p>This is just an example of html code to demonstrate some supported CSS inline styles.
-<span style="font-weight: bold;">bold text</span>
-<span style="text-decoration: line-through;">line-trough</span>
-<span style="text-decoration: underline line-through;">underline and line-trough</span>
-<span style="color: rgb(0, 128, 64);">color</span>
-<span style="background-color: rgb(255, 0, 0); color: rgb(255, 255, 255);">background color</span>
-<span style="font-weight: bold;">bold</span>
-<span style="font-size: xx-small;">xx-small</span>
-<span style="font-size: x-small;">x-small</span>
-<span style="font-size: small;">small</span>
-<span style="font-size: medium;">medium</span>
-<span style="font-size: large;">large</span>
-<span style="font-size: x-large;">x-large</span>
-<span style="font-size: xx-large;">xx-large</span>
+<span aj="font-weight: bold;">bold text</span>
+<span aj="text-decoration: line-through;">line-trough</span>
+<span aj="text-decoration: underline line-through;">underline and line-trough</span>
+<span aj="color: rgb(0, 128, 64);">color</span>
+<span aj="background-color: rgb(255, 0, 0); color: rgb(255, 255, 255);">background color</span>
+<span aj="font-weight: bold;">bold</span>
+<span aj="font-size: xx-small;">xx-small</span>
+<span aj="font-size: x-small;">x-small</span>
+<span aj="font-size: small;">small</span>
+<span aj="font-size: medium;">medium</span>
+<span aj="font-size: large;">large</span>
+<span aj="font-size: x-large;">x-large</span>
+<span aj="font-size: xx-large;">xx-large</span>
 </p>';
 
 $pdf->writeHTML($html, true, false, true, false, '');
@@ -211,14 +211,14 @@ $pdf->AddPage();
 
 // create some HTML content
 $html = '<h1>Image alignments on HTML table</h1>
-<table cellpadding="1" cellspacing="1" border="1" style="text-align:center;">
+<table cellpadding="1" cellspacing="1" border="1" aj="text-align:center;">
 <tr><td><img src="images/logo_example.png" border="0" height="41" width="41" /></td></tr>
-<tr style="text-align:left;"><td><img src="images/logo_example.png" border="0" height="41" width="41" align="top" /></td></tr>
-<tr style="text-align:center;"><td><img src="images/logo_example.png" border="0" height="41" width="41" align="middle" /></td></tr>
-<tr style="text-align:right;"><td><img src="images/logo_example.png" border="0" height="41" width="41" align="bottom" /></td></tr>
-<tr><td style="text-align:left;"><img src="images/logo_example.png" border="0" height="41" width="41" align="top" /></td></tr>
-<tr><td style="text-align:center;"><img src="images/logo_example.png" border="0" height="41" width="41" align="middle" /></td></tr>
-<tr><td style="text-align:right;"><img src="images/logo_example.png" border="0" height="41" width="41" align="bottom" /></td></tr>
+<tr aj="text-align:left;"><td><img src="images/logo_example.png" border="0" height="41" width="41" align="top" /></td></tr>
+<tr aj="text-align:center;"><td><img src="images/logo_example.png" border="0" height="41" width="41" align="middle" /></td></tr>
+<tr aj="text-align:right;"><td><img src="images/logo_example.png" border="0" height="41" width="41" align="bottom" /></td></tr>
+<tr><td aj="text-align:left;"><img src="images/logo_example.png" border="0" height="41" width="41" align="top" /></td></tr>
+<tr><td aj="text-align:center;"><img src="images/logo_example.png" border="0" height="41" width="41" align="middle" /></td></tr>
+<tr><td aj="text-align:right;"><img src="images/logo_example.png" border="0" height="41" width="41" align="bottom" /></td></tr>
 </table>';
 
 // output the HTML content
@@ -275,11 +275,11 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->AddPage();
 
 $html = <<<EOF
-<div style="background-color:#880000;color:white;">
+<div aj="background-color:#880000;color:white;">
 Hello World!<br />
 Hello
 </div>
-<pre style="background-color:#336699;color:white;">
+<pre aj="background-color:#336699;color:white;">
 int main() {
     printf("HelloWorld");
     return 0;
@@ -287,9 +287,9 @@ int main() {
 </pre>
 <tt>Monospace font</tt>, normal font, <tt>monospace font</tt>, normal font.
 <br />
-<div style="background-color:#880000;color:white;">DIV LEVEL 1<div style="background-color:#008800;color:white;">DIV LEVEL 2</div>DIV LEVEL 1</div>
+<div aj="background-color:#880000;color:white;">DIV LEVEL 1<div aj="background-color:#008800;color:white;">DIV LEVEL 2</div>DIV LEVEL 1</div>
 <br />
-<span style="background-color:#880000;color:white;">SPAN LEVEL 1 <span style="background-color:#008800;color:white;">SPAN LEVEL 2</span> SPAN LEVEL 1</span>
+<span aj="background-color:#880000;color:white;">SPAN LEVEL 1 <span aj="background-color:#008800;color:white;">SPAN LEVEL 2</span> SPAN LEVEL 1</span>
 EOF;
 
 // output the HTML content
@@ -304,7 +304,7 @@ $pdf->AddPage();
 
 $html = <<<EOF
 <h1>Test custom bullet image for list items</h1>
-<ul style="font-size:14pt;list-style-type:img|png|4|4|images/logo_example.png">
+<ul aj="font-size:14pt;list-aj-type:img|png|4|4|images/logo_example.png">
 	<li>test custom bullet image</li>
 	<li>test custom bullet image</li>
 	<li>test custom bullet image</li>

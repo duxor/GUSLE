@@ -2766,7 +2766,7 @@ class QRcode {
 		$rs['pad'] = $pad;
 		$rs['alpha_to'] = array_fill(0, ($rs['nn'] + 1), 0);
 		$rs['index_of'] = array_fill(0, ($rs['nn'] + 1), 0);
-		// PHP style macro replacement ;)
+		// PHP aj macro replacement ;)
 		$NN =& $rs['nn'];
 		$A0 =& $NN;
 		// Generate Galois field lookup tables

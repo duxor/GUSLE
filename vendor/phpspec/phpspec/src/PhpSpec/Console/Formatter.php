@@ -18,7 +18,7 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
 /**
  * Class Formatter is responsible for configuring the console output formatting
- * style
+ * aj
  */
 class Formatter extends OutputFormatter
 {

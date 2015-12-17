@@ -45,7 +45,6 @@ class ObjavaController extends Controller
      */
     public function store(Request $request)
     {
-        
         $image = $request->foto;
         $image_name = $image->getClientOriginalName();
         $image->move('img',$image_name);
@@ -59,13 +58,14 @@ class ObjavaController extends Controller
         $int_image->save($image_final);
 
         $objava = new Objava();
-        $objava->datum_dogadjaja = Carbon::parse( $request->datum_dogadjaja)->format('d-m-Y h:i');
+        $objava->datum_dogadjaja = $request->datum_dogadjaja;
         $objava->vrsta_objave_id = $request->vrsta_objave_id;
         $objava->naziv = $request->naziv;
         $objava->sadrzaj = $request->sadrzaj;
         $objava->tagovi = $request->tagovi;
         $objava->foto = $image_final;
         $objava->korisnici_id = Auth::user()->id;
+        $objava->aktivan = $request->aktivan;
         $objava->save();
     }
 

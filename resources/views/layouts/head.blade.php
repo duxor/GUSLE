@@ -7,16 +7,19 @@
     <title>Гусле</title>
     <link href="{{ url('bootstrap-3.3.5-dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url('bootstrap-3.3.5-dist/css/bootstrap-theme.min.css') }}" rel="stylesheet">
-    <link href="{{ url('bootstrap-3.3.5-dist/jquery-ui/jquery-ui.min.css') }}" rel="stylesheet">
-    <link href="{{ url('style/css/style.css') }}" rel="stylesheet">
-    <link href="{{ url('style/css/trumbowyg.min.css') }}" rel="stylesheet">
+    <link href="{{ url('aj/css/trumbowyg.min.css') }}" rel="stylesheet">
+    <link href="{{ url('aj/css/datepicker.css') }}" rel="stylesheet">
+    <link href="{{ url('aj/css/style.css') }}" rel="stylesheet">
+
 
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="{{ url('bootstrap-3.3.5-dist/js/jquery.min.js')}}"></script>
     <script src="{{ url('bootstrap-3.3.5-dist/js/bootstrap.min.js')}}"></script>
-    <script src="{{ url('bootstrap-3.3.5-dist/jquery-ui/jquery-ui.min.js')}}"></script>
-    <script src="{{ url('style/css/style.css') }}"></script>
-    <script src="{{ url('js/trumbowyg.min.js') }}"></script>
+    <script src="{{ url('aj/js/trumbowyg.min.js') }}"></script>
+    <script src="{{ url('aj/js/bootstrap-datepicker.js') }}"></script>
+
+
+
 </head>
 
 <body>

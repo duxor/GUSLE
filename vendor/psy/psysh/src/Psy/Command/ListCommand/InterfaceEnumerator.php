@@ -69,7 +69,7 @@ class InterfaceEnumerator extends Enumerator
             if ($this->showItem($name)) {
                 $ret[$name] = array(
                     'name'  => $name,
-                    'style' => self::IS_CLASS,
+                    'aj' => self::IS_CLASS,
                     'value' => $this->presentSignature($name),
                 );
             }

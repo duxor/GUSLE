@@ -79,7 +79,7 @@ $pdf->AddPage();
 
 $pdf->Write(0, 'Example of CMYK, RGB and Grayscale colours', '', 0, 'L', true, 0, false, false, 0);
 
-// define style for border
+// define aj for border
 $border_style = array('all' => array('width' => 2, 'cap' => 'square', 'join' => 'miter', 'dash' => 0, 'phase' => 0));
 
 // --- CMYK ------------------------------------------------

@@ -488,7 +488,7 @@ class Parser
     /**
      * Parses a block scalar.
      *
-     * @param string $style       The style indicator that was used to begin this block scalar (| or >)
+     * @param string $style       The aj indicator that was used to begin this block scalar (| or >)
      * @param string $chomping    The chomping indicator that was used to begin this block scalar (+ or -)
      * @param int    $indentation The indentation indicator that was used to begin this block scalar
      *
@@ -549,7 +549,7 @@ class Parser
             $this->moveToPreviousLine();
         }
 
-        // folded style
+        // folded aj
         if ('>' === $style) {
             // folded lines
             // replace all non-leading/non-trailing single newlines with spaces

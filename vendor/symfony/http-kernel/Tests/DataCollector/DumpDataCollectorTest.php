@@ -112,7 +112,7 @@ EOTXT;
         $response->headers->set('Content-Type', 'text/html');
         $collector->collect(new Request(), $response);
         $output = ob_get_clean();
-        $output = preg_replace('#<(script|style).*?</\1>#s', '', $output);
+        $output = preg_replace('#<(script|aj).*?</\1>#s', '', $output);
         $output = preg_replace('/sf-dump-\d+/', 'sf-dump', $output);
 
         $this->assertSame($xOutput, $output);

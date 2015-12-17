@@ -81,10 +81,10 @@ class KreiranjeBaze extends Migration {
             $table->string('foto',150)->nullable();
             $table->unsignedBigInteger('korisnici_id');
             $table->foreign('korisnici_id')->references('id')->on('korisnici');
-           // $table->tinyInteger('aktivan')->default(1);
-           // $table->tinyInteger('potvrdjen')->default(0);
-           // $table->string('x',45)->nullable();
-           // $table->string('y',45)->nullable();
+            $table->tinyInteger('aktivan')->default(1);
+            $table->tinyInteger('potvrdjen')->default(0);
+            $table->string('x',45)->nullable();
+            $table->string('y',45)->nullable();
             $table->unsignedBigInteger('vrsta_objave_id');
             $table->foreign('vrsta_objave_id')->references('id')->on('vrsta_objave');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
