@@ -45,17 +45,21 @@ class ObjavaController extends Controller
      */
     public function store(Request $request)
     {
-        $image = $request->foto;
-        $image_name = $image->getClientOriginalName();
-        $image->move('img',$image_name);
-        $image_final = 'img/'.$image_name;
+        if($request->foto) {
+            $image = $request->foto;
+            $image_name = $image->getClientOriginalName();
+            $image->move('img', $image_name);
+            $image_final = 'img/' . $image_name;
 
-        $int_image = Image::make($image_final);
-        $int_image->resize(300,null, function($promenljiva){
-            $promenljiva->aspectRatio();
-        });
+            $int_image = Image::make($image_final);
+            $int_image->resize(300, null, function ($promenljiva) {
+                $promenljiva->aspectRatio();
+            });
 
-        $int_image->save($image_final);
+            $int_image->save($image_final);
+        }else{
+            $image_final = 'http://www.relikon.com/duborez/galerija/images/radovi/miskov_GUSLE_05.jpg';
+        }
 
         $objava = new Objava();
         $objava->datum_dogadjaja = $request->datum_dogadjaja;
@@ -66,6 +70,8 @@ class ObjavaController extends Controller
         $objava->foto = $image_final;
         $objava->korisnici_id = Auth::user()->id;
         $objava->aktivan = $request->aktivan;
+        $objava->x = $request->x;
+        $objava->y = $request->y;
         $objava->save();
     }
 

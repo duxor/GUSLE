@@ -11,13 +11,11 @@
     <link href="{{ url('aj/css/datepicker.css') }}" rel="stylesheet">
     <link href="{{ url('aj/css/style.css') }}" rel="stylesheet">
 
-
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="{{ url('bootstrap-3.3.5-dist/js/jquery.min.js')}}"></script>
     <script src="{{ url('bootstrap-3.3.5-dist/js/bootstrap.min.js')}}"></script>
     <script src="{{ url('aj/js/trumbowyg.min.js') }}"></script>
     <script src="{{ url('aj/js/bootstrap-datepicker.js') }}"></script>
-
+    <script src="http://maps.google.com/maps/api/js"></script>
 
 
 </head>
