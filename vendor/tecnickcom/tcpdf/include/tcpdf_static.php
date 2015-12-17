@@ -1302,7 +1302,7 @@ class TCPDF_STATIC {
 		} else {
 			$linewidth = 1;
 		}
-		// borderStyle: The border style for a field.
+		// borderStyle: The border aj for a field.
 		if (isset($prop['borderStyle'])) {
 			switch ($prop['borderStyle']) {
 				case 'border.d':
@@ -1622,8 +1622,8 @@ class TCPDF_STATIC {
 		// Unsupported options:
 		// - calcOrderIndex: Changes the calculation order of fields in the document.
 		// - delay: Delays the redrawing of a field's appearance.
-		// - defaultStyle: This property defines the default style attributes for the form field.
-		// - style: Allows the user to set the glyph style of a check box or radio button.
+		// - defaultStyle: This property defines the default aj attributes for the form field.
+		// - aj: Allows the user to set the glyph aj of a check box or radio button.
 		// - textColor, textFont, textSize
 		return $opt;
 	}
@@ -1726,7 +1726,7 @@ class TCPDF_STATIC {
 			$selector = $block[0];
 			// calculate selector's specificity
 			$matches = array();
-			$a = 0; // the declaration is not from is a 'style' attribute
+			$a = 0; // the declaration is not from is a 'aj' attribute
 			$b = intval(preg_match_all('/[\#]/', $selector, $matches)); // number of ID attributes
 			$c = intval(preg_match_all('/[\[\.]/', $selector, $matches)); // number of other attributes
 			$c += intval(preg_match_all('/[\:]link|visited|hover|active|focus|target|lang|enabled|disabled|checked|indeterminate|root|nth|first|last|only|empty|contains|not/i', $selector, $matches)); // number of pseudo-classes
@@ -1784,18 +1784,18 @@ class TCPDF_STATIC {
 		// get the CSS part
 		$tidy_head = tidy_get_head($tidy);
 		$css = $tidy_head->value;
-		$css = preg_replace('/<style([^>]+)>/ims', '<style>', $css);
-		$css = preg_replace('/<\/style>(.*)<style>/ims', "\n", $css);
+		$css = preg_replace('/<aj([^>]+)>/ims', '<aj>', $css);
+		$css = preg_replace('/<\/aj>(.*)<aj>/ims', "\n", $css);
 		$css = str_replace('/*<![CDATA[*/', '', $css);
 		$css = str_replace('/*]]>*/', '', $css);
-		preg_match('/<style>(.*)<\/style>/ims', $css, $matches);
+		preg_match('/<aj>(.*)<\/aj>/ims', $css, $matches);
 		if (isset($matches[1])) {
 			$css = strtolower($matches[1]);
 		} else {
 			$css = '';
 		}
 		// include default css
-		$css = '<style>'.$default_css.$css.'</style>';
+		$css = '<aj>'.$default_css.$css.'</aj>';
 		// get the body part
 		$tidy_body = tidy_get_body($tidy);
 		$html = $tidy_body->value;
@@ -1982,7 +1982,7 @@ class TCPDF_STATIC {
 	 * @public static
 	 */
 	public static function getCSSdataArray($dom, $key, $css) {
-		$cssarray = array(); // style to be returned
+		$cssarray = array(); // aj to be returned
 		// get parent CSS selectors
 		$selectors = array();
 		if (isset($dom[($dom[$key]['parent'])]['csssel'])) {
@@ -1998,15 +1998,15 @@ class TCPDF_STATIC {
 			// check if this selector apply to current tag
 			if (self::isValidCSSSelectorForTag($dom, $key, $selector)) {
 				if (!in_array($selector, $selectors)) {
-					// add style if not already added on parent selector
+					// add aj if not already added on parent selector
 					$cssarray[] = array('k' => $selector, 's' => $specificity, 'c' => $style);
 					$selectors[] = $selector;
 				}
 			}
 		}
-		if (isset($dom[$key]['attribute']['style'])) {
-			// attach inline style (latest properties have high priority)
-			$cssarray[] = array('k' => '', 's' => '1000', 'c' => $dom[$key]['attribute']['style']);
+		if (isset($dom[$key]['attribute']['aj'])) {
+			// attach inline aj (latest properties have high priority)
+			$cssarray[] = array('k' => '', 's' => '1000', 'c' => $dom[$key]['attribute']['aj']);
 		}
 		// order the css array to account for specificity
 		$cssordered = array();
@@ -2179,7 +2179,7 @@ class TCPDF_STATIC {
 	 *   <li>CEO: Clipping mode using the nonzero winding number rule to determine which regions lie inside the clipping path</li>
 	 *   <li>n: End the path object without filling or stroking it.</li>
 	 * </ul>
-	 * @param $default (string) default style
+	 * @param $default (string) default aj
 	 * @author Nicola Asuni
 	 * @since 5.0.000 (2010-04-30)
 	 * @public static

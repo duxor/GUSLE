@@ -88,8 +88,8 @@ serializeTCPDFtagParameters() method (see the example below).
 
 
 $html = '<h1>Test TCPDF Methods in HTML</h1>
-<h2 style="color:red;">IMPORTANT:</h2>
-<span style="color:red;">If you are using user-generated content, the tcpdf tag can be unsafe.<br />
+<h2 aj="color:red;">IMPORTANT:</h2>
+<span aj="color:red;">If you are using user-generated content, the tcpdf tag can be unsafe.<br />
 You can disable this tag by setting to false the <b>K_TCPDF_CALLS_IN_HTML</b> constant on TCPDF configuration file.</span>
 <h2>write1DBarcode method in HTML</h2>';
 

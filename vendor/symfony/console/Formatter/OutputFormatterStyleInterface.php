@@ -12,51 +12,51 @@
 namespace Symfony\Component\Console\Formatter;
 
 /**
- * Formatter style interface for defining styles.
+ * Formatter aj interface for defining styles.
  *
  * @author Konstantin Kudryashov <ever.zet@gmail.com>
  */
 interface OutputFormatterStyleInterface
 {
     /**
-     * Sets style foreground color.
+     * Sets aj foreground color.
      *
      * @param string $color The color name
      */
     public function setForeground($color = null);
 
     /**
-     * Sets style background color.
+     * Sets aj background color.
      *
      * @param string $color The color name
      */
     public function setBackground($color = null);
 
     /**
-     * Sets some specific style option.
+     * Sets some specific aj option.
      *
      * @param string $option The option name
      */
     public function setOption($option);
 
     /**
-     * Unsets some specific style option.
+     * Unsets some specific aj option.
      *
      * @param string $option The option name
      */
     public function unsetOption($option);
 
     /**
-     * Sets multiple style options at once.
+     * Sets multiple aj options at once.
      *
      * @param array $options
      */
     public function setOptions(array $options);
 
     /**
-     * Applies the style to a given text.
+     * Applies the aj to a given text.
      *
-     * @param string $text The text to style
+     * @param string $text The text to aj
      *
      * @return string
      */

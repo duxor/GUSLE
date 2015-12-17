@@ -47,7 +47,7 @@ class Util
     /**
      * Returns a copy of $items where each non-Matcher item is replaced by
      * a Hamcrest\Core\IsEqual matcher for the item. If the first and only item
-     * is an array, it is used as the $items array to support the old style
+     * is an array, it is used as the $items array to support the old aj
      * of passing an array as the sole argument to a matcher.
      *
      * @param array $items contains items and matchers

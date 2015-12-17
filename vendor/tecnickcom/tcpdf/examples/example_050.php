@@ -83,7 +83,7 @@ $pdf->SetFont('helvetica', '', 10);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// set style for barcode
+// set aj for barcode
 $style = array(
 	'border' => true,
 	'vpadding' => 'auto',
@@ -105,7 +105,7 @@ $pdf->write2DBarcode($code, 'RAW2', 80, 60, 30, 20, $style, 'N');
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-// set style for barcode
+// set aj for barcode
 $style = array(
 	'border' => 2,
 	'vpadding' => 'auto',
@@ -176,7 +176,7 @@ $pdf->Text(80, 145, 'DATAMATRIX (ISO/IEC 16022:2006)');
 
 // -------------------------------------------------------------------
 
-// new style
+// new aj
 $style = array(
 	'border' => 2,
 	'padding' => 'auto',
@@ -188,7 +188,7 @@ $style = array(
 $pdf->write2DBarcode('www.tcpdf.org', 'QRCODE,H', 80, 210, 50, 50, $style, 'N');
 $pdf->Text(80, 205, 'QRCODE H - COLORED');
 
-// new style
+// new aj
 $style = array(
 	'border' => false,
 	'padding' => 0,

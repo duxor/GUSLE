@@ -2,5 +2,24 @@
 .idea/GUSLE.iml
 .idea/vcs.xml
 .idea/blade.xml
+<<<<<<< HEAD
+.idea/workspace.xml
+.idea/workspace.xml
+.idea/workspace.xml
+.idea/workspace.xml
+.idea/workspace.xml
+.idea/misc.xml
+.idea/workspace.xml
+.idea/workspace.xml
+.idea/workspace.xml
+.idea/workspace.xml
+=======
 .idea/misc.xml
 vendor/composer/autoload_classmap.php
+>>>>>>> origin/master
+.idea/blade.xml
+.idea/vcs.xml
+.idea/blade.xml
+.idea/workspace.xml
+.idea/blade.xml
+.idea/blade.xml

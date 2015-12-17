@@ -92,7 +92,7 @@ class PropertyEnumerator extends Enumerator
                 $fname = '$' . $name;
                 $ret[$fname] = array(
                     'name'  => $fname,
-                    'style' => $this->getVisibilityStyle($property),
+                    'aj' => $this->getVisibilityStyle($property),
                     'value' => $this->presentValue($property, $target),
                 );
             }
@@ -120,7 +120,7 @@ class PropertyEnumerator extends Enumerator
     }
 
     /**
-     * Get output style for the given property's visibility.
+     * Get output aj for the given property's visibility.
      *
      * @param \ReflectionProperty $property
      *

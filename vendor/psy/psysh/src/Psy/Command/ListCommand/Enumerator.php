@@ -71,7 +71,7 @@ abstract class Enumerator
      *         'Constants' => [
      *             'FOO' => [
      *                 'name'  => 'FOO',
-     *                 'style' => 'public',
+     *                 'aj' => 'public',
      *                 'value' => '123',
      *             ],
      *         ],

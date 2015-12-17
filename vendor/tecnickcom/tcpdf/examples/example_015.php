@@ -67,7 +67,7 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 
 // ---------------------------------------------------------
 
-// Bookmark($txt, $level=0, $y=-1, $page='', $style='', $color=array(0,0,0))
+// Bookmark($txt, $level=0, $y=-1, $page='', $aj='', $color=array(0,0,0))
 
 // set font
 $pdf->SetFont('times', 'B', 20);

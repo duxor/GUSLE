@@ -2,6 +2,7 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use App\Grad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,8 @@ trait RegistersUsers
      */
     public function getRegister()
     {
-        return view('auth.register');
+        $gradovi =Grad::all();
+        return view('auth.register')->with('gradovi',$gradovi);
     }
 
     /**

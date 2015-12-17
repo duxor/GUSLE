@@ -83,10 +83,10 @@ $pdf->AddPage();
  * *********************************************************
  */
 
-// define some HTML content with style
+// define some HTML content with aj
 $html = <<<EOF
 <!-- EXAMPLE OF CSS STYLE -->
-<style>
+<aj>
 	h1 {
 		color: navy;
 		font-family: times;
@@ -100,7 +100,7 @@ $html = <<<EOF
 	}
 	p.first span {
 		color: #006600;
-		font-style: italic;
+		font-aj: italic;
 	}
 	p#second {
 		color: rgb(00,63,127);
@@ -133,7 +133,7 @@ $html = <<<EOF
 		background-color: #FFFF66;
 		font-family: helvetica;
 		font-size: 10pt;
-		border-style: solid solid solid solid;
+		border-aj: solid solid solid solid;
 		border-width: 2px 2px 2px 2px;
 		border-color: green #FF00FF blue red;
 		text-align: center;
@@ -147,9 +147,9 @@ $html = <<<EOF
 	.capitalize {
 		text-transform: capitalize;
 	}
-</style>
+</aj>
 
-<h1 class="title">Example of <i style="color:#990000">XHTML + CSS</i></h1>
+<h1 class="title">Example of <i aj="color:#990000">XHTML + CSS</i></h1>
 
 <p class="first">Example of paragraph with class selector. <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed imperdiet lectus. Phasellus quis velit velit, non condimentum quam. Sed neque urna, ultrices ac volutpat vel, laoreet vitae augue. Sed vel velit erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras eget velit nulla, eu sagittis elit. Nunc ac arcu est, in lobortis tellus. Praesent condimentum rhoncus sodales. In hac habitasse platea dictumst. Proin porta eros pharetra enim tincidunt dignissim nec vel dolor. Cras sapien elit, ornare ac dignissim eu, ultricies ac eros. Maecenas augue magna, ultrices a congue in, mollis eu nulla. Nunc venenatis massa at est eleifend faucibus. Vivamus sed risus lectus, nec interdum nunc.</span></p>
 

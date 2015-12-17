@@ -529,5 +529,6 @@ return array(
     'TCPDF_STATIC' => $vendorDir . '/tecnickcom/tcpdf/include/tcpdf_static.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'TestPodaci' => $baseDir . '/database/seeds/2_test_podaci.php',
+    'TestPodaciObjava' => $baseDir . '/database/seeds/3_test_podaci_vrsta_objava.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
 );
