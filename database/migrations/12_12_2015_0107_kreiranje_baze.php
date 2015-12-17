@@ -19,7 +19,6 @@ class KreiranjeBaze extends Migration {
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
         });
-
         Schema::create('vrsta_korisnika', function(Blueprint $table){
             $table->bigIncrements('id');
             $table->string('naziv', 45)->unique();
