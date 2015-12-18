@@ -57,7 +57,7 @@ class AuthController extends Controller
             'password' => 'required|confirmed|min:6',
             'username' => 'required|max:255',
             'email' => 'required|email|max:255|unique:korisnici',
-            'prezime'=>'required',
+            'prezime'=>'required'
 
         ]);
     }
@@ -71,22 +71,34 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         //Dodavanje slika
-        $image =$data['foto'];
-        $image_name = $image->getClientOriginalName();
-        $image->move('img',$image_name);
-        $image_final = 'img/'.$image_name;
-        $int_image = Image::make($image_final);
-        $int_image->resize(300,null, function($promenljiva){
-            $promenljiva->aspectRatio();
-        });
-        $int_image->save($image_final);
+        if(isset($data['foto'])) {
+            $image = $data['foto'];
+            $image_name = $image->getClientOriginalName();
+            $image->move('img/korisnici', $image_name);
+            $image_final = 'img/korisnici/' . $image_name;
+            $int_image = Image::make($image_final);
+            $int_image->resize(300, null, function ($promenljiva) {
+                $promenljiva->aspectRatio();
+            });
+            $int_image->save($image_final);
+        }else{
+            $image_final ='img/default/korisnik.jpg';
+        }
         //Dodavanje novog grada
         if($data['novi_grad']){
-            Grad::create(['naziv'=>$data['novi_grad']]);
             $pomocna =  DB::table('grad')
                                 ->where('grad.naziv', '=', $data['novi_grad'])
                                 ->first();
-           $data['grad_id'] = $pomocna->id;
+            if($pomocna){
+                $data['grad_id'] = $pomocna->id;
+            }else{
+                Grad::create(['naziv'=>$data['novi_grad']]);
+                $pomocna =  DB::table('grad')
+                            ->where('grad.naziv', '=', $data['novi_grad'])
+                            ->first();
+                $data['grad_id'] = $pomocna->id;
+            }
+
         }
         //Dodavanje novog korisnika
         return User::create([
@@ -97,7 +109,7 @@ class AuthController extends Controller
             'email' => $data['email'],
             'adresa'=>$data['adresa'],
             'grad_id'=>$data['grad_id'],
-            'prava_pristupa_id'=>$data['prava_pristupa_id'],
+            // 'prava_pristupa_id'=>$data['prava_pristupa_id'],
             'telefon'=>$data['telefon'],
             'opis'=>$data['bio'],
             'foto'=>$image_final,
