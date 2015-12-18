@@ -43,7 +43,7 @@
                     @else <a href="/auth/login"><i class="glyphicon glyphicon-log-in"></i> Пријава</a> @endif</li>
             </ul>
             <ul class="nav navbar-nav navbar-right scrol">
-                <li><a href="/#pocetna"><i class="glyphicon glyphicon-home"></i> Почетна</a></li>
+                <li><a href="/pocetna"><i class="glyphicon glyphicon-home"></i> Почетна</a></li>
                 <li><a href="/prodavnica"><i class="glyphicon glyphicon-shopping-cart"></i> Веб продавница</a></li>
                 <li><a href="/dogadjaji"><i class="glyphicon glyphicon-flag"></i> Догађаји</a></li>
                 <li><a href="/dogadjaji/kalendar"><i class="glyphicon glyphicon-calendar"></i> Календар догађаја</a></li>
@@ -74,6 +74,7 @@ $(document).ready(function(){
             }
         });
     });
+    $('[data-toggle=tooltip]').tooltip();
 })
 </script>
 @yield('body')

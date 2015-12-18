@@ -11,4 +11,7 @@ class OsnovniKO extends Controller{
     public function getKontakt(){
         return view('kontakt');
     }
+    public function postKontakt(){
+        return json_encode(['msg'=>'Порука је успешно послата.', 'check'=>1]);
+    }
 }
