@@ -1,7 +1,5 @@
 <?php
-
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Validation Language Lines
@@ -9,73 +7,71 @@ return [
     |
     | The following language lines contain the default error messages used by
     | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
+    | such as the size rules. Feel free to tweak each of these messages.
     |
     */
-
-    'accepted'             => 'The :attribute must be accepted.',
-    'active_url'           => 'The :attribute is not a valid URL.',
-    'after'                => 'The :attribute must be a date after :date.',
-    'alpha'                => 'The :attribute may only contain letters.',
-    'alpha_dash'           => 'The :attribute may only contain letters, numbers, and dashes.',
-    'alpha_num'            => 'The :attribute may only contain letters and numbers.',
-    'array'                => 'The :attribute must be an array.',
-    'before'               => 'The :attribute must be a date before :date.',
-    'between'              => [
-        'numeric' => 'The :attribute must be between :min and :max.',
-        'file'    => 'The :attribute must be between :min and :max kilobytes.',
-        'string'  => 'The :attribute must be between :min and :max characters.',
-        'array'   => 'The :attribute must have between :min and :max items.',
+    "accepted"         => "Поље :attribute мора бити прихваћено.",
+    "active_url"       => "Поље :attribute није валидан URL.",
+    "after"            => "Поље :attribute мора бити датум после :date.",
+    "alpha"            => "Поље :attribute може садржати само слова.",
+    "alpha_dash"       => "Поље :attribute може садржати само слова, бројеве и повлаке.",
+    "alpha_num"        => "Поље :attribute може садржати само слова и бројеве.",
+    "array"            => "Поље :attribute мора садржати низ неких ставки.",
+    "before"           => "Поље :attribute мора бити датум пре :date.",
+    "between"          => [
+        "numeric" => "Поље :attribute мора бити између :min - :max.",
+        "file"    => "Фајл :attribute мора бити између :min - :max килобајта.",
+        "string"  => "Поље :attribute мора бити између :min - :max карактера.",
+        "array"   => "Поље :attribute мора бити између :min - :max ставки.",
     ],
-    'boolean'              => 'The :attribute field must be true or false.',
-    'confirmed'            => 'The :attribute confirmation does not match.',
-    'date'                 => 'The :attribute is not a valid date.',
-    'date_format'          => 'The :attribute does not match the format :format.',
-    'different'            => 'The :attribute and :other must be different.',
-    'digits'               => 'The :attribute must be :digits digits.',
-    'digits_between'       => 'The :attribute must be between :min and :max digits.',
-    'email'                => 'The :attribute must be a valid email address.',
-    'exists'               => 'The selected :attribute is invalid.',
-    'filled'               => 'The :attribute field is required.',
-    'image'                => 'The :attribute must be an image.',
-    'in'                   => 'The selected :attribute is invalid.',
-    'integer'              => 'The :attribute must be an integer.',
-    'ip'                   => 'The :attribute must be a valid IP address.',
-    'json'                 => 'The :attribute must be a valid JSON string.',
-    'max'                  => [
-        'numeric' => 'The :attribute may not be greater than :max.',
-        'file'    => 'The :attribute may not be greater than :max kilobytes.',
-        'string'  => 'The :attribute may not be greater than :max characters.',
-        'array'   => 'The :attribute may not have more than :max items.',
+    "boolean"          => "Поље :attribute мора бити тачно или нетачно",
+    "confirmed"        => "Потврда пољa :attribute се не поклапа.",
+    "date"             => "Поље :attribute није важећи датум.",
+    "date_format"      => "Поље :attribute не одговара према формату :format.",
+    "different"        => "Поља :attribute и :other морају бити различита.",
+    "digits"           => "Поље :attribute мора садржати :digits цифри.",
+    "digits_between"   => "Поље :attribute мора бити између :min и :max шифри.",
+    "email"            => "Формат поља :attribute није валидан.",
+    "exists"           => "Одабрано поље :attribute није валидно.",
+    "filled"           => "Поље :attribute је обавезно.",
+    "image"            => "Поље :attribute мора бити слика.",
+    "in"               => "Одабрано поље :attribute није валидно.",
+    "integer"          => "Поље :attribute мора бити број.",
+    "ip"               => "Поље :attribute мора бити валидна IP адреса.",
+    'json'             => 'The :attribute must be a valid JSON string.',
+    "max"              => [
+        "numeric" => "Поље :attribute мора бити мање од :max.",
+        "file"    => "Поље :attribute мора бити мање од :max килобајта.",
+        "string"  => "Поље :attribute мора садржати мање од :max карактера.",
+        "array"   => "Поље :attribute не сме да има више од :max ставки.",
     ],
-    'mimes'                => 'The :attribute must be a file of type: :values.',
-    'min'                  => [
-        'numeric' => 'The :attribute must be at least :min.',
-        'file'    => 'The :attribute must be at least :min kilobytes.',
-        'string'  => 'The :attribute must be at least :min characters.',
-        'array'   => 'The :attribute must have at least :min items.',
+    "mimes"            => "Поље :attribute мора бити фајл типа: :values.",
+    "min"              => [
+        "numeric" => "Поље :attribute мора бити најмање :min.",
+        "file"    => "Фајл :attribute мора бити најмање :min килобајта.",
+        "string"  => "Поље :attribute мора садржати најмање :min карактера.",
+        "array"   => "Поље :attribute мора садржати најмање :min ставку.",
     ],
-    'not_in'               => 'The selected :attribute is invalid.',
-    'numeric'              => 'The :attribute must be a number.',
-    'regex'                => 'The :attribute format is invalid.',
-    'required'             => 'The :attribute field is required.',
-    'required_if'          => 'The :attribute field is required when :other is :value.',
-    'required_with'        => 'The :attribute field is required when :values is present.',
-    'required_with_all'    => 'The :attribute field is required when :values is present.',
-    'required_without'     => 'The :attribute field is required when :values is not present.',
-    'required_without_all' => 'The :attribute field is required when none of :values are present.',
-    'same'                 => 'The :attribute and :other must match.',
-    'size'                 => [
-        'numeric' => 'The :attribute must be :size.',
-        'file'    => 'The :attribute must be :size kilobytes.',
-        'string'  => 'The :attribute must be :size characters.',
-        'array'   => 'The :attribute must contain :size items.',
+    "not_in"           => "Одабрани елеменат поља :attribute није валидан.",
+    "numeric"          => "Pоље :attribute мора бити број.",
+    "regex"            => "Формат поља :attribute није валидан.",
+    "required"         => "Pоље :attribute је обавезно.",
+    "required_if"      => "Pоље :attribute је потребно када поље :other садржи :value.",
+    "required_with"    => "Pоље :attribute је потребно када поље :values је присутан.",
+    "required_with_all" => "Pоље :attribute је побавезно када је :values приказано.",
+    "required_without" => "Pољеe :attribute је потребно када поље :values није присутан.",
+    "required_without_all" => "Pоље :attribute је потребно када ниједан од следећих поља :values нису присутни.",
+    "same"             => "Pоља :attribute и :other се морају поклапати.",
+    "size"             => [
+        "numeric" => "Pоље :attribute мора бити :size.",
+        "file"    => "Фајл :attribute мора бити :size килобајта.",
+        "string"  => "Pоље :attribute мора бити :size карактера.",
+        "array"   => "Pоље :attribute мора садржатиi :size ставки.",
     ],
-    'string'               => 'The :attribute must be a string.',
-    'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => 'The :attribute has already been taken.',
-    'url'                  => 'The :attribute format is invalid.',
-
+    "string"           => "Pоље :attribute мора садржати слова.",
+    "timezone"         => "Pоље :attribute мора бити исправна временска зона.",
+    "unique"           => "Pоље :attribute већ постоји.",
+    "url"              => "Формат поља :attribute не важи.",
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -86,13 +82,11 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
-
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Attributes
@@ -103,7 +97,5 @@ return [
     | of "email". This simply helps us make messages a little cleaner.
     |
     */
-
     'attributes' => [],
-
 ];

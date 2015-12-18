@@ -21,14 +21,14 @@
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">* Име</label>
+							<label class="col-md-4 control-label" data-toggle='tooltip' title='Поље је обавезно за унос'>Име*</label>
 							<div class="col-md-6">
 								<input type="text" class="form-control" name="ime" value="{{ old('ime') }}">
 							</div>
 						</div>
 
 						<div class="form-group">
-						<label class="col-md-4 control-label">* Презиме</label>
+						<label class="col-md-4 control-label" data-toggle='tooltip' title='Поље је обавезно за унос'>Презиме*</label>
 						<div class="col-md-6">
 							<input type="text" class="form-control" name="prezime" value="{{ old('prezime') }}">
 						</div>
@@ -36,28 +36,28 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">* Корисничко име</label>
+							<label class="col-md-4 control-label" data-toggle='tooltip' title='Поље је обавезно за унос'>Корисничко име*</label>
 							<div class="col-md-6">
 								<input type="text" class="form-control" name="username" value="{{ old('username') }}">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">* E-mail адреса</label>
+							<label class="col-md-4 control-label" data-toggle='tooltip' title='Поље је обавезно за унос'>E-mail адреса*</label>
 							<div class="col-md-6">
 								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">* Шифра</label>
+							<label class="col-md-4 control-label" data-toggle='tooltip' title='Поље је обавезно за унос'>Шифра*</label>
 							<div class="col-md-6">
 								<input type="password" class="form-control" name="password">
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">* Потврдите шифру</label>
+							<label class="col-md-4 control-label" data-toggle='tooltip' title='Поље је обавезно за унос'>Потврдите шифру*</label>
 							<div class="col-md-6">
 								<input type="password" class="form-control" name="password_confirmation">
 							</div>
@@ -71,7 +71,7 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">* Град</label>
+							<label class="col-md-4 control-label" data-toggle='tooltip' title='Поље је обавезно за унос'>Град*</label>
 							<div class="col-md-6">
 								<div class="row">
 									<div class="col-md-6">
@@ -114,7 +114,7 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">* Слика</label>
+							<label class="col-md-4 control-label">Слика</label>
 							<div class="col-md-6">
 								<input type="file" class="form-control" name="foto" value="{{ old('foto') }}">
 							</div>
@@ -134,6 +134,7 @@
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$('[data-toggle="tooltip"]').tooltip();
 			$("#grad_tex_id").hide();
 			$('#dodaj_grad').click(function(){
 				$("#grad_select_id").hide();
