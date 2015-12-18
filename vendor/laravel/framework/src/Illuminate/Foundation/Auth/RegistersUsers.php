@@ -17,7 +17,7 @@ trait RegistersUsers
      */
     public function getRegister()
     {
-        $gradovi =Grad::all();
+        $gradovi=Grad::lists('naziv','id');
         return view('auth.register')->with('gradovi',$gradovi);
     }
 
