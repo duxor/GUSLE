@@ -40,25 +40,17 @@ Route::GET('objava/destroy/{id}', 'ObjavaController@destroy');
 
 
 
-Route::controllers([
-    'password' => 'Auth\PasswordController',
-]);
-
-
-Route::controller('/administracija','AdministracijaKO');
-
 Route::get('/home',function(){
     print 'Pravo pristua korisnika: '.Auth::user()->prava_pristupa_id;
     return '<br><br><a href="/administracija/privilegije1">Privilegije 1 - [2 i 3]</a>
             <br><a href="/administracija/privilegije2">Privilegije 2 - samo [3]</a>
             <br><br><a href="/auth/logout">Logout</a>';
 });
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-Route::get('/pocetna',function(){
-    return view('pocetna');
-});
-
+Route::controllers([
+    'password' => 'Auth\PasswordController',
+    '/administracija'=>'AdministracijaKO',
+    '/dogadjaji'=>'DogadjajiKO',
+    '/galerija'=>'GalerijaKO',
+    '/prodavnica'=>'ProdavnicaKO',
+    '/'=>'OsnovniKO'
+]);

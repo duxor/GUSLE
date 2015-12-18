@@ -1,10 +1,10 @@
-<div class="jumbotron text-center">
+<div id="pocetna" class="jumbotron text-center">
     <div class="container">
         <div class="slider-area">
             <h1>Веб портал гусле</h1>
             <p>Јер традиција нема цену. Добро нам дошли!</p>
         </div>
-        <div class="baner-area">
+        <div class="baner-area scrol">
             <a href="#webshop" title="Веб продавница" class="baner">
                 <img src="/img/baner-1.jpg">
                 <h3><i class="glyphicon glyphicon-shopping-cart"></i> Веб продавница</h3>
@@ -146,7 +146,7 @@
              <!-- Indicators -------------------------------------------------------------------------------------------------->
             </div>
         </div>
-        <div class="baner-area">
+        <div class="baner-area scrol">
             <a href="#aktuelnosti" title="Актуелности" class="baner">
                 <img src="/img/baner-2.jpg">
                 <h3><i class="glyphicon glyphicon-calendar"></i> Актуелности</h3>

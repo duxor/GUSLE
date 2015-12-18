@@ -8,7 +8,6 @@
     {!!HTML::style('bootstrap-3.3.5-dist/css/bootstrap.min.css')!!}
     {!!HTML::style('aj/css/trumbowyg.min.css')!!}
     {!!HTML::style('aj/css/datepicker.css')!!}
-    {!!HTML::style('aj/css/style.css')!!}
     {!!HTML::style('css/fontello.css')!!}
     {!!HTML::style('css/animation.css')!!}
     {!!HTML::style('style/css/style.css')!!}

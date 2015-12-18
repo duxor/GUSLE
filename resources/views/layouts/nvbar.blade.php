@@ -9,13 +9,23 @@
             <a class="navbar-brand" href="/#pocetna">ГУСЛЕ</a>
         </div>
         <div id="navigacija" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    @if(isset($korisnik))
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Здраво {{$korisnik}}! <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Профил</a></li>
+                            <li><a href="/auth/logout">Одјави се</a></li>
+                        </ul>
+                    @else <a href="/auth/login"><i class="glyphicon glyphicon-log-in"></i> Пријава</a> @endif</li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#pocetna"><i class="glyphicon glyphicon-home"></i> Почетна</a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-user"></i> О нама</a></li>
-                <li><a href="#aktuelnosti"><i class="glyphicon glyphicon-flag"></i> Догађаји</a></li>
-                <li><a href="#galerija"><i class="glyphicon glyphicon-picture"></i> Галерија</a></li>
-                <li><a href="#kalendar"><i class="glyphicon glyphicon-calendar"></i> Календар догађаја</a></li>
-                <li><a href="#kontakt"><i class="glyphicon glyphicon-earphone"></i> Контакт</a></li>
+                <li><a href="/#pocetna" class="scrol"><i class="glyphicon glyphicon-home"></i> Почетна</a></li>
+                <li><a href="/o-nama"><i class="glyphicon glyphicon-user"></i> О нама</a></li>
+                <li><a href="/#aktuelnosti" class="scrol"><i class="glyphicon glyphicon-flag"></i> Догађаји</a></li>
+                <li><a href="/#galerija" class="scrol"><i class="glyphicon glyphicon-picture"></i> Галерија</a></li>
+                <li><a href="/#kalendar" class="scrol"><i class="glyphicon glyphicon-calendar"></i> Календар догађаја</a></li>
+                <li><a href="/#kontakt" class="scrol"><i class="glyphicon glyphicon-earphone"></i> Контакт</a></li>
             </ul>
         </div>
     </div>
@@ -23,8 +33,10 @@
 <script>
 $(document).ready(function(){
     // Add smooth scrolling to all links in navbar + footer link
-    $("a").on('click', function(event) {
-        event.preventDefault();
+    $(".scrol a,.scrol").on('click', function(event) {
+        if($(this.hash).offset())
+            event.preventDefault();
+        else console.log(1);
         // Store hash
         var hash = this.hash;
         // Using jQuery's animate() method to add smooth page scroll
