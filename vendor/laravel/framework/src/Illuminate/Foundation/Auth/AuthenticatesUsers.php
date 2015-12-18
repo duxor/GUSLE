@@ -32,8 +32,15 @@ trait AuthenticatesUsers
      */
     public function postLogin(Request $request)
     {
+        /*$this->validate($request, [
+            $this->loginUsername() => 'required', 'password' => 'required',
+        ]);*/
         $this->validate($request, [
             $this->loginUsername() => 'required', 'password' => 'required',
+        ],[
+            'username.required'=>'Обавезан је унос корисничког имена.',
+            'password.required'=>'Обавезан је унос корисничке шифре.',
+            'email.required'=>'Обавезан је унос мејла.',
         ]);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle

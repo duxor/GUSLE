@@ -18,6 +18,8 @@ class AuthController extends Controller
 {
     //protected $redirectPath = 'admin/content';
     //protected $loginPath = 'admin/login';
+    protected $redirectTo = '/';
+    protected $redirectAfterLogout = '/';
 
     protected $username = 'username';
     /*
@@ -51,7 +53,7 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        return Validator::make(/*$data, [
             'prezime'=>'required',
             'prezime'=>'required',
             'password' => 'required|confirmed|min:6',
@@ -59,7 +61,42 @@ class AuthController extends Controller
             'email' => 'required|email|max:255|unique:korisnici',
             'prezime'=>'required'
 
+        ]*/
+            $data,[
+            'prezime'=>'required|min:3|max:255',
+            'ime'=>'required|min:3|max:255',
+            'username' => 'required|min:4|max:255|unique:korisnici',
+            'password' => 'required|confirmed|min:6|max:255',
+            'email' => 'required|email|max:255|unique:korisnici',
+        ],[
+            //prezime
+            'prezime.required'=>'Презиме је обавезно за унос.',
+            'prezime.min'=>'Минимална дужина презимена је :min.',
+            'prezime.max'=>'Максимална дужина презимена је :max.',
+            //ime
+            'ime.required'=>'Име је обавезно за унос.',
+            'ime.min'=>'Минимална дужина имена је :min.',
+            'ime.max'=>'Максимална дужина имена је :max.',
+            //username
+            'username.required'=>'Корисничко име је обавезно за унос.',
+            'username.min'=>'Минимална дужина корисничког имена је :min.',
+            'username.max'=>'Максимална дужина корисничког имена је :max.',
+            'username.unique'=>'Наведено корисничко име је у употреби.',
+            //password
+            'password.required'=>'Корисничка шифра је обавезна за унос.',
+            'password.min'=>'Минимална дужина корисничке шифре је :min.',
+            'password.max'=>'Максимална дужина корисничке шифре је :max.',
+            'password.confirmed'=>'Унесене шифре се не поклапају.',
+            //pass_conf
+            'password_confirmation.required'=>'Корисничка шифра је обавезна за унос.',
+            'password_confirmation.min'=>'Минимална дужина корисничке шифре је :min.',
+            //email
+            'email.required'=>'Мејл је обавезан за унос.',
+            'email.email'=>'Погрешно унесен мејл.',
+            'email.unique'=>'Наведени мејл је у употреби.',
+            'email.max'=>'Максимална дужина мејла је :max.',
         ]);
+
     }
 
     /**

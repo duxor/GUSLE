@@ -1,6 +1,6 @@
-@include('layouts.head')
-
-<div class="container-fluid">
+@extends('layouts.master')
+@section('body')
+<div class="container-fluid pt60">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
@@ -8,7 +8,7 @@
 				<div class="panel-body">
 					@if (count($errors) > 0)
 						<div class="alert alert-danger">
-							<strong>Hej!</strong> Postoji neki problem prilikom unosa Vaših podatala.<br><br>
+							Појавио се проблем приликом покушаја регистрације, проверите следеће:<br><br>
 							<ul>
 								@foreach ($errors->all() as $error)
 									<li>{{ $error }}</li>
@@ -74,17 +74,11 @@
 							<div class="col-md-6">
 								<div class="row">
 									<div class="col-md-6">
-
-										<input type="text" class="form-control" name="novi_grad" placeholder="Унесите Ваш град" id="grad_tex_id">
-									<select class="form-control" name="grad_id" id="grad_select_id" value="1">
-										@foreach($gradovi as $grad)
-											<option value="{{$grad->id}}">{{$grad->naziv}}</option>
-										@endforeach
-										<input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
-									</select>
+									    {!!Form::text('novi_grad',null,['id'=>'grad_tex_id','class'=>'form-control','placeholder'=>'Унесите Ваш град','style'=>'display: none'])!!}
+									    {!!Form::select('grad_id',$gradovi,1,['class'=>'form-control','id'=>'grad_select_id'])!!}
 									</div>
 									<div class="col-md-6">
-										<a href="#" id="dodaj_grad"> <span class="glyphicon glyphicon-plus"></span></a> <strong id="dodaj_grad_st">Унесите Ваш град</strong>
+										<a id="dodaj_grad"> <span class="glyphicon glyphicon-plus"></span></a> <strong id="dodaj_grad_st">Унесите Ваш град</strong>
 									</div>
 								</div>
 							</div>
@@ -122,10 +116,9 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
+	<script>
 		$(document).ready(function(){
 			$('[data-toggle="tooltip"]').tooltip();
-			$("#grad_tex_id").hide();
 			$('#dodaj_grad').click(function(){
 				$("#grad_select_id").hide();
 				$("#dodaj_grad").hide();
@@ -135,7 +128,7 @@
 		});
 	</script>
 </div>
-
+@endsection
 
 
 

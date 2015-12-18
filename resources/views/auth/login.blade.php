@@ -1,5 +1,6 @@
-@include('layouts.head')
-<div class="container-fluid">
+@extends('layouts.master')
+@section('body')
+<div class="container-fluid pt60">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -7,7 +8,7 @@
                 <div class="panel-body">
                     @if (count($errors) > 0)
                         <div class="alert alert-danger">
-                            <strong>Хеј!</strong> Постоји неки проблем приликом уноса података.<br><br>
+                            Постоји неки проблем приликом покушаја пријаве:<br><br>
                             <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -15,7 +16,7 @@
                             </ul>
                         </div>
                     @endif
-
+                    <button class="btn btn-primary" onclick="popuni('admin')">Admin podaci</button><script>function popuni(s){$('[name=username]').val(s);$('[name=password]').val(s)}</script>
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -46,3 +47,4 @@
         </div>
     </div>
 </div>
+@endsection
