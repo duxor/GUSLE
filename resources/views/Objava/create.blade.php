@@ -52,10 +52,10 @@
             <div id="aktivan" class="form-group">
                 <label>Активан:</label>
                 <div class="radio">
-                    <label><input type="radio" name="aktivan" value="1">Да</label>
+                    <label><input type="radio"  checked="checked" name="aktivan" value="1">Да</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio" checked="checked" name="aktivan" value="0">Не</label>
+                    <label><input type="radio" name="aktivan" value="0">Не</label>
                 </div>
             </div>
 
