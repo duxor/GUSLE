@@ -85,6 +85,12 @@ return [
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
+            //   'naziv.required'=>'Naziv је обавезно за унос.',
+        ],
+        'naziv' => [
+            'required'=>'Назив је обавезно поље за унос.',
+            'min'=>'Минимална дужина назива је :min.',
+            'max'=>'Максимална дужина назива је :max.',
         ],
     ],
     /*
