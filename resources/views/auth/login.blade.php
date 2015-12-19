@@ -16,6 +16,11 @@
                             </ul>
                         </div>
                     @endif
+                        @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                     <button class="btn btn-primary" onclick="popuni('admin')">Admin podaci</button><script>function popuni(s){$('[name=username]').val(s);$('[name=password]').val(s)}</script>
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
