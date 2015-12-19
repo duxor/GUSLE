@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label name="pitanje" class="control-label col-sm-3">Ваш контакt је везан за</label>
+                    <label name="pitanje" class="control-label col-sm-3">Ваш контакт је везан за</label>
                     <div class="col-sm-7">{!!Form::select('vezanoza',[0=>'Информација',1=>'Сарадња',2=>'Сугестија',3=>'Предлог',3=>'Пријава за СМС обавештења',4=>'Пријава за обавештења путем мејла',5=>'Техничка подршка'],0,['class'=>'form-control'])!!}</div>
                 </div>
                 <div id="dporuka" class="form-group has-feedback">
@@ -103,12 +103,11 @@
                 <a href="mailto:gusle@gusle.rs">gusle@gusle.rs</a></p>
         </div>
     </div>
-    {!!HTML::script('/js/forma.js')!!}
     <script src="http://maps.googleapis.com/maps/api/js"></script>
     <script>
         function posalji(){
             if(SubmitForm.check('kontaktF')){
-                Komunikacija.posalji('/kontakt','kontaktF','poruka','wait','kontaktF');
+                Komunikacija.posalji('/kontakt','kontaktF','poruka','wait','kontaktF',null,1);
             }
         }
         var myCenter = new google.maps.LatLng(44.798831,20.4465872);

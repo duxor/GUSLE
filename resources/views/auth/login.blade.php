@@ -16,7 +16,12 @@
                             </ul>
                         </div>
                     @endif
-                    <button class="btn btn-primary" onclick="popuni('admin')">Admin podaci</button><script>function popuni(s){$('[name=username]').val(s);$('[name=password]').val(s)}</script>
+                    <!--Test podaci START::-->
+                    <button class="btn btn-primary" onclick="popuni('admin')">Админ</button>
+                    <button class="btn btn-primary" onclick="popuni('moderator')">Модератор</button>
+                    <button class="btn btn-primary" onclick="popuni('SuperAdmin')">СуперАдмин</button>
+                    <script>function popuni(s){$('[name=username]').val(s);$('[name=password]').val(s)}</script>
+                    <!--Test podaci END::-->
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 

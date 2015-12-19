@@ -48,9 +48,11 @@ Route::get('/home',function(){
 });
 Route::controllers([
     'password' => 'Auth\PasswordController',
+    '/administracija/poruke'=>'MejlingKO',
     '/administracija'=>'AdministracijaKO',
     '/dogadjaji'=>'DogadjajiKO',
     '/galerija'=>'GalerijaKO',
     '/prodavnica'=>'ProdavnicaKO',
+    '/odradbe'=>'OsnovniKO',
     '/'=>'OsnovniKO'
 ]);

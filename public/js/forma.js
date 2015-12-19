@@ -33,7 +33,7 @@
 var SubmitForm = {
 	submit: function(formaID){
 		if(this.check(formaID)) $('#'+formaID).submit();
-		else alert('Popunite sve podatke.');
+		else alert('Попуните све податке.');
 	},
 	check:function(formaID){
 		var test=1;
@@ -47,6 +47,15 @@ var SubmitForm = {
 		if((i1 < 1 || i2 < 1) || (i1 > i2)) return false;
 		else return true;
 	},
+    reset:function(formaID){
+        var inputi = $('#'+formaID+' :input:visible[id]');
+        for(i=0; i< inputi.length; i++){
+            $('#d'+inputi[i].name).removeClass('has-error has-success');
+            $('#s'+inputi[i].name).removeClass('glyphicon-remove glyphicon-ok');
+            $('#'+inputi[i].name).val('');
+            $('#'+inputi[i].name).text('');
+        }
+    },
 	succErr: function(input, t){
 		if($(input).val().length > 2 && ($(input).attr('type')=='email'?this.testEmail($(input).val()):true)){
 			$('#d'+input.name).removeClass('has-error');
@@ -93,10 +102,11 @@ var SubmitForm = {
  ###
  */
 var Komunikacija = {
-    posalji: function(url,podaciID,poruka,wait,hide,funkcija){
+    posalji: function(url,podaciID,poruka,wait,hide,funkcija,reset){
         var podaci=this.podaci('',null,podaciID,{});
+        if($('#'+poruka).html().length>0) $('#'+poruka).html('');console.log($('#'+poruka).html().length>0);
         $('#'+hide).css('display','none');
-        $('#'+wait).fadeToggle();
+        $('#'+wait).fadeIn();
         $.post(url,
             {
                 _token:podaci['_token'],
@@ -104,14 +114,12 @@ var Komunikacija = {
             },
             function(data){
                 data=JSON.parse(data);
+                $('#'+wait).fadeOut();
+                $('#'+poruka).hide();
                 $('#'+poruka).html('<div class="alert alert-'+ (data['check']?'success':'danger') +'" role="alert">'+data['msg']+'</div>');
-                $('#'+wait).fadeToggle();
-                $('#'+poruka).fadeToggle('slow');
-                window.setTimeout(function(){
-                    $('#'+poruka).fadeToggle('slow');
-                    $('#'+hide).fadeToggle('slow');
-                    funkcija;
-                },5000);
+                $('#'+poruka).fadeIn();
+                $('#'+hide).fadeIn();
+                if(data['check']&&reset) SubmitForm.reset(podaciID);
             }
         );
     },

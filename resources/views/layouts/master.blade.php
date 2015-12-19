@@ -17,6 +17,7 @@
     {!!HTML::script('aj/js/trumbowyg.min.js')!!}
     {!!HTML::script('aj/js/bootstrap-datepicker.js')!!}
     {!!HTML::script('http://maps.google.com/maps/api/js')!!}
+    {!!HTML::script('/js/forma.js')!!}
 </head>
 
 <body data-target=".navbar">
@@ -37,9 +38,10 @@
                     @if(isset($korisnik))
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Здраво {{$korisnik}}! <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><i class="glyphicon glyphicon-user"></i> Профил</a></li>
+                            <li><a href="/administracija/profil"><i class="glyphicon glyphicon-user"></i> Профил</a></li>
+                            <li><a href="/administracija"><i class="glyphicon glyphicon-briefcase"></i> Панел</a></li>
                             <li><a href="#"><i class="glyphicon glyphicon-comment"></i> Дискусије</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-envelope"></i> Инбокс</a></li>
+                            <li><a href="/administracija/poruke"><i class="glyphicon glyphicon-envelope"></i> Инбокс</a></li>
                             <li><a href="#" data-toggle="tooltip" title="Претрага корисника портала" data-placement="right"><i class="glyphicon glyphicon-search"></i> Претрага</a></li>
                             <li><a href=#"><i class="glyphicon glyphicon-shopping-cart"></i> Моја продавница</a></li>
                             <li><a href="/auth/logout"><i class="glyphicon glyphicon-off"></i> Одјави се</a></li>
@@ -112,7 +114,7 @@ $(document).ready(function(){
             <p>Пријавите се на нашу мејлинг листу и правовремено се информишите о актуелностима.</p>
             <div id="newsletter" class="form-inline">
                 <div id="demail_for_newsletter" class="form-group has-feedback" style="width: 70%">
-                        {!!Form::email('email_for_newsletter',null,['class'=>'form-control','placeholder'=>'Ваш мејл','id'=>'email_for_newsletter','onKeyUp'=>'test()','style'=>'width:100%'])!!}
+                        {!!Form::email('email_for_newsletter',null,['class'=>'form-control','placeholder'=>'Ваш мејл','id'=>'email_for_newsletter','onKeyUp'=>'SubmitForm.check(\'newsletter\')','style'=>'width:100%'])!!}
                         <span id="semail_for_newsletter" class="glyphicon form-control-feedback"></span>
                 </div>
                 {!!Form::button('<i class="glyphicon glyphicon-envelope"></i>',['class'=>'btn btn-warning','onClick'=>'newsletterPrijava()','data-toggle'=>'tooltip','title'=>'Пријава'])!!}
@@ -133,10 +135,12 @@ $(document).ready(function(){
         <div class="col-sm-3" style="text-align: left;">
             <h3>Одредбе и правила</h3>
             <p class="list-group">
-                <a href="#" class="col-sm-12">О презентацији</a>
-                <a href="#" class="col-sm-12">Основне одредбе</a>
-                <a href="#" class="col-sm-12">Веб портал</a>
-                <a href="#" class="col-sm-12">Одрицање од одговорности</a>
+                <a href="/odradbe/o-nama" class="col-sm-12">О презентацији</a>
+                <a href="/odradbe/reklamiranje" class="col-sm-12">Поставите банер</a>
+                <a href="/odradbe/pravilnik" class="col-sm-12">Правилник</a>
+                <a href="/odradbe/prodavnica" class="col-sm-12">Продавница</a>
+                <a href="/odradbe/privatnost" class="col-sm-12">Приватност</a>
+                <a href="/odradbe/pomoc" class="col-sm-12">Помоћ</a>
             </p>
         </div>
     </div>

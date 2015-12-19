@@ -14,4 +14,23 @@ class OsnovniKO extends Controller{
     public function postKontakt(){
         return json_encode(['msg'=>'Порука је успешно послата.', 'check'=>1]);
     }
+
+    public function getONama(){
+        return view('odredbe.o-nama');
+    }
+    public function getReklamiranje(){
+        return view('odredbe.reklamiranje');
+    }
+    public function getPravilnik(){
+        return view('odredbe.pravilnik');
+    }
+    public function getProdavnica(){
+        return view('odredbe.prodavnica');
+    }
+    public function getPrivatnost(){
+        return view('odredbe.privatnost');
+    }
+    public function getPomoc(){
+        return view('odredbe.pomoc');
+    }
 }
