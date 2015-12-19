@@ -38,12 +38,16 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Здраво {{$korisnik}}! <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><i class="glyphicon glyphicon-user"></i> Профил</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-comment"></i> Дискусије</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-envelope"></i> Инбокс</a></li>
+                            <li><a href="#" data-toggle="tooltip" title="Претрага корисника портала" data-placement="right"><i class="glyphicon glyphicon-search"></i> Претрага</a></li>
+                            <li><a href=#"><i class="glyphicon glyphicon-shopping-cart"></i> Моја продавница</a></li>
                             <li><a href="/auth/logout"><i class="glyphicon glyphicon-off"></i> Одјави се</a></li>
                         </ul>
                     @else <a href="/auth/login"><i class="glyphicon glyphicon-log-in"></i> Пријава</a> @endif</li>
             </ul>
             <ul class="nav navbar-nav navbar-right scrol">
-                <li><a href="/#pocetna"><i class="glyphicon glyphicon-home"></i> Почетна</a></li>
+                <li><a href="/"><i class="glyphicon glyphicon-home"></i> Почетна</a></li>
                 <li><a href="/prodavnica"><i class="glyphicon glyphicon-shopping-cart"></i> Веб продавница</a></li>
                 <li><a href="/dogadjaji"><i class="glyphicon glyphicon-flag"></i> Догађаји</a></li>
                 <li><a href="/dogadjaji/kalendar"><i class="glyphicon glyphicon-calendar"></i> Календар догађаја</a></li>
@@ -74,6 +78,7 @@ $(document).ready(function(){
             }
         });
     });
+    $('[data-toggle=tooltip]').tooltip();
 })
 </script>
 @yield('body')
