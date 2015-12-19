@@ -38,6 +38,10 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Здраво {{$korisnik}}! <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><i class="glyphicon glyphicon-user"></i> Профил</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-comment"></i> Дискусије</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-envelope"></i> Инбокс</a></li>
+                            <li><a href="#" data-toggle="tooltip" title="Претрага корисника портала" data-placement="right"><i class="glyphicon glyphicon-search"></i> Претрага</a></li>
+                            <li><a href=#"><i class="glyphicon glyphicon-shopping-cart"></i> Моја продавница</a></li>
                             <li><a href="/auth/logout"><i class="glyphicon glyphicon-off"></i> Одјави се</a></li>
                         </ul>
                     @else <a href="/auth/login"><i class="glyphicon glyphicon-log-in"></i> Пријава</a> @endif</li>

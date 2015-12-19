@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ObjavaRequest;
 use App\Objava;
 use App\VrstaObjave;
 use Carbon\Carbon;
@@ -12,7 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
-
+use Validator;
 
 class ObjavaController extends Controller
 {
@@ -21,6 +22,7 @@ class ObjavaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         //
@@ -43,7 +45,7 @@ class ObjavaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ObjavaRequest $request)
     {
         if($request->foto) {
             $image = $request->foto;
