@@ -22,6 +22,11 @@
                     <button class="btn btn-primary" onclick="popuni('SuperAdmin')">СуперАдмин</button>
                     <script>function popuni(s){$('[name=username]').val(s);$('[name=password]').val(s)}</script>
                     <!--Test podaci END::-->
+                        @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 

@@ -2,7 +2,7 @@
 @section('body')
 <div class="container-fluid pt60">
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
+		<div class="col-sm-8 col-md-offset-2">
 			<div class="panel panel-default">
 				<div class="panel-heading"><h3>Регистровање новог корисник</h3></div>
 				<div class="panel-body">
