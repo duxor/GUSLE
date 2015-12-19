@@ -37,6 +37,9 @@ Route::get('objava/{id}/edit', 'ObjavaController@edit');
 Route::PATCH('objava/{id}', 'ObjavaController@update');
 Route::GET('objava/destroy/{id}', 'ObjavaController@destroy');
 
+//Dogadjaji
+//Route::get('/dogadjaji', 'DogadjajiKO@index');
+
 
 
 

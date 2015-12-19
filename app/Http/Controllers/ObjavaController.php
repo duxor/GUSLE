@@ -40,7 +40,7 @@ class ObjavaController extends Controller
 
                 $int_image->save($image_final);
             }else{
-                $image_final = 'http://www.relikon.com/duborez/galerija/images/radovi/miskov_GUSLE_05.jpg';
+                $image_final = 'img/default/slika-dogadjaji.jpg';
             }
             $objava = new Objava();
             $objava->datum_dogadjaja = $request->datum_dogadjaja;
