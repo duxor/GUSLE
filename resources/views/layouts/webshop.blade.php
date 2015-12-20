@@ -1,4 +1,4 @@
-<div id="webshop" class="container-fluid text-center">
+<div id="prodavnica" class="container-fluid text-center">
     <h2>Веб продавница</h2><br>
     <h4>најбољи ручни радови</h4>
     <p>Пронађите најбоље градитеље гусала, фрула, радова у флаши, ситних сувенира и других радова и поручите свој рад по Вашој мери.</p>

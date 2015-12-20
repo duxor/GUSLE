@@ -5,7 +5,7 @@
             <p>Јер традиција нема цену. Добро нам дошли!</p>
         </div>
         <div class="baner-area scrol">
-            <a href="#webshop" title="Веб продавница" class="baner">
+            <a href="#prodavnica" title="Веб продавница" class="baner">
                 <img src="/img/baner-1.jpg">
                 <h3><i class="glyphicon glyphicon-shopping-cart"></i> Веб продавница</h3>
                 <p>најбољи ручни радови</p>

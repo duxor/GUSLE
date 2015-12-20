@@ -64,25 +64,25 @@
                 <div id="dposiljalac" class="form-group has-feedback">
                     <label name="ime" class="control-label col-sm-3" data-toggle="tooltip" title="Поље је обавезно за унос">Презиме и Име*</label>
                     <div class="col-sm-7">
-                        {!!Form::text('posiljalac',null,['id'=>'posiljalac','class'=>'form-control','placeholder'=>'Презиме и Име'])!!}
+                        {!!Form::text('posiljalac',null,['id'=>'posiljalac','class'=>'form-control form-control-c','placeholder'=>'Презиме и Име'])!!}
                         <span id="sposiljalac" class="glyphicon form-control-feedback"></span>
                     </div>
                 </div>
                 <div id="demail" class="form-group has-feedback">
                     <label name="mejl" class="control-label col-sm-3" data-toggle="tooltip" title="Поље је обавезно за унос">Мејл*</label>
                     <div class="col-sm-7">
-                        {!!Form::email('email',null,['id'=>'email','class'=>'form-control','placeholder'=>'Мејл'])!!}
+                        {!!Form::email('email',null,['id'=>'email','class'=>'form-control form-control-c','placeholder'=>'Мејл'])!!}
                         <span id="semail" class="glyphicon form-control-feedback"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label name="pitanje" class="control-label col-sm-3">Ваш контакт је везан за</label>
-                    <div class="col-sm-7">{!!Form::select('vezanoza',[0=>'Информација',1=>'Сарадња',2=>'Сугестија',3=>'Предлог',3=>'Пријава за СМС обавештења',4=>'Пријава за обавештења путем мејла',5=>'Техничка подршка'],0,['class'=>'form-control'])!!}</div>
+                    <div class="col-sm-7">{!!Form::select('vezanoza',[0=>'Информација',1=>'Сарадња',2=>'Сугестија',3=>'Предлог',3=>'Пријава за СМС обавештења',4=>'Пријава за обавештења путем мејла',5=>'Техничка подршка'],0,['class'=>'form-control form-control-c'])!!}</div>
                 </div>
                 <div id="dporuka" class="form-group has-feedback">
                     <label name="porukal" class="control-label col-sm-3" data-toggle="tooltip" title="Поље је обавезно за унос">Порука*</label>
                     <div class="col-sm-7">
-                        {!!Form::textarea('poruka',null,['id'=>'poruka','class'=>'form-control','placeholder'=>'Порука'])!!}
+                        {!!Form::textarea('poruka',null,['id'=>'poruka','class'=>'form-control form-control-c','placeholder'=>'Порука'])!!}
                         <span id="sporuka" class="glyphicon form-control-feedback"></span>
                     </div>
                 </div>
@@ -128,19 +128,6 @@
         .col-sm-4 img,.bg-grey img{ width: 100% }
         h1,.b30,.col-sm-4 h2,.col-sm-6 h3{ padding-bottom: 30px; }
         .bg-grey .col-sm-2{ padding: 0 }
-        .form-control{ border-radius: 0; border:1px solid #F9F9F9; resize: none }
-        .btn-c {
-            padding: 10px 20px;
-            background-color: #333;
-            color: #f1f1f1;
-            border-radius: 0;
-            transition: .2s;
-        }
-        .btn-c:hover, .btn-c:focus {
-            border: 1px solid #333;
-            background-color: #fff;
-            color: #000;
-        }
         #googleMap {
                 width: 100%;
                 height: 400px;

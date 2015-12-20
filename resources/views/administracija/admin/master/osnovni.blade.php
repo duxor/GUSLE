@@ -33,11 +33,11 @@
             </div>
             <div id="navigacija" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-left">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Здраво {{\Illuminate\Support\Facades\Auth::user()->username}}! <span class="caret"></span></a>
+                    <li class="dropdown"><?php $username=\Illuminate\Support\Facades\Auth::user()->username; $brNovihPoruka=\App\Http\Controllers\MejlingKO::brojNovih(); ?>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Здраво {{$username}}! @if($brNovihPoruka) <i class="glyphicon glyphicon-envelope"></i> @else <span class="caret"></span> @endif </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/administracija/profil"><i class="glyphicon glyphicon-user"></i> Профил</a></li>
-                            <li><a href="/administracija/poruke"><i class="glyphicon glyphicon-envelope"></i> Инбокс</a></li>
+                            <li><a href="/{{$username}}/profil"><i class="glyphicon glyphicon-user"></i> Профил</a></li>
+                            <li><a href="/{{$username}}/poruke"><i class="glyphicon glyphicon-envelope"></i> Поруке <i id="brojNovihNav" class="badge pull-right">{{$brNovihPoruka}}</i></a></li>
                             <li><a href="/auth/logout"><i class="glyphicon glyphicon-off"></i> Одјави се</a></li>
                         </ul>
                     </li>

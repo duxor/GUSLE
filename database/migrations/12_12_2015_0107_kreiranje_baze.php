@@ -75,6 +75,7 @@ class KreiranjeBaze extends Migration {
             $table->bigIncrements('id');
             $table->timestamp('datum_dogadjaja')->nullable();
             $table->string('naziv', 45);
+            $table->string('slug', 250)->nullable();
             $table->text('sadrzaj');
             $table->string('tagovi',45)->nullable();
             $table->string('foto',150)->nullable();

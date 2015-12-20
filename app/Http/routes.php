@@ -51,7 +51,9 @@ Route::get('/home',function(){
 });
 Route::controllers([
     'password' => 'Auth\PasswordController',
-    '/administracija/poruke'=>'MejlingKO',
+    '/{username}/poruke'=>'MejlingKO',
+    '/{username}/profil'=>'AdministracijaKO',
+
     '/administracija'=>'AdministracijaKO',
     '/dogadjaji'=>'DogadjajiKO',
     '/galerija'=>'GalerijaKO',

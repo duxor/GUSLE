@@ -8,7 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class DogadjajiKO extends Controller{
     public function getIndex(){
-        return view('dogadjaji');
+        $dogadjaji= DB::table('objava')
+            ->select(DB::raw('DATE(datum_dogadjaja) as datum_dogadjaja, naziv, foto, sadrzaj, tagovi' ))
+            ->orderBy('datum_dogadjaja', 'desc')
+            ->get();
+        return view('dogadjaji')->with('dogadjaji',$dogadjaji);
     }
     public function getKalendar(){
         return view('dogadjaji');

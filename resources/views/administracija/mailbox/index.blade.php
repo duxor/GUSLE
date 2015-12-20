@@ -1,12 +1,13 @@
 @extends('administracija.admin.master.osnovni')
 @section('body')
+    <?php $korisnik=\Illuminate\Support\Facades\Auth::user(); ?>
     <p class="pt60"></p>
     <div class="col-sm-3">
         <ul class="nav nav-pills nav-stacked">
-            <li id="nova" role="presentation"><a href="#"onclick="mejling.kreirajNovu()">Креирај поруку</a></li>
-            @if(\Illuminate\Support\Facades\Auth::user()->prava_pristupa_id>4) <li id="newsletter" role="presentation"><a href="#"onclick="mejling.getNewsletter()">Мејлинг</a></li> @endif
-            <li id="inbox" role="presentation"><a href="#"onclick="mejling.getInbox()">Примљено</a></li>
-            <li id="poslate" role="presentation"><a href="#"onclick="mejling.getPoslate()">Послате</a></li>
+            <li id="nova" role="presentation"><a href="#"onclick="mejling.kreirajNovu()"><i class="glyphicon glyphicon-plus"></i> Креирај поруку</a></li>
+            @if($korisnik->prava_pristupa_id>4) <li id="newsletter" role="presentation"><a href="#"onclick="mejling.getNewsletter()"><i class="glyphicon glyphicon-envelope"></i> Мејлинг</a></li> @endif
+            <li id="inbox" role="presentation"><a href="#"onclick="mejling.getInbox()"><i class="glyphicon glyphicon-log-in"></i> Примљено <i id="brojNovih" class="badge pull-right">{{\App\Http\Controllers\MejlingKO::brojNovih()}}</i></a></li>
+            <li id="poslate" role="presentation"><a href="#"onclick="mejling.getPoslate()"><i class="glyphicon glyphicon-log-out"></i> Послате</a></li>
         </ul>
     </div>
     <div id="work-area" class="col-sm-9">
@@ -25,7 +26,7 @@
             }
         });
         var mejling={
-            root:'/administracija/poruke/',
+            root:'/{{$korisnik->username}}/poruke/',
             token:'{{csrf_token()}}',
             uname:'{{isset($podaci['uname'])?$podaci['uname']:null}}',
             inout:'inbox',
@@ -36,8 +37,7 @@
             nNR:/\n/g,
             nNB:'<br>',
             nNBR:/<br>/g,
-            username:"{{\Illuminate\Support\Facades\Auth::user()->username}}",
-            @if(\Illuminate\Support\Facades\Auth::user()->prava_pristupa_id>4)
+            @if($korisnik->prava_pristupa_id>4)
                 getNewsletter:function(){
                     mejling.nav.setActive('newsletter');
                     $('#show').hide();
@@ -50,13 +50,13 @@
                             'IZABERI_APP_PODESAVANJA'+
                         '</div>'+
                         '<div class="form-group">'+
-                            '<input name="naslov" class="form-control" placeholder="Наслов поруке">'+
+                            '<input name="naslov" class="form-control form-control-c" placeholder="Наслов поруке">'+
                         '</div>'+
                         '<div class="form-group">'+
-                            '<textarea name="poruka" class="form-control" placeholder="Порука за слање" rows="7"></textarea>'+
+                            '<textarea name="poruka" class="form-control form-control-c" placeholder="Порука за слање" rows="7"></textarea>'+
                         '</div>'+
                         '<div class="form-group">'+
-                            '<button class="btn btn-lg btn-primary" onclick="Komunikacija.posalji(\''+mejling.root+'posalji-newsletter\',\'zaSlanje\',\'porukaDiv\',\'wait\',\'show\')"><i class="glyphicon glyphicon-envelope"></i> Пошаљи</div>'+
+                            '<button class="btn btn-lg btn-c" onclick="Komunikacija.posalji(\''+mejling.root+'posalji-newsletter\',\'zaSlanje\',\'porukaDiv\',\'wait\',\'show\')"><i class="glyphicon glyphicon-envelope"></i> Пошаљи</div>'+
                         '</div>'+
                     '</div>');
                     $('#wait').hide();
@@ -77,6 +77,9 @@
                 $('#wait').show();
                 $.post(mejling.root+'ucitaj-inbox',{_token:mejling.token},function(data){
                     data=JSON.parse(data);
+                    $('#brojNovih').html(data.nove);
+                    $('#brojNovihNav').html(data.nove);
+                    data=data.poruke;
                     if(data.length){
                         var inbox='<table class="table table-striped table-hover"><thead><tr><td>Пошиљалац</td><td>Наслов</td><td>Време пријема</td></tr></thead><tbody>';
                         for(var i=0;i<data.length;i++)
@@ -118,7 +121,7 @@
                 $.post(mejling.root+'ukloni-poruku',{
                     _token:mejling.token,
                     id:id,
-                    inout:inout
+                    inout:mejling.inout
                 },function(data){
                     data=JSON.parse(data);
                     if(data){
@@ -145,20 +148,20 @@
                 '<div id="zaSlanje" class="form-horizontal col-sm-12">'+
                     '<input type="hidden" name="_token" value="'+mejling.token+'">'+
                     '<div id="dza" class="form-group has-feedback">'+
-                        '<input id="za" name="za" class="form-control" onkeyup="mejling.pronadjiUsername(this.value)" placeholder="Кориснички име примаоца" value="'+mejling.uname+'">'+
+                        '<input id="za" name="za" class="form-control form-control-c" onkeyup="mejling.pronadjiUsername(this.value)" placeholder="Кориснички име примаоца" value="'+mejling.uname+'">'+
                         '<span id="sza" class="glyphicon form-control-feedback"></span>'+
                         '<span id="preporuke" class="list-group"></span>'+
                     '</div>'+
                     '<div id="dnaslov" class="form-group has-feedback">'+
-                        '<input id="naslov" name="naslov" class="form-control" placeholder="Наслов">'+
+                        '<input id="naslov" name="naslov" class="form-control form-control-c" placeholder="Наслов">'+
                         '<span id="snaslov" class="glyphicon form-control-feedback"></span>'+
                     '</div>'+
                     '<div id="dporuka" class="form-group has-feedback">'+
-                        '<textarea id="poruka" name="poruka" class="form-control" placeholder="Порука" rows="7"></textarea>'+
+                        '<textarea id="poruka" name="poruka" class="form-control form-control-c" placeholder="Порука" rows="7"></textarea>'+
                         '<span id="sporuka" class="glyphicon form-control-feedback"></span>'+
                     '</div>'+
                     '<div class="form-group">'+
-                        '<button class="btn btn-lg btn-primary" onclick="mejling.posalji()"><i class="glyphicon glyphicon-envelope"></i> Пошаљи</div>'+
+                        '<button class="btn btn-lg btn-c" onclick="mejling.posalji()"><i class="glyphicon glyphicon-envelope"></i> Пошаљи</div>'+
                     '</div>'+
                 '</div>');
                 mejling.uname='';
@@ -180,7 +183,7 @@
                         var useri='';
                         for(var i=0;i<data.length;i++)
                             useri+='<a href="#" class="list-group-item" onclick="mejling.izaberiUsername(\''+data[i].username+'\')">'+
-                                    '<h4 class="list-group-item-heading">'+data[i].username+'</h4>'+
+                                    '<h4 class="list-group-item-heading">'+data[i].username+(data[i].prezime?' ('+data[i].prezime+' '+data[i].ime+')':'')+'</h4>'+
                                     '<p class="list-group-item-text">'+data[i].email+'</p>';
                         $('#preporuke').html(useri);
                     }
@@ -209,5 +212,12 @@
             }
         }
     </script>
-    <style>.citajPoruku{cursor: pointer}</style>
+    <style>
+        .citajPoruku{cursor: pointer}
+        a{ color: #777372 }
+        a:focus, a:hover { color: #1A0D0A; }
+        .nav-pills>li>a {
+            border-radius: 0;
+        }
+    </style>
 @endsection

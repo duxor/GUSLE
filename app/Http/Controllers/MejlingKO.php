@@ -7,15 +7,20 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 class MejlingKO extends Controller {
-    private $ruta='/administracija/poruke';
+    private $ruta;
+    private $brojKorZaUcitavanje=20;
+    public function __construct(){
+        $this->ruta='/'.Auth::user()->username.'/poruke';
+    }
+
 	public function mailbox($akcija,$uname=null){
 		$podaci['akcija']=$akcija;
 		$podaci['uname']=$uname;
 		return view('administracija.mailbox.index',compact('podaci'));
 	}
 //POSALJI
-	public function getKreiraj($pravaSlug,$uname=null){
-		return redirect("/{$pravaSlug}/mailbox")->withAkcija('nova')->withUname($uname);
+	public function getKreiraj($mojUname=null,$uname=null){
+		return redirect($this->ruta)->withAkcija('nova')->withUname($uname);
 	}
 	public function postPosaljiPoruku(){
 		$podaci=json_decode(Input::get('podaci'));
@@ -36,7 +41,11 @@ class MejlingKO extends Controller {
 		return json_encode(['msg'=>'Poruka je uspešno poslata.','check'=>1]);
 	}
 	public function postPronadjiUsername(){
-		return json_encode(Korisnici::where('username','Like','%'.Input::get('tekst').'%')->get(['username','email'])->toArray());
+		return json_encode(Korisnici::where(function($query){
+            $query->where('username','Like','%'.Input::get('tekst').'%')
+                ->orWhere('prezime','Like','%'.Input::get('tekst').'%')
+                ->orWhere('ime','Like','%'.Input::get('tekst').'%');
+        })->take($this->brojKorZaUcitavanje)->get(['username','email','prezime','ime'])->toArray());
 	}
 //INBOX
 	public function anyIndex(){
@@ -44,21 +53,22 @@ class MejlingKO extends Controller {
 		$username=Session::has('uname')?Session::get('uname'):'';
 		return $this->mailbox($akcija,$username);
 	}
-	public function getInbox(){
-		return $this->mailbox('inbox');
-	}
 	public function postUcitajInbox(){
-		return json_encode(Mailbox::leftjoin('korisnici','korisnici.id','=','mailbox.od_id')
+		return json_encode(['poruke'=>Mailbox::leftjoin('korisnici','korisnici.id','=','mailbox.od_id')
 			->where('korisnici_id',Auth::user()->id)
 			->where('mailbox.aktivan',1)
 			->where('mailbox.copy',0)
 			->orderby('mailbox.created_at','DESC')
-			->get(['mailbox.id','od_email','username','naslov','procitano','mailbox.created_at'])->toArray());
+			->get(['mailbox.id','od_email','username','naslov','procitano','mailbox.created_at'])->toArray(),'nove'=>$this->brojNovih()]);
 	}
 	public function postUcitajPoruku(){
 		Mailbox::where('id',Input::get('id'))->update(['procitano'=>1]);
 		return json_encode(Mailbox::leftjoin('korisnici','korisnici.id','=','mailbox.od_id')->where('korisnici_id',Auth::user()->id)->where('mailbox.id',Input::get('id'))->get(['od_email','username','naslov','poruka','procitano','mailbox.created_at'])->first());
 	}
+    public static function brojNovih(){
+        $br=Mailbox::where('korisnici_id',Auth::user()->id)->where('procitano',0)->where('aktivan',1)->where('mailbox.copy',0)->count();
+        return $br>0?$br:null;
+    }
 //POSLATE
 	public function getPoslate(){
 		return redirect($this->ruta)->withAkcija('poslate');
@@ -74,12 +84,12 @@ class MejlingKO extends Controller {
 //UKLONI
 	public function postUkloniPoruku(){
 		if(Mailbox::where(Input::get('inout')=='inbox'?'korisnici_id':'od_id',Auth::user()->id)->where('id',Input::get('id'))->where('copy',Input::get('inout')=='inbox'?0:1)->update(['aktivan'=>0]))
-			return json_encode(['msg'=>'Uspešno ste uklonili poruku.','check'=>1]);
+			return json_encode(['msg'=>'Успешно сте уколонили поруку.','check'=>1]);
 		else
 			return json_encode(['msg'=>'Десила се грешка.','check'=>0]);
 	}
 //Newsletter
-	public function getNewsletter(){
+	public function getMejling(){
 		return $this->mailbox('newsletter');
 	}
 }
