@@ -29,12 +29,13 @@ Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 
-//Objava
+//objava
 Route::get('objava/index', 'ObjavaController@index');
 Route::get('objava/create', 'ObjavaController@create');
 Route::post('objava/store', 'ObjavaController@store');
 Route::get('objava/{id}/edit', 'ObjavaController@edit');
 Route::PATCH('objava/{id}', 'ObjavaController@update');
+Route::PATCH('objava/{slug}', 'ObjavaController@update');
 Route::GET('objava/destroy/{id}', 'ObjavaController@destroy');
 
 //Dogadjaji
@@ -42,8 +43,10 @@ Route::GET('objava/destroy/{id}', 'ObjavaController@destroy');
 
 
 
-//Objava
+//objava
 Route::post('/slug', 'ObjavaController@slug');
+Route::get('dogadjaji/{slug}', 'DogadjajiKO@slug');
+Route::get('dogadjaji/tagovi/{tag}', 'DogadjajiKO@tag');
 
 
 
