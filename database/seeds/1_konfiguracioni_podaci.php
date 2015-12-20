@@ -26,7 +26,7 @@ class KonfiguracioniPodaci extends Seeder{
             ['naziv'=>'Фоча'],
         ]);
         Korisnici::insert([
-            ['username'=>'SuperAdmin','password'=>bcrypt('SuperAdmin'),'email'=>'super.admin@gmail.com','prava_pristupa_id'=>6],//1
+            ['username'=>'SuperAdmin','password'=>bcrypt('SuperAdmin'),'email'=>'super.admin@gmail.com','prava_pristupa_id'=>6,'foto'=>'/img/kontakt/korisnik-6.jpg'],//1
         ]);
         VrstaKorisnika::insert([
             ['naziv'=>'Посматрач'],

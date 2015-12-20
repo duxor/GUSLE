@@ -1,7 +1,7 @@
-@extends('layouts.master')
+@extends(isset($master)?$master:'layouts.master')
 @section('body')
-    <div class="pt60 container">
-        <div class="col-sm-2 form-inline">
+    <div class="pt60 container-fluid prodavnica">
+        <div class="col-sm-2 form-inline prodavnicaNav">
             <div class="input-group" style="width: 100%">
                 <input type="text" class="form-control form-control-c b-c" placeholder="Претрага...">
                 <span class="input-group-btn">
@@ -97,14 +97,15 @@
     <style>
         .btn-c{padding: 6px 10px;margin-left: 2px}
         .b-c{border: 1px solid #1A0D0A;}
-        .list-group-item:first-child{border-radius: 0}
-        h2 a{ color: #1A0D0A }
-        h2 a:focus, h2 a:hover { color: #777372; }
-        a.list-group-item, button.list-group-item{color:#1A0D0A;}
-        a.list-group-item:hover, button.list-group-item:hover{color:#fff;background-color: #1A0D0A}
-        .list-group-item{border: none}
-        .list-group-item.active, .list-group-item.active:focus{color:#fff;background-color: #1A0D0A}
-        .list-group-item.active:hover{color:#1A0D0A;background-color: #fff;border-right: 5px solid #1A0D0A;}
+        .prodavnicaNav .list-group-item:first-child{border-radius: 0}
+        .prodavnica h2 a{ color: #1A0D0A }
+        .prodavnica h2 a:focus, h2 a:hover { color: #777372; }
+        .prodavnica img{width: 100%}
+        .prodavnicaNav a.list-group-item, button.list-group-item{color:#1A0D0A;}
+        .prodavnicaNav a.list-group-item:hover, button.list-group-item:hover{color:#fff;background-color: #1A0D0A}
+        .prodavnicaNav .list-group-item{border: none}
+        .prodavnicaNav .list-group-item.active, .list-group-item.active:focus{color:#fff;background-color: #1A0D0A}
+        .prodavnicaNav .list-group-item.active:hover{color:#1A0D0A;background-color: #fff;border-right: 5px solid #1A0D0A;}
         .mb5{margin-bottom: 15px}
     </style>
 @endsection

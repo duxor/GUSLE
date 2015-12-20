@@ -1,4 +1,4 @@
-@extends('administracija.admin.master.osnovni')
+@extends('administracija.master.osnovni')
 @section('body')
     Administracija
 @endsection

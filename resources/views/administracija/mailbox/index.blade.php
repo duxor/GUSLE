@@ -1,4 +1,4 @@
-@extends('administracija.admin.master.osnovni')
+@extends('administracija.master.osnovni')
 @section('body')
     <?php $korisnik=\Illuminate\Support\Facades\Auth::user(); ?>
     <p class="pt60"></p>

@@ -104,7 +104,7 @@ var SubmitForm = {
 var Komunikacija = {
     posalji: function(url,podaciID,poruka,wait,hide,funkcija,reset){
         var podaci=this.podaci('',null,podaciID,{});
-        if($('#'+poruka).html().length>0) $('#'+poruka).html('');console.log($('#'+poruka).html().length>0);
+        if($('#'+poruka).html().length>0) $('#'+poruka).html('');
         $('#'+hide).css('display','none');
         $('#'+wait).fadeIn();
         $.post(url,
