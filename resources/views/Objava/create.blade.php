@@ -30,6 +30,7 @@
                                 {!! Form::text('naziv',null,['class'=>'form-control', 'placeholder'=>'Назив']) !!}
                             </div>
 
+
                             <div class="form-group">
                                 {!! Form::label('datum_dogadjaja',"Врста*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
                                 <select class="form-control" name="vrsta_objave_id" id="vrsta_objave_id" placeholder="Назив">
@@ -77,6 +78,19 @@
                                 <input type="hidden" name="y" id="P102_LONGITUDE" value="20.450384063720662" />
                             </div>
 
+                            <div class="form-group">
+                                <div class="form-group col-sm-12">
+                                {!! Form::label('naziv',"Слуг*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
+                                    </div></br>
+                                <div class="form-group col-sm-3">
+                                {!! Form::button('Креирајте слуг',['class'=>'form-control', 'id'=>'slug_btn']) !!}
+                                </div>
+                                <div class="form-group col-sm-9">
+                                {!! Form::text('slug',null,['class'=>'form-control', 'id'=>'slug_txt', 'placeholder'=>"Слуг"]) !!}
+                                </div>
+                            </div>
+
+
                             <div class="form-group" align="center">
                                 {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span>Сачувајте објаву',[ 'class' => 'btn btn-default', 'type'=>'submit'])!!}
                             </div>
@@ -88,8 +102,40 @@
         </div>
                 <script>
                     $(document).ready(function(){
+                        //Kreiranje sluga
+                        $('#slug_btn').click(function(){
+                            var pomocna = $('#naziv').val();
+                            string_to_slug($('#naziv').val());
+                        });
+
+                        function string_to_slug(str) {
+                            str = str.replace(/^\s+|\s+$/g, ''); // trim
+                            str = str.toLowerCase();
+                            str= str.replace(/љ/gi,'лј').replace(/њ/gi,'нј').replace(/ђ/gi,'дј').replace(/џ/gi,'дж');
+                            console.log(str);
+                            var from = "абвгдђежзијклљмнњопрстћуфхцчџшàáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+                            var to = "abvgddezzijkllmnnoprstcufhccdsaaaaeeeeiiiioooouuuunc------";
+                            for (var i=0, l=from.length ; i<l ; i++) {
+                                str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+                            }
+                            str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+                                    .replace(/\s+/g, '-') // collapse whitespace and replace by -
+                                    .replace(/-+/g, '-'); // collapse dashes
+
+                            //Provera da li u bazi postoji slug
+                          $.post('http://localhost:8080/slug',{name:str,_token:'{{csrf_token()}}' },function(data){
+                              var x = data.result;
+                              $('#slug_txt').val(x);
+                            });
+                        }
+
+                        //Kreiranje data-toggle
                         $('[data-toggle="tooltip"]').tooltip();
+
+                        //Kreiranje trumbowinga
                         $('.editor').trumbowyg();
+
+                        //Kreiranje mape
                         $('.datepicker').datepicker({
                             format: 'yyyy-mm-dd',
                             startDate: '-3d'

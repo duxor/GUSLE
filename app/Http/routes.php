@@ -41,7 +41,8 @@ Route::GET('objava/destroy/{id}', 'ObjavaController@destroy');
 //Route::get('/dogadjaji', 'DogadjajiKO@index');
 
 
-
+//Objava
+Route::post('/slug', 'ObjavaController@slug');
 
 Route::get('/home',function(){
     print 'Pravo pristua korisnika: '.Auth::user()->prava_pristupa_id;
