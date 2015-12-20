@@ -23,9 +23,6 @@ class DogadjajiKO extends Controller{
                     ->select(DB::raw('DATE(datum_dogadjaja) as datum_dogadjaja, naziv, foto, sadrzaj, tagovi' ))
                     ->orderBy('datum_dogadjaja', 'desc')
                     ->get();
-
        return view('dogadjaji')->with('dogadjaji',$dogadjaji);
     }
-
-
 }
