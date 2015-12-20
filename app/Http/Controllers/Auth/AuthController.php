@@ -18,7 +18,7 @@ class AuthController extends Controller
 {
     //protected $redirectPath = 'admin/content';
     //protected $loginPath = 'admin/login';
-    protected $redirectTo = '/';
+    protected $redirectTo = '/javna-diskusija';
     protected $redirectAfterLogout = '/';
 
     protected $username = 'username';

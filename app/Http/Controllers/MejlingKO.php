@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 class MejlingKO extends Controller {
     private $ruta;
+    private $url='/poruke';
     private $brojKorZaUcitavanje=20;
     public function __construct(){
-        $this->ruta='/'.Auth::user()->username.'/poruke';
+        $this->middleware('PravaPristupaMid:2,0',['except'=>'getIndex']);//za korisnike 2+ (sve registrovane)
+        $this->middleware('UsernameLinkMid:'.$this->url);//za korisnike 2+ (sve registrovane)
+        if(Auth::check()) $this->ruta='/'.Auth::user()->username.$this->url;
     }
 
 	public function mailbox($akcija,$uname=null){
@@ -29,16 +32,16 @@ class MejlingKO extends Controller {
         $posiljalac=Auth::user();
 		Mailbox::insert(['korisnici_id'=>$primalac->id,'od_id'=>$posiljalac->id,'od_email'=>$posiljalac->email,'naslov'=>$podaci->naslov,'poruka'=>$podaci->poruka]);
 		Mailbox::insert(['korisnici_id'=>$primalac->id,'od_id'=>$posiljalac->id,'od_email'=>$posiljalac->email,'naslov'=>$podaci->naslov,'poruka'=>$podaci->poruka,'copy'=>1]);
-		return json_encode(['msg'=>'Poruka je uspešno poslata.','check'=>1]);
+		return json_encode(['msg'=>'Порука је успешно послата.','check'=>1]);
 	}
 	public function postPosaljiNewsletter(){
 		$podaci=json_decode(Input::get('podaci'));
 		$od_email=Korisnici::find(Session::get('id'),['email'])->email;
-		foreach(Newsletter::where('nalog_id',$podaci->app)->get()->toArray() as $newsletter){
+		//foreach(Newsletter::where('nalog_id',$podaci->app)->get()->toArray() as $newsletter){
 			//mail($newsletter,$podaci->naslov,$podaci->poruka,'From: '.$od_email);
-		}
+		//}
 		Mailbox::insert(['korisnici_id'=>Session::get('id'),'od_id'=>Session::get('id'),'od_email'=>$od_email,'naslov'=>$podaci->naslov,'poruka'=>$podaci->poruka,'copy'=>1]);
-		return json_encode(['msg'=>'Poruka je uspešno poslata.','check'=>1]);
+		return json_encode(['msg'=>'Порука је успешно послата.','check'=>1]);
 	}
 	public function postPronadjiUsername(){
 		return json_encode(Korisnici::where(function($query){
