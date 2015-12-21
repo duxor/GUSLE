@@ -100,6 +100,7 @@
     </div>
     <div class="col-sm-10 bw">
         @yield('body')
+        <br clear="all"><br clear="all"><br clear="all">
         <div class="text-center col-sm-11" style="position: absolute;bottom: 0">
             <p style="font-size: 10px;padding-top: 30px">Copyright © 2015 Гусле. Задржавамо сва права.</p>
         </div>
@@ -123,5 +124,8 @@
         .vertikalni-nav .panel-group{margin-bottom: 0}
         .vertikalni-nav .panel-group>.panel>.panel-collapse>ul>a{color: #ddd;text-decoration: none}
     </style>
+    <script>
+        $(function(){$('[data-toggle=tooltip]').tooltip()})
+    </script>
 </body>
 </html>

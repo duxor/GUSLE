@@ -9,6 +9,7 @@ use App\StanjeProizvoda;
 use App\Grad;
 use App\Galerija;
 use App\VrstaSadrzaja;
+use App\StanjeOglasa;
 class KonfiguracioniPodaci extends Seeder{
     public function run(){
         PravaPristupa::insert([
@@ -45,11 +46,18 @@ class KonfiguracioniPodaci extends Seeder{
             ['naziv'=>'Двојнице'],
             ['naziv'=>'Други дувачки инструменти'],
         ]);
-        StanjeProizvoda::insert([
+        StanjeOglasa::insert([
             ['naziv'=>'Активан'],
             ['naziv'=>'Резервисан'],
             ['naziv'=>'У фази испоруке'],
             ['naziv'=>'Продат'],
+        ]);
+        StanjeProizvoda::insert([
+            ['naziv'=>'Ново'],
+            ['naziv'=>'Некориштен'],
+            ['naziv'=>'Полован без оштећења'],
+            ['naziv'=>'Полован са видљивим знацима кориштења'],
+            ['naziv'=>'Неисправан'],
         ]);
         Galerija::insert([
             ['naziv'=>'Недефинисано'],//1

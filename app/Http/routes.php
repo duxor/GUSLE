@@ -58,6 +58,8 @@ Route::get('/home',function(){
             <br><a href="/administracija/privilegije2">Privilegije 2 - samo [3]</a>
             <br><br><a href="/auth/logout">Logout</a>';
 });
+
+
 Route::controllers([
     'password' => 'Auth\PasswordController',
     '/{username}/poruke'=>'MejlingKO',
@@ -72,5 +74,5 @@ Route::controllers([
     '/galerija'=>'GalerijaKO',
     '/prodavnica'=>'ProdavnicaKO',
     '/odradbe'=>'OsnovniKO',
-    '/'=>'OsnovniKO'
+    '/'=>'OsnovniKO',
 ]);

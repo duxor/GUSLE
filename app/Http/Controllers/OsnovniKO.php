@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Proizvod;
 
 class OsnovniKO extends Controller{
     public function getIndex(){
@@ -32,5 +33,9 @@ class OsnovniKO extends Controller{
     }
     public function getPomoc(){
         return view('odredbe.pomoc');
+    }
+
+    public function getOglas($slug){
+        dd(Proizvod::where('slug',$slug)->get()->toArray());
     }
 }

@@ -129,13 +129,27 @@ class KreiranjeBaze extends Migration {
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
         });
+        Schema::create('stanje_oglasa', function(Blueprint $table){
+            $table->bigIncrements('id');
+            $table->string('naziv', 45)->unique();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->nullable();
+        });
         Schema::create('proizvod', function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->string('naziv', 45);
+            $table->string('naziv', 100);
+            $table->string('slug', 250);
+            $table->integer('kolicina')->default(1);
+            $table->float('cena', 45);
+            $table->tinyInteger('narudzba')->default(0);
+            $table->tinyInteger('zamena')->default(0);
+            $table->tinyInteger('aktivan')->default(1);
             $table->unsignedBigInteger('vrsta_proizvoda_id');
             $table->foreign('vrsta_proizvoda_id')->references('id')->on('vrsta_proizvoda');
-            $table->unsignedBigInteger('stanje_proizvoda_id');
+            $table->unsignedBigInteger('stanje_proizvoda_id')->default(1);
             $table->foreign('stanje_proizvoda_id')->references('id')->on('stanje_proizvoda');
+            $table->unsignedBigInteger('stanje_oglasa_id')->default(1);
+            $table->foreign('stanje_oglasa_id')->references('id')->on('stanje_oglasa');
             $table->unsignedBigInteger('korisnici_id');
             $table->foreign('korisnici_id')->references('id')->on('korisnici');
             $table->text('opis');
@@ -223,6 +237,7 @@ class KreiranjeBaze extends Migration {
         Schema::drop('proizvod');
         Schema::drop('vrsta_proizvoda');
         Schema::drop('stanje_proizvoda');
+        Schema::drop('stanje_oglasa');
         Schema::drop('drustveni_korisnik');
         Schema::drop('drustvo');
         Schema::drop('savez');

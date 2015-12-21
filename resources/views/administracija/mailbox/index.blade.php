@@ -148,7 +148,7 @@
                 '<div id="zaSlanje" class="form-horizontal col-sm-12">'+
                     '<input type="hidden" name="_token" value="'+mejling.token+'">'+
                     '<div id="dza" class="form-group has-feedback">'+
-                        '<input id="za" name="za" class="form-control form-control-c" onkeyup="mejling.pronadjiUsername(this.value)" placeholder="Кориснички име примаоца" value="'+mejling.uname+'">'+
+                        '<input id="za" name="za" class="form-control form-control-c" onkeyup="mejling.pronadjiUsername(this.value)" placeholder="Корисничко име примаоца" value="'+mejling.uname+'">'+
                         '<span id="sza" class="glyphicon form-control-feedback"></span>'+
                         '<span id="preporuke" class="list-group"></span>'+
                     '</div>'+
