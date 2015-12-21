@@ -42,7 +42,7 @@ class KreiranjeBaze extends Migration {
 			$table->string('jmbg',45)->nullable();
 			$table->string('broj_licne_karte',45)->nullable();
             $table->tinyInteger('online')->default(1);
-            $table->tinyInteger('aktivan')->default(1);
+            $table->tinyInteger('aktivan')->default(0);
             $table->string('foto',250)->nullable();
             $table->string('token',250)->nullable();
             $table->rememberToken();
