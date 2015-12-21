@@ -206,11 +206,20 @@ class KreiranjeBaze extends Migration {
             $table->unsignedBigInteger('vrsta_sadrzaja_id');
             $table->foreign('vrsta_sadrzaja_id')->references('id')->on('vrsta_sadrzaja');
             $table->unsignedBigInteger('galerija_id');
-            $table->foreign('galerija_id')->references('id')->on('galerija');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
         });
-
+        Schema::create('lista_zelja', function(Blueprint $table)
+        {
+            $table->bigIncrements('id');
+            $table->tinyInteger('aktivan')->default(1);
+            $table->unsignedBigInteger('proizvod_id');
+            $table->foreign('proizvod_id')->references('id')->on('proizvod');
+            $table->unsignedBigInteger('korisnici_id');
+            $table->foreign('korisnici_id')->references('id')->on('korisnici');
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->nullable();
+        });
 /*        Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
@@ -229,6 +238,7 @@ class KreiranjeBaze extends Migration {
 	public function down(){
         //Schema::drop('users');
         Schema::drop('password_resets');
+        Schema::drop('lista_zelja');
         Schema::drop('mailbox');
         Schema::drop('sadrzaj');
         Schema::drop('vrsta_sadrzaja');

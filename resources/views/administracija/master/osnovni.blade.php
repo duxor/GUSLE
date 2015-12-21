@@ -54,6 +54,15 @@
         </div>
         <div class="panel-group">
             <div class="panel panel-default panel-title">
+                <a href="/">
+                    <div class="panel-heading" id="headingOne">
+                        <h4><i class="glyphicon glyphicon-home"></i> Почетна</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="panel-group">
+            <div class="panel panel-default panel-title">
                 <a href="/javna-diskusija">
                     <div class="panel-heading" id="headingOne">
                         <h4><i class="glyphicon glyphicon-comment"></i> Јавна дискусија</h4>

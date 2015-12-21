@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ListaZelja;
 use App\Proizvod;
 use App\StanjeProizvoda;
 use App\VrstaProizvoda;
@@ -19,7 +20,7 @@ class ProdavnicaKO extends Controller{
     private $imgFolder='img/prodavnica';
     public function __construct(){
         $this->middleware('PravaPristupaMid:2,0',['except'=>'getIndex','prodavnica']);//za korisnike 2+ (sve registrovane)
-        $this->middleware('UsernameLinkMid:'.$this->url,['except'=>'postSlugTest']);
+        $this->middleware('UsernameLinkMid:'.$this->url,['except'=>['postSlugTest','getIndex']]);
     }
     private function prodavnica($username=null,$target=null){
         if($username&&Auth::check())
@@ -28,18 +29,18 @@ class ProdavnicaKO extends Controller{
                 switch($target){
                     case'postavi-oglas':
                         $podaci=array_merge($podaci,['vrstaProizvoda'=>VrstaProizvoda::zaKombo(),'stanjeProizvoda'=>StanjeProizvoda::zaKombo()]);
-                        $podaci=array_merge($podaci,Proizvod::get()->first()->toArray());
+                        return view('administracija.prodavnica.'.$target)->with($podaci);
                         break;
                     case'moji-oglasi':
-                        $podaci=array_merge($podaci,['oglasi'=>Proizvod::join('stanje_oglasa as so','so.id','=','proizvod.stanje_oglasa_id')->where('korisnici_id',Auth::user()->id)->where('proizvod.aktivan',1)->get(['proizvod.naziv','proizvod.slug','proizvod.cena','proizvod.created_at','so.naziv as status'])->toArray()]);
-                        break;
                     case'lista-zelja':
+                        $podaci=array_merge($podaci,['target'=>$target]);
                         break;
                 }
-                return view('administracija.prodavnica.'.$target)->with($podaci);
+                return view('administracija.prodavnica.moja-prodavnica')->with($podaci);
             }
             else return view('prodavnica')->with(['master'=>'administracija.master.osnovni']);
-        else return view('prodavnica');
+        else if(Auth::check()) return view('prodavnica')->with(['master'=>'administracija.master.osnovni']);
+            else return view('prodavnica');
     }
     public function getIndex($username=null){
         return $this->prodavnica($username);
@@ -54,7 +55,7 @@ class ProdavnicaKO extends Controller{
         return $this->prodavnica($username,'lista-zelja');
     }
 
-    public function postObjaviOglas(){
+    public function postObjaviOglas($username){
         $test=Validator::make(Input::all(),[
             'naziv'=>'min:5|max:40|required',
             'slug'=>'alpha_dash|required',
@@ -98,14 +99,20 @@ class ProdavnicaKO extends Controller{
             foreach(Input::file('foto') as $k=>$foto)
                 if($foto->isValid()) $foto->move($this->imgFolder, Auth::user()->id.'-'.$id.'-'.$p.'-'.$k.'.'.Input::file('foto')[0]->getClientOriginalExtension());
         }
-        return view('administracija.ispisi-poruku')->with(['test'=>true,'poruka'=>'Ваш оглас је успешно додат.']);
+        return redirect('/'.$username.'/prodavnica/moji-oglasi');
     }
-
     public function postSlugTest(){
         $i=1;
         while($i){
             if(!Proizvod::where('slug',Input::get('slug').($i==1?'':('-'.($i-1))))->exists()) return json_encode(['slug'=>Input::get('slug').($i==1?'':('-'.($i-1)))]);
             $i++;
         }
+    }
+
+    public function postMojiOglasi($username){
+        return json_encode(Proizvod::join('stanje_oglasa as so','so.id','=','proizvod.stanje_oglasa_id')->where('korisnici_id',Auth::user()->id)->where('proizvod.aktivan',1)->get(['proizvod.naziv','proizvod.slug','proizvod.cena','proizvod.created_at','so.naziv as status'])->toArray());
+    }
+    public function postListaZelja($username){
+        return json_encode(ListaZelja::join('proizvod as p','p.id','=','proizvod_id')->where('lista_zelja.korisnici_id',Auth::user()->id)->where('lista_zelja.aktivan',1)->where('p.aktivan',1)->get(['p.naziv','p.slug','p.cena','p.created_at'])->toArray());
     }
 }

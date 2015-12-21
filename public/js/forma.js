@@ -1,3 +1,6 @@
+var GlobalVar={
+    loading:'<center><i class="icon-spin6 animate-spin" style="font-size: 400%"></i></center>'
+}
 /*#
  ### Autor: Dusan Perisci
  ### Home: dusanperisic.com
