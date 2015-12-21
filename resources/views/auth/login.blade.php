@@ -47,8 +47,10 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Пријави се</button>
-
                                 <a class="btn btn-link" href="{{ url('/password/email') }}">Заборавили сте шифру?</a>
+                            </div>
+                            <div class="col-md-3  col-md-offset-5">
+                                <a class="btn btn-link col-md-offset-3" href="{{ url('/auth/register') }}">Региструјте се!</a>
                             </div>
                         </div>
                     </form>

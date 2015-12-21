@@ -105,8 +105,16 @@
 						</div>
 
 						<div class="form-group">
+							<label class="col-md-4 control-label"></label>
+							<div class="col-md-6">
+								<h7 data-toggle='tooltip' title='Чекирајте поље за наставак'><strong>Пiхватам</strong></h7>
+								<a href="odredbe/pravilnik"> <input type="checkbox" name="uslovi_koriscenja" id="uslovi_koriscenja">  услове коришћења  </a>
+							</div>
+						</div>
+
+						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
+								<button type="submit" class="btn btn-primary" name="registracija" id="registracija">
 									Региструј се
 								</button>
 							</div>
@@ -124,6 +132,11 @@
 				$("#dodaj_grad").hide();
 				$("#dodaj_grad_st").hide();
 				$("#grad_tex_id").show();
+			});
+			$("#registracija").attr("disabled", true);
+			$('[name=uslovi_koriscenja]').change(function(){
+				if($(this).is(':checked')) $('[name=registracija]').removeAttr('disabled');
+				else $('[name=registracija]').attr('disabled','disabled');
 			});
 		});
 	</script>
