@@ -21,13 +21,13 @@ class KonfiguracioniPodaci extends Seeder{
             ['naziv'=>'Супер администратор'],//6
         ]);
         Grad::insert([
-            ['naziv'=>'Недефинисано'],
+            ['naziv'=>'Недефинисан'],
             ['naziv'=>'Београд'],
             ['naziv'=>'Краљево'],
             ['naziv'=>'Фоча'],
         ]);
         Korisnici::insert([
-            ['username'=>'SuperAdmin','password'=>bcrypt('SuperAdmin'),'email'=>'super.admin@gmail.com','prava_pristupa_id'=>6,'foto'=>'/img/kontakt/korisnik-6.jpg'],//1
+            ['username'=>'SuperAdmin','password'=>bcrypt('SuperAdmin'),'email'=>'super.admin@gmail.com','prava_pristupa_id'=>6,'foto'=>'/img/kontakt/korisnik-6.jpg','aktivan'=>1],//1
         ]);
         VrstaKorisnika::insert([
             ['naziv'=>'Посматрач'],

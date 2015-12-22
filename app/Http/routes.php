@@ -37,6 +37,7 @@ Route::get('dogadjaji/{opsirnije}', 'DogadjajiKO@opsirnije');
 Route::get('dogadjaji/tagovi/{tag}', 'DogadjajiKO@tag');
 
 
+
 Route::get('/test',function(){return view('test');});
 
 Route::get('/home',function(){
@@ -46,12 +47,12 @@ Route::get('/home',function(){
             <br><br><a href="/auth/logout">Logout</a>';
 });
 
-
 Route::controllers([
     'password' => 'Auth\PasswordController',
     '/{username}/poruke'=>'MejlingKO',
     '/{username}/profil'=>'KorisniciKO',
     '/{username}/prodavnica'=>'ProdavnicaKO',
+    '/{username}/oglas/{slug?}'=>'ProdavnicaKO',
     '/{username}/pretraga'=>'PretragaKO',
 
     '/javna-diskusija'=>'JavnaDiskusijaKO',

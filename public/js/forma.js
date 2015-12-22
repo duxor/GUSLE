@@ -1,5 +1,6 @@
 var GlobalVar={
-    loading:'<center><i class="icon-spin6 animate-spin" style="font-size: 400%"></i></center>'
+    loading:'<center><i class="icon-spin6 animate-spin" style="font-size: 400%"></i></center>',
+    loadingNormal:'<center><i class="icon-spin6 animate-spin"></i></center>'
 }
 /*#
  ### Autor: Dusan Perisci

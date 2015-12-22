@@ -10,10 +10,10 @@ use App\DrustveniKorisnik;
 class TestPodaci extends Seeder{
     public function run(){
         Korisnici::insert([
-            ['username'=>'admin','password'=>bcrypt('admin'),'email'=>'admin@gmail.com','prava_pristupa_id'=>5,'foto'=>'/img/kontakt/korisnik-5.jpg'],//2
-            ['username'=>'moderator','password'=>bcrypt('moderator'),'email'=>'administrator@gmail.com','prava_pristupa_id'=>4,'foto'=>'/img/kontakt/korisnik-4.jpg'],//3
-            ['username'=>'korisnik','password'=>bcrypt('korisnik'),'email'=>'korisnik@gmail.com','prava_pristupa_id'=>2,'foto'=>'/img/kontakt/korisnik-3.jpg'],//4
-            ['username'=>'zabranjen','password'=>bcrypt('zabranjen'),'email'=>'zabranjen@gmail.com','prava_pristupa_id'=>2,'foto'=>''],//5
+            ['username'=>'admin','password'=>bcrypt('admin'),'email'=>'admin@gmail.com','prava_pristupa_id'=>5,'foto'=>'/img/kontakt/korisnik-5.jpg','aktivan'=>1],//2
+            ['username'=>'moderator','password'=>bcrypt('moderator'),'email'=>'administrator@gmail.com','prava_pristupa_id'=>4,'foto'=>'/img/kontakt/korisnik-4.jpg','aktivan'=>1],//3
+            ['username'=>'korisnik','password'=>bcrypt('korisnik'),'email'=>'korisnik@gmail.com','prava_pristupa_id'=>2,'foto'=>'/img/kontakt/korisnik-3.jpg','aktivan'=>1],//4
+            ['username'=>'zabranjen','password'=>bcrypt('zabranjen'),'email'=>'zabranjen@gmail.com','prava_pristupa_id'=>2,'foto'=>'','aktivan'=>1],//5
         ]);
         Savez::insert([
             ['naziv'=>'Савез гуслара Србије','korisnici_id'=>2],//1
