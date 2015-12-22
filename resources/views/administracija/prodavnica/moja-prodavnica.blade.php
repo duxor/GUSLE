@@ -64,7 +64,8 @@
                                             '<a href="'+mojaProdavnica.urlOglasa+data[i].slug+'">'+data[i].naziv+'</a> '+ data[i].cena+' дин<br>'+
                                             data[i].created_at+'<br>'+
                                             data[i].status+
-                                            '<button class="btn btn-c" onclick="mojaProdavnica.ukloni(\''+data[i].id+'\')">Уклони</button>'+
+                                            (mojaProdavnica.initTarget=='moji-oglasi'?'<a class="btn btn-c" href="'+mojaProdavnica.urlOglasa+data[i].slug+'/izmeni"><i class="glyphicon glyphicon-pencil"></i> Измени</a>':'')+
+                                            '<button class="btn btn-c-danger" onclick="mojaProdavnica.ukloni(\''+data[i].id+'\')"><i class="glyphicon glyphicon-trash"></i> Уклони</button>'+
                                         '</div>'+
                                     '</div>';
                         else ispis+='Ни један производ се не налази у листи.';
@@ -83,7 +84,6 @@
     </script>
     <style>
         #navMojaProdavnica>li>a{border-radius: 0}
-        .oglas{}
         .oglas>.col-xs-3{text-align: center}
         .oglas img, .lbaner-line img{max-width: 100%;max-height: 150px}
         .lbaner-line img{margin-bottom: 5px}

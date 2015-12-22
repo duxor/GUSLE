@@ -23,14 +23,16 @@ class ProdavnicaKO extends Controller{
         $this->middleware('PravaPristupaMid:2,0',['except'=>'getIndex','rodavnica','getOglas']);//za korisnike 2+ (sve registrovane)
         $this->middleware('UsernameLinkMid:'.$this->url,['except'=>['postSlugTest']]);
     }
-    private function prodavnica($username=null,$target=null){
+    private function prodavnica($username=null,$target=null,$slug=null){
         if($username&&Auth::check())
             if($target){
                 $podaci=['master'=>'administracija.master.osnovni','username'=>$username];
                 switch($target){
+                    case'izmeni-oglas':
+                        $podaci=array_merge($podaci,['proizvod'=>Proizvod::where('slug',$slug)->get()->first()]);
                     case'postavi-oglas':
                         $podaci=array_merge($podaci,['vrstaProizvoda'=>VrstaProizvoda::zaKombo(),'stanjeProizvoda'=>StanjeProizvoda::zaKombo()]);
-                        return view('administracija.prodavnica.'.$target)->with($podaci);
+                        return view('administracija.prodavnica.postavi-oglas')->with($podaci);
                         break;
                     case'moji-oglasi':
                     case'lista-zelja':
@@ -43,7 +45,10 @@ class ProdavnicaKO extends Controller{
         else if(Auth::check()) return view('prodavnica')->with(['master'=>'administracija.master.osnovni']);
             else return view('prodavnica');
     }
-    public function getIndex($username=null,$slug=null){
+    public function getIndex($username=null,$slug=null,$akcija=null){
+        if($akcija){//akcija=izmeni
+            return $this->prodavnica($username,'izmeni-oglas',$slug);
+        }
         if($slug) return $this->getOglas($username,$slug);
         return $this->prodavnica($username);
     }
@@ -58,9 +63,10 @@ class ProdavnicaKO extends Controller{
     }
 
     public function postObjaviOglas($username){
+        $update=Input::has('id');
         $test=Validator::make(Input::all(),[
             'naziv'=>'min:5|max:40|required',
-            'slug'=>'alpha_dash|required',
+            'slug'=>$update?'':'alpha_dash|required',
             'cena'=>'numeric|required',
             'kolicina'=>'integer|required',
             'narudzba'=>'boolean|required',
@@ -69,7 +75,7 @@ class ProdavnicaKO extends Controller{
             'stanje_proizvoda_id'=>'integer|required',
             'opis'=>'max:1000|required',
             'uslovi'=>'accepted|required',
-            'foto'=>'required|min:2'
+            'foto'=>$update?'':'required|min:2'
         ],[
             'naziv.min'=>'Поље назив мора да има минимално :min карактера.',
             'naziv.max'=>'Поље назив може да има максимално :max карактера.',
@@ -98,9 +104,11 @@ class ProdavnicaKO extends Controller{
         ]);
         if($test->fails()) return Redirect::back()->withErrors($test)->withInput();
 
-        $idOglasa=Proizvod::insertGetId(array_merge(Input::except('_token','uslovi','foto'),['korisnici_id'=>Auth::user()->id]));
-        $p=round(microtime(true) * 1000);
+        $idOglasa=$update?
+            Proizvod::find(Input::get('id'))->update(Input::except('_token','id','slug','uslovi','foto')):
+            Proizvod::insertGetId(array_merge(Input::except('_token','uslovi','foto'),['korisnici_id'=>Auth::user()->id]));
         if(Input::hasFile('foto')){
+            $p=round(microtime(true) * 1000);
             if(!is_dir($this->imgFolder)) mkdir($this->imgFolder);
             $fotografije=[];
             foreach(Input::file('foto') as $k=>$foto)
@@ -141,27 +149,20 @@ class ProdavnicaKO extends Controller{
         return 1;
     }
 
-    public function getOglas($username=null,$slug){//dd($username?'ok':'ne',$username.'!='.substr($this->url,1),$slug,substr($this->url,1)!=$username);
+    public function getOglas($username=null,$slug){
         $podaci=[];
         $podaci['oglas']=Proizvod::join('stanje_oglasa as so','so.id','=','proizvod.stanje_oglasa_id')->join('korisnici as k','k.id','=','proizvod.korisnici_id')->join('grad as g','g.id','=','k.grad_id')->where('slug',$slug)->get(['proizvod.id','proizvod.naziv','slug','cena','kolicina','narudzba','zamena','vrsta_proizvoda_id','so.naziv as stanje','stanje_oglasa_id','korisnici_id','opis','proizvod.foto','username','prezime','ime','g.naziv as grad','k.telefon'])->first();
         $podaci['foto']=Media::where('src','like','/img/prodavnica/prodavnica-'.$podaci['oglas']->korisnici_id.'-'.$podaci['oglas']->id.'-%')->get();
         if(Auth::check()){
-            //if(substr($this->url,1)!=$username)
                 $podaci=$podaci+[
                     'master'=>'administracija.master.osnovni',
                     'zelim'=>ListaZelja::where('korisnici_id',Auth::user()->id)->where('proizvod_id',$podaci['oglas']->id)->where('aktivan',1)->exists(),
                     'username'=>$username];
-            /*else $podaci=$podaci+[
-                'master'=>null,
-                'username'=>null,
-                'zelim'=>null];*/
         }else $podaci=$podaci+[
                 'master'=>null,
                 'username'=>null,
                 'zelim'=>null];
-        //dd($podaci);
         return view('oglas')->with($podaci);
-        //dd(Proizvod::where('slug',$slug)->get()->toArray());
     }
 
 }

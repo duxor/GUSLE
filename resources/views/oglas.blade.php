@@ -1,4 +1,3 @@
-<?php //dd( $master) ?>
 @extends(isset($master)?$master:'layouts.master')
 @section('body')
     <div class="container-fluid oglas {{isset($master)?'':'pt60'}}">

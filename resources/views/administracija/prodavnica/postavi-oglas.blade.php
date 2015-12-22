@@ -1,4 +1,6 @@
-<?php //varijable:[vrstaProizvoda,stanjeProizvoda,$username]?>
+<?php //varijable:[vrstaProizvoda,stanjeProizvoda,$username]
+    if(!isset($proizvod)) $proizvod=null;
+?>
 @extends('administracija.master.osnovni')
 @section('body')
 
@@ -13,12 +15,12 @@
             </ul>
         </div>
     @endif
-    <form id="formaObjavaOglasa" enctype="multipart/form-data" method="post" action="/{{$username}}/prodavnica/objavi-oglas" id="formaProizvod" class="form-horizontal">
-        {!!Form::hidden('_token',csrf_token())!!}
+    {!!Form::model($proizvod,['action'=>['ProdavnicaKO@postObjaviOglas',$username],'id'=>'formaObjavaOglasa','files'=>'true','class'=>'form-horizontal'])!!}
+        {!!Form::hidden('id')!!}
         <div id="dnaziv" class="form-group has-feedback">
             <label name="lnaziv" class="col-sm-4 control-label" data-toggle="tooltip" title="Поље је обавезно за унос">Назив*</label>
             <div class="col-sm-8">
-                <input class="form-control form-control-c" id="naziv" name="naziv" placeholder="Назив предмета" value="{{old('naziv')}}">
+                {!! Form::text('naziv',null,['class'=>'form-control form-control-c','id'=>'naziv','placeholder'=>'Назив предмета']) !!}
                 <i id="snaziv" class="glyphicon form-control-feedback"></i>
             </div>
         </div>
@@ -37,40 +39,40 @@
         <div id="dslug" class="form-group has-feedback">
             <label name="lslug" class="col-sm-4 control-label">Слуг*</label>
             <div class="col-sm-8">
-                <input class="form-control form-control-c disabled" id="slug" name="slug" placeholder="Слуг" value="{{old('slug')}}" disabled>
+                {!! Form::text('slug',null,['class'=>'form-control form-control-c disabled','id'=>'slug','placeholder'=>'Слуг','disabled'=>'disabled']) !!}
                 <i id="sslug" class="glyphicon form-control-feedback"></i>
             </div>
         </div>
         <div id="dcena" class="form-group has-feedback">
             <label name="lcena" class="col-sm-4 control-label" data-toggle="tooltip" title="Поље је обавезно за унос">Цена у динарима*</label>
             <div class="col-sm-8">
-                <input class="form-control form-control-c" name="cena" placeholder="Цена предмета у динарима" value="{{old('cena')}}">
+                {!! Form::text('cena',null,['class'=>'form-control form-control-c','id'=>'cena','placeholder'=>'Цена предмета у динарима']) !!}
                 <i id="scena" class="glyphicon form-control-feedback"></i>
             </div>
         </div>
         <div id="dkolicina" class="form-group has-feedback">
             <label name="lkolicina" class="col-sm-4 control-label" data-toggle="tooltip" title="Поље је обавезно за унос">Количина на стању*</label>
             <div class="col-sm-8">
-                <input class="form-control form-control-c" name="kolicina" placeholder="Количина на стању" value="{{old('kolicina')?old('kolicina'):1}}">
+                {!! Form::text('kolicina',1,['class'=>'form-control form-control-c','placeholder'=>'Количина на стању']) !!}
                 <i id="skolicina" class="glyphicon form-control-feedback"></i>
             </div>
         </div>
         <div class="form-group">
             <label name="lnarudzba" class="col-sm-4 control-label" data-toggle="tooltip" title="Само за предмете који немају ограничену количину на стању већ се израђују или набављају по наруџби">Могућност наруџбе <b>?</b></label>
             <div class="col-sm-8">
-                {!!Form::select('narudzba',[0=>'Не',1=>'Да'],old('narudzba'),['class'=>'form-control form-control-c'])!!}
+                {!!Form::select('narudzba',[0=>'Не',1=>'Да'],null,['class'=>'form-control form-control-c'])!!}
             </div>
         </div>
         <div class="form-group">
             <label name="lnarudzba" class="col-sm-4 control-label">Прихватам замену</label>
             <div class="col-sm-8">
-                {!!Form::select('zamena',[0=>'Не',1=>'Да'],old('zamena'),['class'=>'form-control form-control-c'])!!}
+                {!!Form::select('zamena',[0=>'Не',1=>'Да'],null,['class'=>'form-control form-control-c'])!!}
             </div>
         </div>
         <div class="form-group">
             <label name="lvrsta_proizvoda_id" class="col-sm-4 control-label">Врста предмета</label>
             <div class="col-sm-8">
-                {!!Form::select('vrsta_proizvoda_id',$vrstaProizvoda,old('vrsta_proizvoda_id'),['class'=>'form-control form-control-c'])!!}
+                {!!Form::select('vrsta_proizvoda_id',$vrstaProizvoda,null,['class'=>'form-control form-control-c'])!!}
             </div>
         </div>
         <div class="form-group">
@@ -82,7 +84,7 @@
         <div id="dopis" class="form-group has-feedback">
             <label name="lopis" class="col-sm-4 control-label" data-toggle="tooltip" title="Поље опис је обавезно">Опис*</label>
             <div class="col-sm-8">
-                <textarea class="form-control form-control-c" id="opis" name="opis" placeholder="Опис" rows="10">{{old('opis')}}</textarea>
+                {!! Form::textarea('opis',null,['class'=>'form-control form-control-c','id'=>'opis','placeholder'=>'Опис','rows'=>'10']) !!}
                 <i id="сopis" class="glyphicon form-control-feedback"></i>
             </div>
         </div><br clear="all">
@@ -110,10 +112,10 @@
         <div class="form-group">
             <div class="col-sm-4"></div>
             <div class="col-sm-8">
-                <button type="button" name="objaviBtn" class="btn btn-c" disabled="disabled" onclick="posalji()"><i class="glyphicon glyphicon-floppy-disk"></i> Објави оглас</button>
+                <button type="button" name="objaviBtn" class="btn btn-c" disabled="disabled" onclick="posalji()"><i class="glyphicon glyphicon-floppy-disk"></i> Сачувај оглас</button>
             </div>
         </div>
-    </form>
+        {!!Form::close()!!}
     <style>
     .btn-file {
         position: relative;

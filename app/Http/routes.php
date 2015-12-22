@@ -52,7 +52,7 @@ Route::controllers([
     '/{username}/poruke'=>'MejlingKO',
     '/{username}/profil'=>'KorisniciKO',
     '/{username}/prodavnica'=>'ProdavnicaKO',
-    '/{username}/oglas/{slug?}'=>'ProdavnicaKO',
+    '/{username}/oglas/{slug?}/{akcija?}'=>'ProdavnicaKO',
     '/{username}/pretraga'=>'PretragaKO',
 
     '/javna-diskusija'=>'JavnaDiskusijaKO',
