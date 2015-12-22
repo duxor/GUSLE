@@ -51,7 +51,7 @@
         <div id="dkolicina" class="form-group has-feedback">
             <label name="lkolicina" class="col-sm-4 control-label" data-toggle="tooltip" title="Поље је обавезно за унос">Количина на стању*</label>
             <div class="col-sm-8">
-                <input class="form-control form-control-c" name="kolicina" placeholder="Количина на стању" value="{{old('kolicina')}}">
+                <input class="form-control form-control-c" name="kolicina" placeholder="Количина на стању" value="{{old('kolicina')?old('kolicina'):1}}">
                 <i id="skolicina" class="glyphicon form-control-feedback"></i>
             </div>
         </div>

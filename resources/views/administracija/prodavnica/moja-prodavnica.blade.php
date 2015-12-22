@@ -23,29 +23,33 @@
         <a href="#" data-toggle="tooltip" title="Банер 11"><img src="/img/12.jpg"></a>
     </div>
 </div>
+<i class='icon-spin6 animate-spin' style="font-size: 1px;rgba(0,0,0,0)"></i>
     <script>
         $(function(){mojaProdavnica.init()})
         var mojaProdavnica={
             initTarget:'{{$target}}',
-            url:'/{{$username}}/prodavnica/',
+            urlPost:'/{{$username}}/prodavnica/',
+            urlOglasa:'/{{$username}}/oglas/',
+            ukloniStrUrl:'-ukloni',
             token:'{{csrf_token()}}',
             loading:GlobalVar.loading,
             init:function(){
                 mojaProdavnica.setNav(mojaProdavnica.initTarget);
                 mojaProdavnica.ucitaj(mojaProdavnica.initTarget);
                 $('#navMojaProdavnica>li').click(function(){
-                    mojaProdavnica.setNav($(this).attr('id'));
+                    mojaProdavnica.initTarget=$(this).attr('id');
+                    mojaProdavnica.setNav(mojaProdavnica.initTarget);
                     if($(this).attr('id'))
-                        mojaProdavnica.ucitaj($(this).attr('id'));
+                        mojaProdavnica.ucitaj(mojaProdavnica.initTarget);
                 })
             },
             setNav:function(target){
                 $('#navMojaProdavnica>li').removeClass('active');
                 $('#'+target).addClass('active');
             },
-            ucitaj:function(target){
+            ucitaj:function(){
                 $('#work-place').html(mojaProdavnica.loading);
-                $.post(mojaProdavnica.url+target,{_token:mojaProdavnica.token},function(data){
+                $.post(mojaProdavnica.urlPost+mojaProdavnica.initTarget,{_token:mojaProdavnica.token},function(data){
                     data=JSON.parse(data);
                     if(data){
                         var ispis='';
@@ -54,17 +58,25 @@
                                 ispis+='<hr>'+
                                     '<div class="row oglas">'+
                                         '<div class="col-xs-3">'+
-                                            '<img src="/img/default/oglas-predmet.jpg" alt="'+data[i].naziv+'">'+
+                                            '<img src="'+data[i].foto+'" alt="'+data[i].naziv+'">'+
                                         '</div>'+
                                         '<div class="col-sm-9 col-xs-9">'+
-                                            '<a href="/oglas/'+data[i].slug+'">'+data[i].naziv+'</a> '+ data[i].cena+' дин<br>'+
+                                            '<a href="'+mojaProdavnica.urlOglasa+data[i].slug+'">'+data[i].naziv+'</a> '+ data[i].cena+' дин<br>'+
                                             data[i].created_at+'<br>'+
                                             data[i].status+
+                                            '<button class="btn btn-c" onclick="mojaProdavnica.ukloni(\''+data[i].id+'\')">Уклони</button>'+
                                         '</div>'+
                                     '</div>';
                         else ispis+='Ни један производ се не налази у листи.';
                         $('#work-place').html(ispis);
                     }
+                });
+            },
+            ukloni:function(id){
+                if(!confirm('Да ли сте сигурни да желите да извршите акцију уклони?')) return;
+                $('#work-place').html(mojaProdavnica.loading);
+                $.post(mojaProdavnica.urlPost+mojaProdavnica.initTarget+mojaProdavnica.ukloniStrUrl,{_token:mojaProdavnica.token,id:id},function(data){
+                    mojaProdavnica.ucitaj(mojaProdavnica.initTarget);
                 });
             }
         }
@@ -72,7 +84,8 @@
     <style>
         #navMojaProdavnica>li>a{border-radius: 0}
         .oglas{}
-        .oglas img, .lbaner-line img{width: 100%}
-        .lbaner-line img{margin-bottom: 5px;height: 50%}
+        .oglas>.col-xs-3{text-align: center}
+        .oglas img, .lbaner-line img{max-width: 100%;max-height: 150px}
+        .lbaner-line img{margin-bottom: 5px}
     </style>
 @endsection

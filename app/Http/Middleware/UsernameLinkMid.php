@@ -14,12 +14,13 @@ class UsernameLinkMid{
 
     public function handle($request, Closure $next,$url){
         $username=explode('/',$request->path())[0];
-        if($username==$url) return $next($request);
-        if ($this->auth->guest())
+        if('/'.$username==$url) return $next($request);
+        if ($this->auth->guest()){
             if ($request->ajax())
-                return response('Zabranjen pristup.', 401);
+                if(!$username) return $next($request);
             else
-                return redirect()->guest('auth/login');
+                if(!$username) return $next($request);
+        }
         else{
             $orgUsername=$this->auth->user()->username;
             if ($orgUsername!=$username)

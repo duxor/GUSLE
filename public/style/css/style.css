@@ -109,6 +109,7 @@ footer .glyphicon {
     margin-bottom: 10px;
 }
 .pt60{padding-top: 60px}
+.pt30{padding-top: 30px}
 
 .btn-c {
     padding: 10px 20px;
@@ -118,7 +119,15 @@ footer .glyphicon {
     border-radius: 0;
     transition: .2s;
 }
-.btn-c:hover, .btn-c:focus {
+.btn-cz {
+     padding: 10px 20px;
+     background-color: #0F564C;
+     border: 1px solid #1A0D0A;
+     color: #f1f1f1;
+     border-radius: 0;
+     transition: .2s;
+ }
+.btn-c:hover, .btn-c:focus,.btn-cz:hover, .btn-cz:focus {
     border: 1px solid #1A0D0A;
     background-color: #fff;
     color: #000;

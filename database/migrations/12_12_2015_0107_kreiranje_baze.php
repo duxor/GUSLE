@@ -78,7 +78,7 @@ class KreiranjeBaze extends Migration {
             $table->string('slug', 250)->nullable();
             $table->text('sadrzaj');
             $table->string('tagovi',45)->nullable();
-            $table->string('foto',150)->nullable();
+            $table->string('foto',250)->nullable();
             $table->unsignedBigInteger('korisnici_id');
             $table->foreign('korisnici_id')->references('id')->on('korisnici');
             $table->tinyInteger('aktivan')->default(1);
@@ -153,6 +153,7 @@ class KreiranjeBaze extends Migration {
             $table->unsignedBigInteger('korisnici_id');
             $table->foreign('korisnici_id')->references('id')->on('korisnici');
             $table->text('opis');
+            $table->string('foto',250)->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
         });
@@ -191,21 +192,22 @@ class KreiranjeBaze extends Migration {
         });
         Schema::create('galerija', function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->string('naziv', 100);
+            $table->string('naziv', 100)->nullable();
             $table->unsignedBigInteger('korisnici_id')->nullable();
             $table->unsignedBigInteger('savez_id')->nullable();
             $table->unsignedBigInteger('drustvo_id')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
         });
-        Schema::create('sadrzaj', function(Blueprint $table){
+        Schema::create('media', function(Blueprint $table){
             $table->bigIncrements('id');
             $table->string('naziv', 45)->nullable();
             $table->string('opis', 250)->nullable();
             $table->string('src', 250);
-            $table->unsignedBigInteger('vrsta_sadrzaja_id');
+            $table->unsignedBigInteger('vrsta_sadrzaja_id')->default(1);
             $table->foreign('vrsta_sadrzaja_id')->references('id')->on('vrsta_sadrzaja');
-            $table->unsignedBigInteger('galerija_id');
+            $table->unsignedBigInteger('galerija_id')->default(1);
+            $table->foreign('galerija_id')->references('id')->on('galerija');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
         });
@@ -240,7 +242,7 @@ class KreiranjeBaze extends Migration {
         Schema::drop('password_resets');
         Schema::drop('lista_zelja');
         Schema::drop('mailbox');
-        Schema::drop('sadrzaj');
+        Schema::drop('media');
         Schema::drop('vrsta_sadrzaja');
         Schema::drop('galerija');
         Schema::drop('komentari');

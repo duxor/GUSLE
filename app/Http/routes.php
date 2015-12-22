@@ -49,22 +49,12 @@ Route::get('dogadjaji/{slug}', 'DogadjajiKO@slug');
 Route::get('dogadjaji/tagovi/{tag}', 'DogadjajiKO@tag');
 
 
-
-Route::get('/test',function(){return view('test');});
-
-Route::get('/home',function(){
-    print 'Pravo pristua korisnika: '.Auth::user()->prava_pristupa_id;
-    return '<br><br><a href="/administracija/privilegije1">Privilegije 1 - [2 i 3]</a>
-            <br><a href="/administracija/privilegije2">Privilegije 2 - samo [3]</a>
-            <br><br><a href="/auth/logout">Logout</a>';
-});
-
-
 Route::controllers([
     'password' => 'Auth\PasswordController',
     '/{username}/poruke'=>'MejlingKO',
     '/{username}/profil'=>'KorisniciKO',
     '/{username}/prodavnica'=>'ProdavnicaKO',
+    '/{username}/oglas/{slug?}'=>'ProdavnicaKO',
     '/{username}/pretraga'=>'PretragaKO',
 
     '/javna-diskusija'=>'JavnaDiskusijaKO',
