@@ -25,7 +25,8 @@ class ObjavaRequest extends Request
     {
         return [
             'naziv'=>'required|min:3|max:255',
-            'vrsta_objave_id'=>'required'
+            'vrsta_objave_id'=>'required',
+            'slug'=>'required',
         ];
     }
 }

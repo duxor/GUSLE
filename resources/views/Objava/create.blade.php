@@ -17,67 +17,42 @@
                             </div>
                         @endif
 
-
-                        {!! Form::open(array('url'=>'objava/store', 'files'=>'true')) !!}
-
+                        {!! Form::open(array('url'=>'dogadjaji/store', 'files'=>'true')) !!}
                             <div class="form-group">
                                 {!! Form::label('datum_dogadjaja',"Датум*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
                                 {!! Form::text('datum_dogadjaja',date('Y-m-d'),['class'=>'datepicker']) !!}
                             </div>
-
                             <div class="form-group">
                                 {!! Form::label('naziv',"Назив*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
                                 {!! Form::text('naziv',null,['class'=>'form-control', 'placeholder'=>'Назив']) !!}
                             </div>
-
-
                             <div class="form-group">
-                                {!! Form::label('datum_dogadjaja',"Врста*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
-                                <select class="form-control" name="vrsta_objave_id" id="vrsta_objave_id" placeholder="Назив">
-                                    <option value="" disabled selected>Врста</option>
-                                    @foreach($vrste_objave as $vrsta_objave)
-                                        <option value="{{$vrsta_objave->id}}">{{$vrsta_objave->naziv}}</option>
-                                    @endforeach
-                                    <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
-                                </select>
+                                {!! Form::label('vrsta_dogadjaja',"Врста*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
+                                {!! Form::select('vrsta_objave_id',$vrste_objave,'0',['class'=>'form-control']) !!}
                             </div>
-
-
-
-
-
                             <div class="form-group">
                                 {!! Form::label('sadrzaj',"Садржај") !!}
                                 {!! Form::textarea('sadrzaj',null,['class'=>'editor', 'id'=>'editor','placeholder'=>'Садржај']) !!}
                             </div>
-
                             <div class="form-group">
                                 {!! Form::label('tagovi',"Тагови (речи одвојени зарезом без размака)") !!}
                                 {!! Form::text('tagovi',null,['class'=>'form-control', 'placeholder'=>'Тагови']) !!}
                             </div>
-
                             <div class="form-group">
                                 {!! Form::label('foto',"Слика") !!}
                                 {!! Form::file('foto', null,['class'=>'form-control', 'data-buttonText'=>'Find file']) !!}
                             </div>
-
                             <div id="aktivan" class="form-group">
                                 <label>Активан:</label>
-                                <div class="radio">
-                                    <label><input type="radio"  checked="checked" name="aktivan" value="1">Да</label>
-                                </div>
-                                <div class="radio">
-                                    <label><input type="radio" name="aktivan" value="0">Не</label>
-                                </div>
+                                {!! Form::radio('aktivan', '1',true) !!}Да
+                                {!! Form::radio('aktivan', '0') !!}Не
                             </div>
-
                             <div class="form-group" align="center">
                                 <label for="">Mapa (Изаберите место дешавања догађаја)</label>
                                 <div id="map-canvas" style="width:500px;height:380px;"></div>
-                                <input type="hidden" name="x" id="P102_LATITUDE" value="44.78669522814711" />
-                                <input type="hidden" name="y" id="P102_LONGITUDE" value="20.450384063720662" />
+                                {!! Form::hidden('x',44.78669522814711,['id'=>'P102_LATITUDE' ]) !!}
+                                {!! Form::hidden('y',20.450384063720662,['id'=>'P102_LONGITUDE' ]) !!}
                             </div>
-
                             <div class="form-group">
                                 <div class="form-group col-sm-12">
                                 {!! Form::label('naziv',"Слуг*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
@@ -89,12 +64,9 @@
                                 {!! Form::text('slug',null,['class'=>'form-control', 'id'=>'slug_txt', 'placeholder'=>"Слуг"]) !!}
                                 </div>
                             </div>
-
-
                             <div class="form-group" align="center">
                                 {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span>Сачувајте објаву',[ 'class' => 'btn btn-default', 'type'=>'submit'])!!}
                             </div>
-                        
                             {!! Form::close() !!}
                     </div>
                 </div>
@@ -107,7 +79,6 @@
                             var pomocna = $('#naziv').val();
                             string_to_slug($('#naziv').val());
                         });
-
                         function string_to_slug(str) {
                             str = str.replace(/^\s+|\s+$/g, ''); // trim
                             str = str.toLowerCase();
@@ -128,7 +99,6 @@
                               $('#slug_txt').val(x);
                             });
                         }
-
                         //Kreiranje data-toggle
                         $('[data-toggle="tooltip"]').tooltip();
 
@@ -169,7 +139,6 @@
                                 document.getElementById("P102_LONGITUDE").value = marker.getPosition().lng();
                             });
                         }
-
                         google.maps.event.addDomListener(window, 'load', initialize);
                     });
                 </script>

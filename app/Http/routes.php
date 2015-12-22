@@ -27,27 +27,14 @@ Route::get('/password/email', 'Auth\PasswordController@getEmail');
 Route::post('password/email', 'Auth\PasswordController@postEmail');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
-
-
-//objava
-Route::get('objava/index', 'ObjavaController@index');
-Route::get('objava/create', 'ObjavaController@create');
-Route::post('objava/store', 'ObjavaController@store');
-Route::get('objava/{id}/edit', 'ObjavaController@edit');
-Route::PATCH('objava/{id}', 'ObjavaController@update');
-Route::PATCH('objava/{slug}', 'ObjavaController@update');
-Route::GET('objava/destroy/{id}', 'ObjavaController@destroy');
-
 //Dogadjaji
-//Route::get('/dogadjaji', 'DogadjajiKO@index');
-
-
-
-//objava
-Route::post('/slug', 'ObjavaController@slug');
-Route::get('dogadjaji/{slug}', 'DogadjajiKO@slug');
+Route::get('dogadjaji/create', 'DogadjajiKO@create');
+Route::post('dogadjaji/store', 'DogadjajiKO@store');
+Route::get('dogadjaji/{id}/edit', 'DogadjajiKO@edit');
+Route::PATCH('dogadjaji/update/{id}', 'DogadjajiKO@update');
+Route::post('/slug', 'DogadjajiKO@slug');
+Route::get('dogadjaji/{opsirnije}', 'DogadjajiKO@opsirnije');
 Route::get('dogadjaji/tagovi/{tag}', 'DogadjajiKO@tag');
-
 
 
 Route::get('/test',function(){return view('test');});
