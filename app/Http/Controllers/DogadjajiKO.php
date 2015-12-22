@@ -115,6 +115,10 @@ class DogadjajiKO extends Controller{
         }
 
     }
+    public function destroy($id){
+        Objava::destroy($id);
+        return redirect('dogadjaji');
+    }
     //Prikaz jednog dogadjaja
     public function opsirnije($slug){
         $dogadjaj = Objava::where('slug',$slug)->get();
