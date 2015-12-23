@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ListaZelja;
 use App\Media;
 use App\Proizvod;
+use App\StanjeOglasa;
 use App\StanjeProizvoda;
 use App\VrstaProizvoda;
 use Illuminate\Http\Request;
@@ -15,7 +16,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class ProdavnicaKO extends Controller{
     private $url='/prodavnica';
     private $imgFolder='img/prodavnica/';
@@ -30,14 +32,14 @@ class ProdavnicaKO extends Controller{
                 switch($target){
                     case'izmeni-oglas':
                         $proizvod=Proizvod::where('slug',$slug)->get()->first();
-                        $podaci=array_merge($podaci,['proizvod'=>$proizvod,'slike'=>Media::where('src','like','/img/prodavnica/prodavnica-'.$proizvod->korisnici_id.'-'.$proizvod->id.'-%')->get()]);
+                        $podaci=array_merge($podaci,['proizvod'=>$proizvod,'slike'=>Media::where('src','like','/img/prodavnica/prodavnica-'.$proizvod->korisnici_id.'-'.$proizvod->id.'-%')->get(),'username'=>$username]);
                     case'postavi-oglas':
                         $podaci=array_merge($podaci,['vrstaProizvoda'=>VrstaProizvoda::zaKombo(),'stanjeProizvoda'=>StanjeProizvoda::zaKombo()]);
                         return view('administracija.prodavnica.postavi-oglas')->with($podaci);
                         break;
                     case'moji-oglasi':
                     case'lista-zelja':
-                        $podaci=array_merge($podaci,['target'=>$target]);
+                        $podaci=array_merge($podaci,['target'=>$target,'status'=>json_encode(StanjeOglasa::orderBy('id')->get(['naziv','id'])->toArray())]);//dd($podaci);
                         break;
                 }
                 return view('administracija.prodavnica.moja-prodavnica')->with($podaci);
@@ -67,7 +69,7 @@ class ProdavnicaKO extends Controller{
         $update=Input::has('id');
         $test=Validator::make(Input::all(),[
             'naziv'=>'min:5|max:40|required',
-            'slug'=>$update?'':'alpha_dash|required',
+            'slug'=>'alpha_dash|required',
             'cena'=>'numeric|required',
             'kolicina'=>'integer|required',
             'narudzba'=>'boolean|required',
@@ -100,7 +102,6 @@ class ProdavnicaKO extends Controller{
             'uslovi.accepted'=>'Морате прихватити услове и правила кориштења.',
             'uslovi.required'=>'Поље услови је обавезно за унос.',
             'foto.required'=>'Обавезан је унос фотографија.',
-            'foto.image'=>'Фајл који сте одабрали није фотографија.',
             'foto.min'=>'Минималан број фотографија које је потребно додати је :min.',
         ]);
         if($test->fails()) return Redirect::back()->withErrors($test)->withInput();
@@ -119,6 +120,18 @@ class ProdavnicaKO extends Controller{
                 }
             Media::insert($fotografije);
             Proizvod::find($idOglasa,['id','foto'])->update(['foto'=>$fotografije[0]['src']]);
+        }else{
+            if($update){
+                if(!Media::where('src','like','/img/prodavnica/prodavnica-'.Auth::user()->id.'-'.$idOglasa.'-%')->count()>1){
+                    $test=Validator::make(['foto'=>Input::get('foto')],[
+                        'foto'=>'required|min:2'
+                    ],[
+                        'foto.required'=>'Обавезан је унос фотографија. Огласи без фотографија се неће приказивати.',
+                        'foto.min'=>'Минималан број фотографија које је потребно да оглас има је :min.',
+                    ]);
+                    if($test->fails()) return Redirect::back()->withErrors($test)->withInput();
+                }
+            }
         }
         return redirect('/'.$username.'/prodavnica/moji-oglasi');
     }
@@ -130,8 +143,15 @@ class ProdavnicaKO extends Controller{
         }
     }
 
+    public function postUkloniFoto(){
+        return Media::ukloniMOglasa(Input::get('oid'),Input::get('mid'));
+    }
+    public function postPromeniStatusOglasa(){
+        return Input::get('id');
+    }
+
     public function postMojiOglasi($username){
-        return json_encode(Proizvod::join('stanje_oglasa as so','so.id','=','proizvod.stanje_oglasa_id')->where('korisnici_id',Auth::user()->id)->where('proizvod.aktivan',1)->get(['proizvod.naziv','proizvod.slug','proizvod.cena','proizvod.created_at','so.naziv as status','foto'])->toArray());
+        return json_encode(Proizvod::where('korisnici_id',Auth::user()->id)->where('proizvod.aktivan',1)->get(['proizvod.id','proizvod.naziv','proizvod.slug','proizvod.cena','proizvod.created_at','stanje_oglasa_id as status','foto'])->toArray());
     }
     public function postListaZelja($username){
         return json_encode(ListaZelja::join('proizvod as p','p.id','=','proizvod_id')->join('stanje_oglasa as so','so.id','=','p.stanje_oglasa_id')->where('lista_zelja.korisnici_id',Auth::user()->id)->where('lista_zelja.aktivan',1)->where('p.aktivan',1)->get(['p.id','p.naziv','p.slug','p.cena','p.created_at','p.foto','so.naziv as status'])->toArray());

@@ -17,7 +17,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 class AuthController extends Controller
 {
     //protected $redirectPath = 'admin/content';
-    //protected $loginPath = 'admin/login';
+    protected $loginPath = '/prijava';
     protected $redirectTo = '/javna-diskusija';
     protected $redirectAfterLogout = '/';
 

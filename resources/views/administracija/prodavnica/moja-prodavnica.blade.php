@@ -27,6 +27,8 @@
     <script>
         $(function(){mojaProdavnica.init()})
         var mojaProdavnica={
+            'moji-oglasi':'Моји огласи',
+            'lista-zelja':'Листа жеља',
             initTarget:'{{$target}}',
             urlPost:'/{{$username}}/prodavnica/',
             urlOglasa:'/{{$username}}/oglas/',
@@ -46,6 +48,7 @@
             setNav:function(target){
                 $('#navMojaProdavnica>li').removeClass('active');
                 $('#'+target).addClass('active');
+                $('#naslov').html(mojaProdavnica[target]);
             },
             ucitaj:function(){
                 $('#work-place').html(mojaProdavnica.loading);
@@ -58,20 +61,31 @@
                                 ispis+='<hr>'+
                                     '<div class="row oglas">'+
                                         '<div class="col-xs-3">'+
-                                            '<img src="'+data[i].foto+'" alt="'+data[i].naziv+'">'+
+                                            '<a href="'+mojaProdavnica.urlOglasa+data[i].slug+'"><img src="'+data[i].foto+'" alt="'+data[i].naziv+'"></a>'+
                                         '</div>'+
-                                        '<div class="col-sm-9 col-xs-9">'+
-                                            '<a href="'+mojaProdavnica.urlOglasa+data[i].slug+'">'+data[i].naziv+'</a> '+ data[i].cena+' дин<br>'+
-                                            data[i].created_at+'<br>'+
-                                            data[i].status+
-                                            (mojaProdavnica.initTarget=='moji-oglasi'?'<a class="btn btn-c" href="'+mojaProdavnica.urlOglasa+data[i].slug+'/izmeni"><i class="glyphicon glyphicon-pencil"></i> Измени</a>':'')+
+                                        '<div class="col-sm-9 col-xs-9 form-inline">'+
+                                            '<a href="'+mojaProdavnica.urlOglasa+data[i].slug+'"><b class="th150">'+data[i].naziv+'</b></a> <b class="th120">'+ data[i].cena+' дин</b><br>'+
+                                            '<b><i class="glyphicon glyphicon-time"></i> '+(new Date(data[i].created_at).getDate())+'.'+(new Date(data[i].created_at).getMonth()+1)+'.'+(new Date(data[i].created_at).getFullYear())+'. '+(new Date(data[i].created_at).getHours())+':'+(new Date(data[i].created_at).getMinutes())+'</b><br>'+
+                                            (mojaProdavnica.initTarget=='moji-oglasi'?
+                                            mojaProdavnica.statusDrop(data[i].id,data[i].status)+
+                                            '<a class="btn btn-c" href="'+mojaProdavnica.urlOglasa+data[i].slug+'/izmeni"><i class="glyphicon glyphicon-pencil"></i> Измени</a>':data[i].status)+
                                             '<button class="btn btn-c-danger" onclick="mojaProdavnica.ukloni(\''+data[i].id+'\')"><i class="glyphicon glyphicon-trash"></i> Уклони</button>'+
                                         '</div>'+
                                     '</div>';
                         else ispis+='Ни један производ се не налази у листи.';
                         $('#work-place').html(ispis);
+                        $('.mojOglasStatus').change(function(){
+                            mojaProdavnica.promijeniStatusOglasa($(this).data('id'),$(this).val())
+                        });
                     }
                 });
+            },
+            ststusi:JSON.parse('{{$status}}'.replace(/&quot;/g,'"')),
+            statusDrop:function(idOglasa,statusId){
+                var ispis='<select data-id="'+idOglasa+'" class="form-control form-control-c mojOglasStatus">';
+                for(var i=0; i<mojaProdavnica.ststusi.length; i++)
+                    ispis+='<option value="'+mojaProdavnica.ststusi[i].id+'"'+(mojaProdavnica.ststusi[i].id==statusId?'selected="selected"':'')+'>'+mojaProdavnica.ststusi[i].naziv+'</option>';
+                return ispis+'</select>';
             },
             ukloni:function(id){
                 if(!confirm('Да ли сте сигурни да желите да извршите акцију уклони?')) return;
@@ -79,6 +93,11 @@
                 $.post(mojaProdavnica.urlPost+mojaProdavnica.initTarget+mojaProdavnica.ukloniStrUrl,{_token:mojaProdavnica.token,id:id},function(data){
                     mojaProdavnica.ucitaj(mojaProdavnica.initTarget);
                 });
+            },
+            promijeniStatusOglasa:function(id,status){
+                $.post(mojaProdavnica.urlPost+'promeni-status-oglasa',{_token:mojaProdavnica.token,id:id},function(data){
+                    console.log(data,status);
+                })
             }
         }
     </script>
@@ -87,5 +106,8 @@
         .oglas>.col-xs-3{text-align: center}
         .oglas img, .lbaner-line img{max-width: 100%;max-height: 150px}
         .lbaner-line img{margin-bottom: 5px}
+        .form-control-c{padding: 14px 0;height:auto}
+        .th150{font-size: 150%}
+        .th120{font-size: 120%}
     </style>
 @endsection

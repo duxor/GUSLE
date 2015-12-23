@@ -112,11 +112,26 @@
                 @if($proizvod)
                     <div id="fotoStare">
                         @foreach($slike as $slika)
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 foto-{{$slika->id}}">
                                 <img src="{{$slika->src}}" alt="{{$proizvod->naziv}}">
                                 <button class="btn btn-c-danger" onclick="ukloniFoto({{$slika->id}})"><i class="glyphicon glyphicon-trash"></i> Уклони</button>
                             </div>
                         @endforeach
+                        <script>
+                            function ukloniFoto(oid){
+                                var img=$('.foto-'+oid).html();
+                                $('.foto-'+oid).html(GlobalVar.loading);
+                                $.post('/{{$username}}/prodavnica/ukloni-foto',{_token:'{{csrf_token()}}',oid:'{{$proizvod->id}}',mid:oid},function(data){
+                                    if(data>0){
+                                        $('.foto-'+oid).fadeOut();
+                                        $('.foto-'+oid).remove();
+                                    }else{
+                                        $('.foto-'+oid).html(img);
+                                        alert('Догодила се грешка. Учитајте страницу и покушајте поново или контактирајте нашу техничку подршку.');
+                                    }
+                                })
+                            }
+                        </script>
                     </div>
                 @endif
                 <div id="fotoPrikaz"></div>
@@ -196,9 +211,6 @@
                 $('#slug').removeAttr('disabled');
                 $('#formaObjavaOglasa').submit();
             }
-        }
-        function ukloniFoto(id){
-            $()
         }
         $(function(){cirilo.init()})
         var cirilo={
