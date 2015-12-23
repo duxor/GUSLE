@@ -27,6 +27,17 @@
                                 {!! Form::text('naziv',null,['class'=>'form-control', 'placeholder'=>'Назив']) !!}
                             </div>
                             <div class="form-group">
+                                <div class="form-group col-sm-12">
+                                    {!! Form::label('naziv',"Слуг*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
+                                </div>
+                                <div class="form-group col-sm-3">
+                                    {!! Form::button('Креирајте слуг',['class'=>'form-control', 'id'=>'slug_btn']) !!}
+                                </div>
+                                <div class="form-group col-sm-9">
+                                    {!! Form::text('slug',null,['class'=>'form-control', 'id'=>'slug_txt', 'placeholder'=>"Слуг"]) !!}
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 {!! Form::label('vrsta_dogadjaja',"Врста*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
                                  {!! Form::select('vrsta_objave_id', $vrste_objave, $dogadjaj->vrsta_objave_id,['class'=>'form-control']) !!}
                             </div>
@@ -52,17 +63,6 @@
                                 <div id="map-canvas" style="width:500px;height:380px;"></div>
                                {!! Form::hidden('x',$dogadjaj->x,['id'=>'P102_LATITUDE' ]) !!}
                                 {!! Form::hidden('y',$dogadjaj->y,['id'=>'P102_LONGITUDE' ]) !!}
-                            </div>
-                            <div class="form-group">
-                                <div class="form-group col-sm-12">
-                                    {!! Form::label('naziv',"Слуг*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
-                                </div></br>
-                                <div class="form-group col-sm-3">
-                                    {!! Form::button('Креирајте слуг',['class'=>'form-control', 'id'=>'slug_btn']) !!}
-                                </div>
-                                <div class="form-group col-sm-9">
-                                    {!! Form::text('slug',null,['class'=>'form-control', 'id'=>'slug_txt', 'placeholder'=>"Слуг"]) !!}
-                                </div>
                             </div>
                             <div class="form-group" align="center">
                                 {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span>Сачувајте објаву',[ 'class' => 'btn btn-default', 'type'=>'submit'])!!}

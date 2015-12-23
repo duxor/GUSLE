@@ -153,6 +153,16 @@ class AuthController extends Controller
             'token'=>$data['_token']
         ]);
     }
+
+    public function edit($id){
+       $gradovi = Grad::orderBy('id')->lists('naziv','id');
+        $korisnik = User::find($id);
+        return view('auth.edit')->with('korisnik',$korisnik)->with('gradovi',$gradovi);
+    }
+
+    public function update(){
+        return "zdravo update";
+    }
 }
 
 

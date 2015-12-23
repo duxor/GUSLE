@@ -1,4 +1,4 @@
 @extends('administracija.master.osnovni')
 @section('body')
-    Профил
+    {{Auth::User()->username}}
 @endsection

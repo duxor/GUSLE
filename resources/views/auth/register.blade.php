@@ -17,60 +17,57 @@
 						</div>
 					@endif
 
-					<form class="form-horizontal" role="form" method="POST" enctype="multipart/form-data" action="{{ url('/auth/register') }}">
+						{!! Form::open(array('url'=>'/auth/register', 'files'=>'true','class'=>'form-horizontal','role'=>'form')) !!}
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
-							<label class="col-md-4 control-label" data-toggle='tooltip' title='Поље је обавезно за унос'>Име*</label>
+								{!! Form::label('ime',"Име*", ['class'=>'col-md-4 control-label', 'data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="ime" placeholder="Име" value="{{ old('ime') }}">
+								{!! Form::text('ime',Input::old('ime'),['class'=>'form-control','placeholder'=>'Име']) !!}
+							</div>
+						</div>
+						<div class="form-group">
+							{!! Form::label('prezime',"Презиме*", ['class'=>'col-md-4 control-label', 'data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
+							<div class="col-md-6">
+								{!! Form::text('prezime',Input::old('prezime'),['class'=>'form-control','placeholder'=>'Презиме']) !!}
+							</div>
+						</div>
+						<div class="form-group">
+							{!! Form::label('korisnicko_ime',"Корисничко име*", ['class'=>'col-md-4 control-label', 'data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
+							<div class="col-md-6">
+								{!! Form::text('username',Input::old('username'),['class'=>'form-control','placeholder'=>'Корисничко име']) !!}
+							</div>
+						</div>
+						<div class="form-group">
+							{!! Form::label('email',"E-mail адреса*", ['class'=>'col-md-4 control-label', 'data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
+							<div class="col-md-6">
+								{!! Form::email('email',Input::old('email'),['class'=>'form-control','placeholder'=>'E-mail адреса']) !!}
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label" data-toggle='tooltip' title='Поље је обавезно за унос'>Презиме*</label>
+							{!! Form::label('sifra',"Шифра*", ['class'=>'col-md-4 control-label', 'data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="prezime"  placeholder="Презиме" value="{{ old('prezime') }}">
+								{!! Form::password('password',['class'=>'form-control','placeholder'=>'Шифра']) !!}
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label" data-toggle='tooltip' title='Поље је обавезно за унос'>Корисничко име*</label>
+							{!! Form::label('potvrdite_sifru',"Потврдите шифру*", ['class'=>'col-md-4 control-label', 'data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="username"  placeholder="Корисничко име" value="{{ old('username') }}">
+								{!! Form::password('password_confirmation',['class'=>'form-control','placeholder'=>'Потврдите шифру']) !!}
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label" data-toggle='tooltip' title='Поље је обавезно за унос'>E-mail адреса*</label>
+							{!! Form::label('adresa',"Адреса", ['class'=>'col-md-4 control-label']) !!}
 							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" placeholder="E-mail адреса" value="{{ old('email') }}">
+								{!! Form::text('adresa',Input::old('adresa'),['class'=>'form-control','placeholder'=>'Адреса']) !!}
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label" data-toggle='tooltip' title='Поље је обавезно за унос'>Шифра*</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control"  placeholder="Шифра" name="password">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label" data-toggle='tooltip' title='Поље је обавезно за унос'>Потврдите шифру*</label>
-							<div class="col-md-6">
-								<input type="password" class="form-control" name="password_confirmation" placeholder="Потврдите шифру">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Адреса</label>
-							<div class="col-md-6">
-								<input type="text" class="form-control" name="adresa" placeholder="Адреса" value="{{ old('adresa') }}">
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-4 control-label">Град</label>
+							{!! Form::label('grad',"Град", ['class'=>'col-md-4 control-label']) !!}
 							<div class="col-md-6">
 								<div class="row">
 									<div class="col-md-6">
@@ -85,22 +82,22 @@
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Телефон</label>
+							{!! Form::label('telefon',"Телефон", ['class'=>'col-md-4 control-label']) !!}
 							<div class="col-md-6">
-								<input type="text" class="form-control" name="telefon" placeholder="Телефон" value="{{ old('telefon') }}">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-md-4 control-label">Биографија</label>
-							<div class="col-md-6">
-								<input type="textarea" class="form-control" name="bio" placeholder="Биографија" value="{{ old('bio') }}">
+								{!! Form::text('telefon',Input::old('telefon'),['class'=>'form-control','placeholder'=>'Телефон']) !!}
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-md-4 control-label">Слика</label>
+							{!! Form::label('biografija',"Биографија", ['class'=>'col-md-4 control-label']) !!}
 							<div class="col-md-6">
-								<input type="file" class="form-control" name="foto" value="{{ old('foto') }}"><span class="glyphicons glyphicons-folder-plus"></span></input>
+								{!! Form::textarea('bio',Input::old('bio'),['class'=>'form-control','placeholder'=>'Биографија']) !!}
+							</div>
+						</div>
+						<div class="form-group">
+							{!! Form::label('slika',"Слика", ['class'=>'col-md-4 control-label']) !!}
+							<div class="col-md-6">
+								{!! Form::file('foto',Input::old('foto'),['class'=>'form-control','placeholder'=>'Слика']) !!}
 							</div>
 						</div>
 
@@ -108,17 +105,15 @@
 							<label class="col-md-4 control-label"></label>
 							<div class="col-md-6">
 								<h7 data-toggle='tooltip' title='Чекирајте поље за наставак'><strong>Пiхватам</strong></h7>
-								<a href="odredbe/pravilnik"> <input type="checkbox" name="uslovi_koriscenja" id="uslovi_koriscenja">  услове коришћења  </a>
+								<a href="odredbe/pravilnik">  {!! Form::checkbox('uslovi_koriscenja','0',false,['id'=>'uslovi_koriscenja']) !!}Да  услове коришћења  </a>
 							</div>
 						</div>
 
-						<div class="form-group">
-							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary" name="registracija" id="registracija">
-									Региструј се
-								</button>
-							</div>
+						<div class="form-group" align="center">
+							{!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span>Региструјте се',[ 'name'=>'registracija','class' => 'btn btn-default','id'=>'registracija', 'type'=>'submit'])!!}
 						</div>
+
+
 					</form>
 				</div>
 			</div>
