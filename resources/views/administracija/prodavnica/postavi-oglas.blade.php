@@ -189,7 +189,7 @@
         $(function(){cirilo.init()})
         var cirilo={
             init:function(){
-                $('[data-serbian=true]').focus(function(){console.log(1);
+                $('[data-serbian=true]').focus(function(){
                     $(this).closest('div').append('<div class="alert alert-success srpsko-uputstvo"><footer><b>ћ .ц.</b> | <b>ч ,ц,</b> | <b>ђ .д,</b> | <b>љ .л, или q</b> | <b>њ .н, или w</b> | <b>џ .дз. или џ</b> | <b>ш .с.</b></footer></div>');
                 });
                 $('[data-serbian=true]').blur(function(){
