@@ -37,4 +37,7 @@ class OsnovniKO extends Controller{
     public function getNepotvrdjen(){
         return view('auth.nepotvrdjen');
     }
+    public function getDogadjaj($slug){
+        return DogadjajiKO::dogadjaj($slug);
+    }
 }

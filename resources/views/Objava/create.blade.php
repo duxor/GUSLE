@@ -1,6 +1,6 @@
-@extends('layouts.master')
+@extends('administracija.master.osnovni')
 @section('body')
-    <div class="container-fluid pt60">
+    <div class="container-fluid pt30">
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
                 <div class="panel panel-default">
@@ -17,7 +17,7 @@
                             </div>
                         @endif
 
-                        {!! Form::open(array('url'=>'dogadjaji/store', 'files'=>'true')) !!}
+                        {!! Form::open(array('url'=>'/'.$username.'/dogadjaji/objavi-dogadjaj', 'files'=>'true')) !!}
                             <div class="form-group">
                                 {!! Form::label('datum_dogadjaja',"Датум*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
                                 {!! Form::text('datum_dogadjaja',date('Y-m-d'),['class'=>'datepicker']) !!}

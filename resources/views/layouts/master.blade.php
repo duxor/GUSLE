@@ -43,13 +43,13 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Здраво {{$korisnik}}! @if($brNovihPoruka) <i class="glyphicon glyphicon-envelope"></i> @else <span class="caret"></span> @endif</a>
                         <ul class="dropdown-menu">
                             <li><a href="/{{$korisnik}}/profil"><i class="glyphicon glyphicon-user"></i> Профил</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-comment"></i> Дискусија</a></li>
+                            <li><a href="/{{$korisnik}}/profil"><i class="glyphicon glyphicon-comment"></i> Дискусија</a></li>
                             <li><a href="/{{$korisnik}}/poruke"><i class="glyphicon glyphicon-envelope"></i> Поруке <i id="brojNovihNav" class="badge pull-right">{{$brNovihPoruka}}</i></a></li>
                             <li><a href="#" data-toggle="tooltip" title="Претрага корисника портала" data-placement="right"><i class="glyphicon glyphicon-search"></i> Претрага</a></li>
                             <li><a href="/{{$korisnik}}/prodavnica/moji-oglasi"><i class="glyphicon glyphicon-shopping-cart"></i> Моји огласи</a></li>
-                            <li><a href="/auth/logout"><i class="glyphicon glyphicon-off"></i> Одјави се</a></li>
+                            <li><a href="/odjava"><i class="glyphicon glyphicon-off"></i> Одјави се</a></li>
                         </ul>
-                    @else <a href="/auth/login"><i class="glyphicon glyphicon-log-in"></i> Пријава</a> @endif</li>
+                    @else <a href="/prijava"><i class="glyphicon glyphicon-log-in"></i> Пријава</a> @endif</li>
             </ul>
             <ul class="nav navbar-nav navbar-right scrol">
                 <li><a href="/"><i class="glyphicon glyphicon-home"></i> Почетна</a></li>

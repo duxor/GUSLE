@@ -46,3 +46,6 @@ vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.php
 vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.php
 vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.php
 .idea/blade.xml
+app/Http/Controllers/KorisniciKO.php
+app/Http/routes.php
+app/Http/Controllers/KorisniciKO.php

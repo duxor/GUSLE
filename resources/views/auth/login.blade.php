@@ -27,7 +27,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/prijava') }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                         <div class="form-group">
@@ -47,10 +47,10 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Пријави се</button>
-                                <a class="btn btn-link" href="{{ url('/password/email') }}">Заборавили сте шифру?</a>
+                                <a class="btn btn-link" href="{{ url('/zaboravljena-sifra') }}">Заборавили сте шифру?</a>
                             </div>
                             <div class="col-md-3  col-md-offset-5">
-                                <a class="btn btn-link col-md-offset-3" href="{{ url('/auth/register') }}">Региструјте се!</a>
+                                <a class="btn btn-link col-md-offset-3" href="{{ url('/registracija') }}">Региструјте се!</a>
                             </div>
                         </div>
                     </form>

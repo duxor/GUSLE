@@ -48,6 +48,9 @@
                         <a href="/{{$korisnik->username}}/prodavnica/lista-zelja">
                             <li class="list-group-item"><i class="glyphicon glyphicon-heart"></i> Листа жеља</li>
                         </a>
+                        <a href="/{{$korisnik->username}}/dogadjaji/moje-objave">
+                            <li class="list-group-item"><i class="glyphicon glyphicon-list-alt"></i> Моје објаве</li>
+                        </a>
                     </ul>
                 </div>
             </div>
@@ -72,7 +75,7 @@
         </div>
         <div class="panel-group">
             <div class="panel panel-default panel-title">
-                <a href="##/{{$korisnik->username}}/objavi">
+                <a href="/{{$korisnik->username}}/dogadjaji/objavi-dogadjaj">
                     <div class="panel-heading" id="headingOne">
                         <h4><i class="glyphicon glyphicon-list-alt"></i> Објави догађај</h4>
                     </div>
@@ -99,7 +102,7 @@
         </div>
         <div class="panel-group">
             <div class="panel panel-default panel-title">
-                <a href="/auth/logout">
+                <a href="/odjava">
                     <div class="panel-heading" id="headingOne">
                         <h4><i class="glyphicon glyphicon-off"></i> Одјави се</h4>
                     </div>
@@ -123,7 +126,7 @@
         }
         .vertikalni-nav img{ width: 100% }
         .bw{background-color: #fff; min-height: 700px;}
-        .vertikalni-nav .panel-default>.panel-heading,.panel{ background-color: #1A0D0A; border: none;}
+        .vertikalni-nav .panel-default>.panel-heading,.vertikalni-nav .panel{ background-color: #1A0D0A; border: none;}
         .vertikalni-nav .panel-group .panel,.vertikalni-nav .panel>.list-group:first-child .list-group-item:first-child, .vertikalni-nav .panel>.panel-collapse>.list-group:first-child .list-group-item:first-child{border-radius: 0}
         .vertikalni-nav .panel-title:hover{ background-color: #4b251d; }
         .vertikalni-nav .panel>.panel-collapse>.list-group .list-group-item{ background-color: #592c22; border:none; }

@@ -17,7 +17,7 @@
 						</div>
 					@endif
 
-						{!! Form::open(array('url'=>'/auth/register', 'files'=>'true','class'=>'form-horizontal','role'=>'form')) !!}
+						{!! Form::open(array('url'=>'/registracija', 'files'=>'true','class'=>'form-horizontal','role'=>'form')) !!}
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="form-group">
