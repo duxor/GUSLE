@@ -29,7 +29,8 @@ class ProdavnicaKO extends Controller{
                 $podaci=['master'=>'administracija.master.osnovni','username'=>$username];
                 switch($target){
                     case'izmeni-oglas':
-                        $podaci=array_merge($podaci,['proizvod'=>Proizvod::where('slug',$slug)->get()->first()]);
+                        $proizvod=Proizvod::where('slug',$slug)->get()->first();
+                        $podaci=array_merge($podaci,['proizvod'=>$proizvod,'slike'=>Media::where('src','like','/img/prodavnica/prodavnica-'.$proizvod->korisnici_id.'-'.$proizvod->id.'-%')->get()]);
                     case'postavi-oglas':
                         $podaci=array_merge($podaci,['vrstaProizvoda'=>VrstaProizvoda::zaKombo(),'stanjeProizvoda'=>StanjeProizvoda::zaKombo()]);
                         return view('administracija.prodavnica.postavi-oglas')->with($podaci);

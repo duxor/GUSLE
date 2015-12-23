@@ -109,6 +109,16 @@
                     <i class="glyphicon glyphicon-cloud-upload"></i> Изабери фотографије <input type="file" name="foto[]" onchange="prikaziFoto(this);" accept="image/*" multiple>
                 </span>
                 <br><br>
+                @if($proizvod)
+                    <div id="fotoStare">
+                        @foreach($slike as $slika)
+                            <div class="col-sm-3">
+                                <img src="{{$slika->src}}" alt="{{$proizvod->naziv}}">
+                                <button class="btn btn-c-danger" onclick="ukloniFoto({{$slika->id}})"><i class="glyphicon glyphicon-trash"></i> Уклони</button>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
                 <div id="fotoPrikaz"></div>
             </div>
         </div>
@@ -126,25 +136,26 @@
         </div>
         {!!Form::close()!!}
     <style>
-    .btn-file {
-        position: relative;
-        overflow: hidden;
-    }
-    .btn-file input[type=file] {
-        position: absolute;
-        top: 0;
-        right: 0;
-        min-width: 100%;
-        min-height: 100%;
-        font-size: 100px;
-        text-align: right;
-        filter: alpha(opacity=0);
-        opacity: 0;
-        outline: none;
-        background: white;
-        cursor: inherit;
-        display: block;
-    }
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+        #fotoStare img{width: 100%;margin-bottom: 5px}
     </style>
     <script>
         function kreirajSlug(_btn) {
@@ -160,7 +171,7 @@
             str = str.replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-');
             if(str.charAt(str.length-1)=='-') str=str.substr(0,str.length-1);
             $.post('/prodavnica/slug-test',{slug:str,_token:'{{csrf_token()}}' },function(data){
-                $('#slug').val(JSON.parse(data).slug);console.log(JSON.parse(data));
+                $('#slug').val(JSON.parse(data).slug);
                 $(_btn).html(btn);
             });
         }
@@ -185,6 +196,9 @@
                 $('#slug').removeAttr('disabled');
                 $('#formaObjavaOglasa').submit();
             }
+        }
+        function ukloniFoto(id){
+            $()
         }
         $(function(){cirilo.init()})
         var cirilo={
