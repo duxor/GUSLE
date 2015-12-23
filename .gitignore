@@ -41,3 +41,7 @@ vendor/composer/autoload_classmap.php
 .idea/vagrant.xml
 .idea/vagrant.xml
 .idea/vagrant.xml
+vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.php
+vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.php
+vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.php
+vendor/laravel/framework/src/Illuminate/Foundation/Auth/RegistersUsers.php

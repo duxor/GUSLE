@@ -34,8 +34,7 @@ class OsnovniKO extends Controller{
     public function getPomoc(){
         return view('odredbe.pomoc');
     }
-
-    public function getOglas($slug){
-        dd(Proizvod::where('slug',$slug)->get()->toArray());
+    public function getNepotvrdjen(){
+        return view('auth.nepotvrdjen');
     }
 }
