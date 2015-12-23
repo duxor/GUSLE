@@ -95,7 +95,7 @@
                             .replace(/-+/g, '-'); // collapse dashes
 
                     //Provera da li u bazi postoji slug
-                    $.post('http://localhost:8080/slug',{name:str,_token:'{{csrf_token()}}' },function(data){
+                    $.post('/slug',{name:str,_token:'{{csrf_token()}}' },function(data){
                         var x = data.result;
                         $('#slug_txt').val(x);
                     });
