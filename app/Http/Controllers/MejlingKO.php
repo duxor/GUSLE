@@ -69,9 +69,7 @@ class MejlingKO extends Controller {
 		return json_encode(Mailbox::leftjoin('korisnici','korisnici.id','=','mailbox.od_id')->where('korisnici_id',Auth::user()->id)->where('mailbox.id',Input::get('id'))->get(['od_email','username','naslov','poruka','procitano','mailbox.created_at'])->first());
 	}
     public static function brojNovih(){
-        if(Auth::check()) {
-            $br = Mailbox::where('korisnici_id', Auth::user()->id)->where('procitano', 0)->where('aktivan', 1)->where('mailbox.copy', 0)->count();
-        }else return null;
+        $br=Mailbox::where('korisnici_id',Auth::user()->id)->where('procitano',0)->where('aktivan',1)->where('mailbox.copy',0)->count();
         return $br>0?$br:null;
     }
 //POSLATE
