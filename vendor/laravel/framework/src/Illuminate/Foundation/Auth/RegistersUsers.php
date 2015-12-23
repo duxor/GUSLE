@@ -18,7 +18,7 @@ trait RegistersUsers
     public function getRegister()
     {
         $gradovi=Grad::lists('naziv','id');
-        return view('auth.register')->with('gradovi',$gradovi);;
+        return view('auth.register')->with('gradovi',$gradovi);
     }
 
     /**
@@ -38,7 +38,6 @@ trait RegistersUsers
         }
 
         Auth::login($this->create($request->all()));
-
         return redirect($this->redirectPath());
     }
 }

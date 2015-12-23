@@ -18,8 +18,9 @@ use Illuminate\Support\Facades\Auth;
 //Registrovenje
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
-Route::get('auth/{id}/edit', 'Auth\AuthController@edit');
-Route::PATCH('auth/update/{id}', 'Auth\AuthController@update');
+//Korisnici
+Route::get('{username}/{id}/edit', 'KorisniciKO@edit');
+Route::post('{username}/update/{id}', 'KorisniciKO@update');
 //Prijavljivanje
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
