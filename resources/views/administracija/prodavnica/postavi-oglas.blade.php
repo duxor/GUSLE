@@ -17,14 +17,23 @@
     @endif
     {!!Form::model($proizvod,['action'=>['ProdavnicaKO@postObjaviOglas',$username],'id'=>'formaObjavaOglasa','files'=>'true','class'=>'form-horizontal'])!!}
         {!!Form::hidden('id')!!}
+        <blockquote class="col-sm-offset-4 col-sm-8">
+            <p>Наше писмо:</p>
+            <footer>У циљу очувања српског националног идентитета молимо Вас да користите <b>ћирилично</b> писмо приликом додавања огласа.</footer>
+            <footer>Омогућили смо директну, аутоматску конверзију са латинице у ћирилицу</footer>
+            <footer>Обзиром да смо језички богатији од енглеза и имамо већи број слова следећа слова можете добити на следећи начин</footer>
+            <footer><b>ћ .ц.</b> | <b>ч ,ц,</b> | <b>ђ .д,</b> | <b>љ .л, или q</b> | <b>њ .н, или w
+</b> | <b>џ .дз. или џ</b> | <b>ш .с.</b></footer>
+        </blockquote>
         <div id="dnaziv" class="form-group has-feedback">
-            <label name="lnaziv" class="col-sm-4 control-label" data-toggle="tooltip" title="Поље је обавезно за унос">Назив*</label>
+            <label name="lnaziv" class="col-sm-4 control-label" data-toggle="tooltip" title="Поље је обавезно за унос">Назив предмета*</label>
             <div class="col-sm-8">
-                {!! Form::text('naziv',null,['class'=>'form-control form-control-c','id'=>'naziv','placeholder'=>'Назив предмета']) !!}
+                {!! Form::text('naziv',null,['class'=>'form-control form-control-c','id'=>'naziv','placeholder'=>'Назив предмета','data-serbian'=>'true']) !!}
                 <i id="snaziv" class="glyphicon form-control-feedback"></i>
             </div>
         </div>
-        <div class="col-sm-offset-4 col-sm-8"> <blockquote>
+        <div class="col-sm-offset-4 col-sm-8">
+        <blockquote>
             <p>Слуг поље:</p>
             <footer>Омогућили смо Вам да пре него што креирате оглас видите како ће да изгледа Ваше слуг поље</footer>
             <footer>Да би линкови ка Вашим огласима изгледали што је могуће боље систем користи слуг поља</footer>
@@ -84,7 +93,7 @@
         <div id="dopis" class="form-group has-feedback">
             <label name="lopis" class="col-sm-4 control-label" data-toggle="tooltip" title="Поље опис је обавезно">Опис*</label>
             <div class="col-sm-8">
-                {!! Form::textarea('opis',null,['class'=>'form-control form-control-c','id'=>'opis','placeholder'=>'Опис','rows'=>'10']) !!}
+                {!! Form::textarea('opis',null,['class'=>'form-control form-control-c','id'=>'opis','placeholder'=>'Опис','rows'=>'10','data-serbian'=>'true']) !!}
                 <i id="сopis" class="glyphicon form-control-feedback"></i>
             </div>
         </div><br clear="all">
@@ -175,6 +184,47 @@
             if(SubmitForm.check('formaObjavaOglasa')){
                 $('#slug').removeAttr('disabled');
                 $('#formaObjavaOglasa').submit();
+            }
+        }
+        $(function(){cirilo.init()})
+        var cirilo={
+            init:function(){
+                $('[data-serbian=true]').focus(function(){console.log(1);
+                    $(this).closest('div').append('<div class="alert alert-success srpsko-uputstvo"><footer><b>ћ .ц.</b> | <b>ч ,ц,</b> | <b>ђ .д,</b> | <b>љ .л, или q</b> | <b>њ .н, или w</b> | <b>џ .дз. или џ</b> | <b>ш .с.</b></footer></div>');
+                });
+                $('[data-serbian=true]').blur(function(){
+                    $('.srpsko-uputstvo').remove();
+                });
+                $('[data-serbian=true]').keypress(function(e){
+                    var
+                        cirilica = 'абвгдезијклмнњопрстуфхцчћђжшљњџАБВГДЂЕЖЗИЈКЛМНОПРСТУФХЦЧЋЂЖШЏЉЊ',//Ђ Љ Њ Ж Ч Џ Ш
+                        latinica = 'abvgdezijklmnnoprstufhcčćđžšqwxABVGDDEZZIJKLMNOPRSTUFHCČĆĐŽŠXQW',
+                        slovo=String.fromCharCode(e.keyCode),
+                        test=false,
+                        cursorStart=$(this)[0].selectionStart;
+                    if(latinica.indexOf(String.fromCharCode(e.keyCode))>=0)
+                        slovo=cirilica.charAt(latinica.indexOf(slovo));
+                    $(this).val(
+                        $(this).val().substring(0,cursorStart)+
+                        slovo+
+                        $(this).val().substring($(this)[0].selectionEnd)
+                    );
+                    $(this).val($(this).val()
+                        .replace(/\.ц\./g,'ћ').replace(/\.Ц\./g,'Ћ')
+                        .replace(/,ц,/g,'ч').replace(/,Ц,/g,'Ч')
+                        .replace(/\.д,/g,'ђ').replace(/\.Д,/g,'Ђ')
+                        .replace(/\.л,/g,'љ').replace(/\.Л,/g,'Љ')
+                        .replace(/\.н,/g,'њ').replace(/\.Н,/g,'Њ')
+                        .replace(/\.дз\./g,'џ').replace(/\.ДЗ./g,'Џ')
+                        .replace(/\.с\./g,'ш').replace(/\.С\./,'Ш'));
+                    cirilo.setCursor($(this)[0],cursorStart);
+                    e.preventDefault();
+
+                })
+            },
+            setCursor:function(input, start) {
+                input.selectionStart=start+1;
+                input.selectionEnd=start+1;
             }
         }
     </script>
