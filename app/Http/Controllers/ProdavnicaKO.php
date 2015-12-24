@@ -51,7 +51,7 @@ class ProdavnicaKO extends Controller{
     }
 
     public static function najnoviji(){
-        return Proizvod::where('aktivan',1)->where('stanje_oglasa_id',1)->orderBy('created_at','desc')->take(ProdavnicaKO::$brojNajnovijih)->get(['slug','foto','naziv','cena']);
+        return Proizvod::where('aktivan',1)->where('stanje_oglasa_id',1)->take(ProdavnicaKO::$brojNajnovijih)->orderBy('id','desc')->get(['slug','foto','naziv','cena']);
     }
     public function getIndex($username=null,$slug=null,$akcija=null){
         if($akcija){//akcija=izmeni

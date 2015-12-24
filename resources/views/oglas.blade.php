@@ -1,3 +1,4 @@
+<?php $prijavljen=\Illuminate\Support\Facades\Auth::check(); ?>
 @extends(isset($master)?$master:'layouts.master')
 @section('body')
     <div class="container-fluid oglas {{isset($master)?'':'pt60'}}">
@@ -27,7 +28,7 @@
                             <div class="input-group-btn">
                                 <button class="btn btn-c" data-tooltip="tooltip" title="Важно: информације за купца" data-toggle="collapse-c" href="#kupacInfo"><i class="glyphicon glyphicon-info-sign"></i></button>
                                 <button class="btn btn-c" data-tooltip="tooltip" title="Контакт телефон" data-toggle="collapse-c" href="#kontaktInfo"><i class="glyphicon glyphicon-earphone"></i></button>
-                                <button class="btn btn-c"><i class="glyphicon glyphicon-shopping-cart"></i> {{$oglas->narudzba?'Наручи':'Купи'}} одмах</button>
+                                <button class="btn btn-c" onclick="oglasi.kupi({{$oglas->id}})" data-toggle="collapse-c" href="#kupiOdmah"><i class="glyphicon glyphicon-shopping-cart"></i> {{$oglas->narudzba?'Наручи':'Купи'}} одмах</button>
                             </div>
                         </div><br clear="all">
                         <div class="collapse" id="kupacInfo">
@@ -44,6 +45,15 @@
                         <div class="collapse" id="kontaktInfo">
                             <div class="well well-c">
                                 <p>Контакт подаци за продавца</p>
+                                <p>{{$oglas->ime}} {{$oglas->prezime}} ({{$oglas->username}}):</p>
+                                <p><b><i class="glyphicon glyphicon-earphone"></i> {{$oglas->telefon?$oglas->telefon:'Корисник није поставио свој број телефона, контактирајте га приватном поруком.'}}</b></p>
+                                <p><a href="/{{$username?$username:'admin'}}/poruke/kreiraj/{{$oglas->username}}" class="btn btn-c"><i class="glyphicon glyphicon-envelope"></i> Контактирај продавца</a></p>
+                            </div>
+                        </div>
+                        <div class="collapse" id="kupiOdmah">
+                            <div class="well well-c">
+                                <p><b>Купи одмах</b></p>
+                                <p>У циљу што квалитетнијег рада функционалност купи одмах је у фази тестирања, па сходно томе још увек није пуштена у рад. Контактирајте продавца и непосредно договорите куповину. Хвала на разумевању.<br>Техничка подршка</p>
                                 <p>{{$oglas->ime}} {{$oglas->prezime}} ({{$oglas->username}}):</p>
                                 <p><b><i class="glyphicon glyphicon-earphone"></i> {{$oglas->telefon?$oglas->telefon:'Корисник није поставио свој број телефона, контактирајте га приватном поруком.'}}</b></p>
                                 <p><a href="/{{$username?$username:'admin'}}/poruke/kreiraj/{{$oglas->username}}" class="btn btn-c"><i class="glyphicon glyphicon-envelope"></i> Контактирај продавца</a></p>
@@ -122,7 +132,7 @@
                 $(oglasi.imgLgId).attr('src',$(img).attr('src'))
             },
             zelimToggle:function(el){
-            @if($username)
+            @if($prijavljen)
                 var btn=$(oglasi.zelimBtnId).html();
                 $(oglasi.zelimBtnId).html(oglasi.loading);
                 $.post(oglasi.url,{_token:oglasi.token,id:oglasi.id},function(){
@@ -143,11 +153,28 @@
                 if(test) return;
                 $(oglasi.zelimBtnId).removeClass('btn-cz').addClass('btn-c').attr('data-original-title','Додај производ у листу жеља').attr('title','Додај производ у листу жеља').tooltip('fixTitle').tooltip('show');
             },
-            prijavi:function(){
-                @if($username)
-
+            prijavaModal:null,
+            prijavi:function(podaci){
+                @if($prijavljen)
+                if(!podaci)
+                    if(oglasi.prijavaModal) $('#prijaviModal').modal('show');
+                    else{
+                        $('body').append('<div id="prijaviModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button class="close" data-dismiss="modal">&times;</button><h2>Пријави оглас</h2></div><div class="modal-body">Опис неправилности <textarea name="prijavaTekst" class="form-control form-control-c" placeholder="Унесите неправилност коју сте уочили у овом огласу"></textarea><br><button class="btn btn-c" onclick="oglasi.prijavi(true)"><i class="glyphicon glyphicon-envelope"></i> Пријави</button></div></div></div></div>');
+                        $('#prijaviModal').modal('show');
+                    }
+                else{
+                    $('#prijaviModal').modal('hide');
+                    alert('Ваша пријава је успешно послата нашем тиму. Хвала на помоћи.');
+                }
                 @else
                     window.location.assign('/prijava');
+                @endif
+            },
+            kupi:function(id){
+                @if($prijavljen)
+
+                @else
+                    //window.location.assign('/prijava');
                 @endif
             }
         }
