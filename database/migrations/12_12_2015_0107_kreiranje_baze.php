@@ -140,7 +140,7 @@ class KreiranjeBaze extends Migration {
             $table->string('naziv', 100);
             $table->string('slug', 250);
             $table->integer('kolicina')->default(1);
-            $table->float('cena', 45);
+            $table->float('cena');
             $table->tinyInteger('narudzba')->default(0);
             $table->tinyInteger('zamena')->default(0);
             $table->tinyInteger('aktivan')->default(1);

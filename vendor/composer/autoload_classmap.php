@@ -530,5 +530,6 @@ return array(
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'TestPodaci' => $baseDir . '/database/seeds/2_test_podaci.php',
     'TestPodaciObjava' => $baseDir . '/database/seeds/3_test_podaci_vrsta_objava.php',
+    'TestPodaciProdavnica' => $baseDir . '/database/seeds/4_test_podaci_prodavnica.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
 );

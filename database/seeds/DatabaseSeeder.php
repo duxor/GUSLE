@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(KonfiguracioniPodaci::class);
         $this->call(TestPodaci::class);
         $this->call(TestPodaciObjava::class);
+        $this->call(TestPodaciProdavnica::class);
 
         Model::reguard();
     }

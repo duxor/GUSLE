@@ -157,7 +157,7 @@ class DogadjajiKO extends Controller{
 
 
     //Funkcija za kreiranje slug-a
-    public function slug(Request $request)
+    public function postSlug(Request $request)
     {
         if ($request->ajax()) {
             $i=0;
