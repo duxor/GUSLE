@@ -2,7 +2,7 @@
 @section('body')
     <div class="container-fluid pt30">
         <div class="row">
-            <div class="col-sm-8 col-sm-offset-2">
+            <div class="col-sm-10 col-sm-offset-1">
                 <div class="panel panel-default">
                     <div class="panel-heading"><h3>Креирање нове објаве</h3></div>
                     <div class="panel-body">
@@ -94,7 +94,7 @@
                                     .replace(/-+/g, '-'); // collapse dashes
 
                             //Provera da li u bazi postoji slug
-                          $.post('/slug',{name:str,_token:'{{csrf_token()}}' },function(data){
+                          $.post('/dogadjaji/slug-test',{name:str,_token:'{{csrf_token()}}' },function(data){
                               var x = data.result;
                               $('#slug_txt').val(x);
                             });

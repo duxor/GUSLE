@@ -14,6 +14,11 @@ use Intervention\Image\Facades\Image;
 
 
 class DogadjajiKO extends Controller{
+    private $url='/dogadjaji';
+    public function __construct(){
+        $this->middleware('PravaPristupaMid:2,0',['except'=>'getIndex']);//za korisnike 2+ (sve registrovane)
+        $this->middleware('UsernameLinkMid:'.$this->url,['except'=>['postSlugTest']]);
+    }
     //Prikaz svih dogadjaja
     public function getIndex($slug=null){
         $dogadjaji= DB::table('objava')
@@ -30,7 +35,6 @@ class DogadjajiKO extends Controller{
     //Memorisnje nobe objave
     public function postObjaviDogadjaj(ObjavaRequest $request)
     {
-        if(Auth::user()){
             if($request->foto) {
                 $image = $request->foto;
                 $image_name = $image->getClientOriginalName();
@@ -59,9 +63,6 @@ class DogadjajiKO extends Controller{
             $objava->y = $request->y;
             $objava->slug = $request->slug;
             $objava->save();
-        }else{
-            return redirect('auth/login')->with('status', 'Морате бити пријављени уколико желите да додате нову објаву!');
-        }
     }
     public function getMojeObjave($username){
         //Креирати преглед објава које је корисник објавио
@@ -71,12 +72,42 @@ class DogadjajiKO extends Controller{
     public function getIzmeni($username,$slug){
         //Измјена објаве - Ажурирање
         //Рута: /{username}/dogadjaji/izmeni/slug-dogadjaja
-        dd($slug);
+        $vrste_objave = VrstaObjave::orderBy('id')->lists('naziv','id');
+        $dogadjaj = Objava::where('slug',$slug)->get()->first();
+        return view('objava.edit')->with('dogadjaj',$dogadjaj)->with('vrste_objave',$vrste_objave)->with('username',$username);
     }
-    public function postIzmeni($username,$slug){
+    public function postIzmeni($username, ObjavaRequest $request,$slug){
         //Измјена објаве - Ажурирање
         //Рута: /{username}/dogadjaji/izmeni/slug-dogadjaja
-        dd($slug);
+
+            if($request->foto) {
+            $image = $request->foto;
+            $image_name = $image->getClientOriginalName();
+            $image->move('img', $image_name);
+            $image_final = 'img/' . $image_name;
+
+            $int_image = Image::make($image_final);
+            $int_image->resize(300, null, function ($promenljiva) {
+                $promenljiva->aspectRatio();
+            });
+
+            $int_image->save($image_final);
+        }else{
+            $image_final = 'img/default/slika-dogadjaji.jpg';
+        }
+        $objava = Objava::where('slug',$slug)->get()->first();
+        $objava->datum_dogadjaja = $request->datum_dogadjaja;
+        $objava->vrsta_objave_id = $request->vrsta_objave_id;
+        $objava->naziv = $request->naziv;
+        $objava->sadrzaj = $request->sadrzaj;
+        $objava->tagovi = $request->tagovi;
+        $objava->foto = $image_final;
+        $objava->korisnici_id = Auth::user()->id;;
+        $objava->aktivan = $request->aktivan;
+        $objava->x = $request->x;
+        $objava->y = $request->y;
+        $objava->slug = $request->slug;
+        $objava->save();
     }
     public function postUkloniObjavu($username,$slug){
         //Измјена објаве - У току брисања провјерити да ли је корисник власник објаве (да ли је он објавио)
@@ -90,52 +121,6 @@ class DogadjajiKO extends Controller{
     }
 
 
-
-
-    //Ayuriranje dogadjaja
-    public function edit($id){
-        $vrste_objave = VrstaObjave::orderBy('id')->lists('naziv','id');
-        $dogadjaj = Objava::find($id);
-        return view('objava.edit')->with('dogadjaj',$dogadjaj)->with('vrste_objave',$vrste_objave);
-    }
-
-
-   //Memorisanje promena
-    public function update(ObjavaRequest $request, $id){dd(1);
-        if(Auth::user()){
-            if($request->foto) {
-                $image = $request->foto;
-                $image_name = $image->getClientOriginalName();
-                $image->move('img', $image_name);
-                $image_final = 'img/' . $image_name;
-
-                $int_image = Image::make($image_final);
-                $int_image->resize(300, null, function ($promenljiva) {
-                    $promenljiva->aspectRatio();
-                });
-
-                $int_image->save($image_final);
-            }else{
-                $image_final = 'img/default/slika-dogadjaji.jpg';
-            }
-            $objava = Objava::find($id);
-            $objava->datum_dogadjaja = $request->datum_dogadjaja;
-            $objava->vrsta_objave_id = $request->vrsta_objave_id;
-            $objava->naziv = $request->naziv;
-            $objava->sadrzaj = $request->sadrzaj;
-            $objava->tagovi = $request->tagovi;
-            $objava->foto = $image_final;
-            $objava->korisnici_id = Auth::user()->id;;
-            $objava->aktivan = $request->aktivan;
-            $objava->x = $request->x;
-            $objava->y = $request->y;
-            $objava->slug = $request->slug;
-            $objava->save();
-            }else{
-        return redirect('auth/login')->with('status', 'Морате бити пријављени уколико желите да додате нову објаву!');
-        }
-
-    }
     public function destroy($id){
         Objava::destroy($id);
         return redirect('dogadjaji');
@@ -157,20 +142,20 @@ class DogadjajiKO extends Controller{
 
 
     //Funkcija za kreiranje slug-a
-    public function slug(Request $request)
+    public function postSlugTest(Request $request)
     {
         if ($request->ajax()) {
             $i=0;
             $x=true;
             while($x){
-                if(Objava::where('slug',$request->name .'-'.$i)->exists() == 1){
+                if(Objava::where('slug',$request->name .($i==0?'':('-'.($i-1))))->exists() == 1){
                     $i = $i + 1;
                     $x =true;
                 }else{
                     $x =false;
                 }
             }
-            $slug = $request->name .'-'.$i;
+            $slug = $request->name .($i==0?'':('-'.($i-1)));
             return response()->json([
                 "result" => $slug
             ]);

@@ -19,9 +19,8 @@ class PravaPristupaMid{
             else
                 return redirect()->guest('auth/login');
         else
-            if(($strict
-                ?$this->auth->user()->prava_pristupa_id==$pravo
-                :$this->auth->user()->prava_pristupa_id>=$pravo ) and $this->auth->user()->aktivan==1)
+            if(($strict ? $this->auth->user()->prava_pristupa_id==$pravo :$this->auth->user()->prava_pristupa_id>=$pravo )
+                and $this->auth->user()->aktivan==1)
                 return $next($request);
             else return redirect('auth/login');
     }
