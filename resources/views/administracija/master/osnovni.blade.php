@@ -66,7 +66,7 @@
         </div>
         <div class="panel-group">
             <div class="panel panel-default panel-title">
-                <a href="/javna-diskusija">
+                <a href="/{{$korisnik->username}}/javna-diskusija">
                     <div class="panel-heading" id="headingOne">
                         <h4><i class="glyphicon glyphicon-comment"></i> Јавна дискусија</h4>
                     </div>

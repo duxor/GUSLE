@@ -46,7 +46,7 @@ class ProdavnicaKO extends Controller{
                 return view('administracija.prodavnica.moja-prodavnica')->with($podaci);
             }
             else return view('prodavnica')->with(['master'=>'administracija.master.osnovni','najnoviji'=>ProdavnicaKO::najnoviji()]);
-        else if(Auth::check()) return view('prodavnica')->with(['master'=>'administracija.master.osnovni']);
+        else if(Auth::check()) return view('prodavnica')->with(['master'=>'administracija.master.osnovni','najnoviji'=>ProdavnicaKO::najnoviji()]);
             else return view('prodavnica')->with(['najnoviji'=>ProdavnicaKO::najnoviji()]);
     }
 

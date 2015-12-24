@@ -35,7 +35,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next)
     {
         if ($this->auth->check()) {
-            return redirect('/nepotvrdjen');
+            return redirect('/'.$this->auth->user()->username.'/javna-diskusija');
         }
 
         return $next($request);
