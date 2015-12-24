@@ -6,7 +6,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row">
-                            <div class="col-sm-6"><h3 align="left">Креирање новог догађаја</h3></div>
+                            <div class="col-sm-6"><h3 align="left">Ажурирање објаве</h3></div>
                             <div class="col-sm-6"><h3 align="right"><a href="/{{$username}}/dogadjaji/moje-objave">Моје објаве</a></h3></div>
                         </div>
                     </div>
