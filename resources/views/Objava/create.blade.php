@@ -3,8 +3,14 @@
     <div class="container-fluid pt30">
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
+
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h3>Креирање нове објаве</h3></div>
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-sm-6"><h3 align="left">Креирање новог догађаја</h3></div>
+                            <div class="col-sm-6"><h3 align="right"><a href="/{{$username}}/dogadjaji/moje-objave">Моје објаве</a></h3></div>
+                        </div>
+                    </div>
                     <div class="panel-body">
                         @if (count($errors) > 0)
                             <div class="alert alert-danger">
@@ -16,7 +22,6 @@
                                 </ul>
                             </div>
                         @endif
-
                         {!! Form::open(array('url'=>'/'.$username.'/dogadjaji/objavi-dogadjaj', 'files'=>'true')) !!}
                             <div class="form-group">
                                 {!! Form::label('datum_dogadjaja',"Датум*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
@@ -94,7 +99,8 @@
                                     .replace(/-+/g, '-'); // collapse dashes
 
                             //Provera da li u bazi postoji slug
-                          $.post('/dogadjaji/slug-test',{name:str,_token:'{{csrf_token()}}' },function(data){
+
+                          $.post('/{{$username}}/dogadjaji/slug',{name:str,_token:'{{csrf_token()}}' },function(data){
                               var x = data.result;
                               $('#slug_txt').val(x);
                             });

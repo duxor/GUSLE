@@ -26,11 +26,11 @@
                     <?php $tags = explode(',',$dogadjaj->tagovi)?>
                     <div class="col-sm-6" align="left">
                         @foreach($tags as $tag)
-                            <a class="btn btn-default btn-xs" href="{{url('/dogadjaji/tagovi/'.$tag )}}"><label >{{$tag}}</label></a>
+                            <a class="btn btn-default btn-xs" href="/dogadjaji/tag/{{$tag}}"><label >{{$tag}}</label></a>
                         @endforeach
                     </div>
                     <div class="col-sm-6" align="right">
-                        <a  href="{{url('dogadjaji/'.$dogadjaj->slug)}}" class="btn btn-default">Опширније</a>
+                        <a  href="/dogadjaji/dogadjaj/{{$dogadjaj->slug}}" class="btn btn-default">Опширније</a>
                     </div>
                 </div>
             @endforeach

@@ -4,7 +4,13 @@
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><h3>Креирање нове објаве</h3></div>
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-sm-6"><h3 align="left">Креирање новог догађаја</h3></div>
+                            <div class="col-sm-6"><h3 align="right"><a href="/{{$username}}/dogadjaji/moje-objave">Моје објаве</a></h3></div>
+                        </div>
+                    </div>
+
                     <div class="panel-body">
                         @if (count($errors) > 0)
                             <div class="alert alert-danger">
@@ -18,7 +24,7 @@
                         @endif
 
 
-                        {!! Form::model($dogadjaj,['action'=> ['DogadjajiKO@postIzmeni',$username, $dogadjaj->slug], 'files'=>'true', 'method'=>'PATCH' ]) !!}
+                        {!! Form::model($dogadjaj,['action'=> ['DogadjajiKO@postIzmeni',$username, $dogadjaj->slug], 'files'=>'true', 'method'=>'post' ]) !!}
 
                             <div class="form-group">
                                 {!! Form::label('datum_dogadjaja',"Датум*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
@@ -67,7 +73,7 @@
                                 {!! Form::hidden('y',$dogadjaj->y,['id'=>'P102_LONGITUDE' ]) !!}
                             </div>
                             <div class="form-group" align="center">
-                                {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span>Сачувајте објаву',[ 'class' => 'btn btn-default', 'type'=>'submit'])!!}
+                                {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span>Сачувајте промене',[ 'class' => 'btn btn-default', 'type'=>'submit'])!!}
                             </div>
                         {!! Form::close() !!}
                     </div>

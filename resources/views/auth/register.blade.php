@@ -104,7 +104,7 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label"></label>
 							<div class="col-md-6">
-								<h7 data-toggle='tooltip' title='Чекирајте поље за наставак'><strong>Пiхватам</strong></h7>
+								<h7 data-toggle='tooltip' title='Чекирајте поље за наставак'><strong>Прихватам</strong></h7>
 								<a href="odredbe/pravilnik">  {!! Form::checkbox('uslovi_koriscenja','0',false,['id'=>'uslovi_koriscenja']) !!}Да  услове коришћења  </a>
 							</div>
 						</div>

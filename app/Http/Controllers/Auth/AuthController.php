@@ -110,7 +110,7 @@ class AuthController extends Controller
             });
             $int_image->save($image_final);
         }else{
-            $image_final ='img/default/korisnik.jpg';
+            $image_final ='img/default/slika-korisnika.jpg';
         }
         //Dodavanje novog grada
         if($data['novi_grad']){
