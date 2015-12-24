@@ -21,7 +21,7 @@ use Carbon\Carbon;
 class ProdavnicaKO extends Controller{
     private $url='/prodavnica';
     private $imgFolder='img/prodavnica/';
-    private $brojNajnovijih=8;
+    public static $brojNajnovijih=8;
     public function __construct(){
         $this->middleware('PravaPristupaMid:2,0',['except'=>'getIndex','rodavnica','getOglas']);//za korisnike 2+ (sve registrovane)
         $this->middleware('UsernameLinkMid:'.$this->url,['except'=>['postSlugTest']]);
@@ -45,9 +45,13 @@ class ProdavnicaKO extends Controller{
                 }
                 return view('administracija.prodavnica.moja-prodavnica')->with($podaci);
             }
-            else return view('prodavnica')->with(['master'=>'administracija.master.osnovni','najnoviji'=>Proizvod::where('aktivan',1)->where('stanje_oglasa_id',1)->orderBy('created_at','desc')->take($this->brojNajnovijih)->get(['slug','foto'])]);
+            else return view('prodavnica')->with(['master'=>'administracija.master.osnovni','najnoviji'=>ProdavnicaKO::najnoviji()]);
         else if(Auth::check()) return view('prodavnica')->with(['master'=>'administracija.master.osnovni']);
-            else return view('prodavnica');
+            else return view('prodavnica')->with(['najnoviji'=>ProdavnicaKO::najnoviji()]);
+    }
+
+    public static function najnoviji(){
+        return Proizvod::where('aktivan',1)->where('stanje_oglasa_id',1)->orderBy('created_at','desc')->take(ProdavnicaKO::$brojNajnovijih)->get(['slug','foto','naziv','cena']);
     }
     public function getIndex($username=null,$slug=null,$akcija=null){
         if($akcija){//akcija=izmeni

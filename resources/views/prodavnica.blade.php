@@ -77,9 +77,11 @@
         <div class="col-sm-3 mb5"><img src="/img/8.jpg" style="width: 100%"></div>
 
         <h2 class="col-sm-12"><a href="#">Најновији огласи</a></h2>
-        @foreach($najnoviji as $oglas)
-            <div class="col-sm-3 mb5"><a href="/oglas/{{$oglas->slug}}"><img src="{{$oglas->foto}}" style="width: 100%"></a></div>
+        @foreach($najnoviji as $k=>$oglas)
+            @if($k%4==0) @if($k!=0) </div> @endif <div class="row"> @endif
+            <div class="col-xs-3 imgDivLg" data-toggle="tooltip" title="{{$oglas->naziv}}: {{$oglas->cena}} дин"><a href="/oglas/{{$oglas->slug}}"><img src="{{$oglas->foto}}"></a></div>
         @endforeach
+
 
         <h2 class="col-sm-12"><a href="#">Најновији огласи</a></h2>
         <div class="col-sm-3 mb5"><img src="/img/11.jpg" style="width: 100%"></div>
@@ -106,12 +108,23 @@
         .prodavnicaNav .list-group-item:first-child{border-radius: 0}
         .prodavnica h2 a{ color: #1A0D0A }
         .prodavnica h2 a:focus, h2 a:hover { color: #777372; }
-        .prodavnica img{width: 100%}
         .prodavnicaNav a.list-group-item, button.list-group-item{color:#1A0D0A;}
         .prodavnicaNav a.list-group-item:hover, button.list-group-item:hover{color:#fff;background-color: #1A0D0A}
         .prodavnicaNav .list-group-item{border: none}
         .prodavnicaNav .list-group-item.active, .list-group-item.active:focus{color:#fff;background-color: #1A0D0A}
         .prodavnicaNav .list-group-item.active:hover{color:#1A0D0A;background-color: #fff;border-right: 5px solid #1A0D0A;}
         .mb5{margin-bottom: 15px}
+        .imgDivLg{height: 200px;text-align: center;margin-bottom: 10px;position: relative;}
+        .imgDivLg img{
+            max-height: 100%;
+            max-width: 100%;
+            cursor: pointer;
+            margin-bottom: 5px;
+
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%) translateX(-50%);
+        }
+        .imgDivLg:hover{background-color: #f6f6f6}
     </style>
 @endsection
