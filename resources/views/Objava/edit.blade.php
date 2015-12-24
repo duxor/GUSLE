@@ -97,7 +97,7 @@
                             .replace(/-+/g, '-'); // collapse dashes
 
                     //Provera da li u bazi postoji slug
-                    $.post('/dogadjaji/slug-test',{name:str,_token:'{{csrf_token()}}' },function(data){
+                    $.post('/{{$username}}/dogadjaji/slug',{name:str,_token:'{{csrf_token()}}' },function(data){
                         var x = data.result;
                         $('#slug_txt').val(x);
                     });

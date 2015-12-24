@@ -21,6 +21,7 @@ use Carbon\Carbon;
 class ProdavnicaKO extends Controller{
     private $url='/prodavnica';
     private $imgFolder='img/prodavnica/';
+    private $brojNajnovijih=8;
     public function __construct(){
         $this->middleware('PravaPristupaMid:2,0',['except'=>'getIndex','rodavnica','getOglas']);//za korisnike 2+ (sve registrovane)
         $this->middleware('UsernameLinkMid:'.$this->url,['except'=>['postSlugTest']]);
@@ -39,12 +40,12 @@ class ProdavnicaKO extends Controller{
                         break;
                     case'moji-oglasi':
                     case'lista-zelja':
-                        $podaci=array_merge($podaci,['target'=>$target,'status'=>json_encode(StanjeOglasa::orderBy('id')->get(['naziv','id'])->toArray())]);//dd($podaci);
+                        $podaci=array_merge($podaci,['target'=>$target,'status'=>json_encode(StanjeOglasa::orderBy('id')->get(['naziv','id'])->toArray())]);
                         break;
                 }
                 return view('administracija.prodavnica.moja-prodavnica')->with($podaci);
             }
-            else return view('prodavnica')->with(['master'=>'administracija.master.osnovni']);
+            else return view('prodavnica')->with(['master'=>'administracija.master.osnovni','najnoviji'=>Proizvod::where('aktivan',1)->where('stanje_oglasa_id',1)->orderBy('created_at','desc')->take($this->brojNajnovijih)->get(['slug','foto'])]);
         else if(Auth::check()) return view('prodavnica')->with(['master'=>'administracija.master.osnovni']);
             else return view('prodavnica');
     }
@@ -64,7 +65,6 @@ class ProdavnicaKO extends Controller{
     public function getListaZelja($username){
         return $this->prodavnica($username,'lista-zelja');
     }
-
     public function postObjaviOglas($username){
         $update=Input::has('id');
         $test=Validator::make(Input::all(),[
@@ -142,14 +142,12 @@ class ProdavnicaKO extends Controller{
             $i++;
         }
     }
-
     public function postUkloniFoto(){
         return Media::ukloniMOglasa(Input::get('oid'),Input::get('mid'));
     }
     public function postPromeniStatusOglasa(){
         return Input::get('id');
     }
-
     public function postMojiOglasi($username){
         return json_encode(Proizvod::where('korisnici_id',Auth::user()->id)->where('proizvod.aktivan',1)->get(['proizvod.id','proizvod.naziv','proizvod.slug','proizvod.cena','proizvod.created_at','stanje_oglasa_id as status','foto'])->toArray());
     }
@@ -169,8 +167,7 @@ class ProdavnicaKO extends Controller{
     public function postMojiOglasiUkloni($username){
         return 1;
     }
-
-    public function getOglas($username=null,$slug){
+    public static function getOglas($username=null,$slug){
         $podaci=[];
         $podaci['oglas']=Proizvod::join('stanje_oglasa as so','so.id','=','proizvod.stanje_oglasa_id')->join('korisnici as k','k.id','=','proizvod.korisnici_id')->join('grad as g','g.id','=','k.grad_id')->where('slug',$slug)->get(['proizvod.id','proizvod.naziv','slug','cena','kolicina','narudzba','zamena','vrsta_proizvoda_id','so.naziv as stanje','stanje_oglasa_id','korisnici_id','opis','proizvod.foto','username','prezime','ime','g.naziv as grad','k.telefon'])->first();
         $podaci['foto']=Media::where('src','like','/img/prodavnica/prodavnica-'.$podaci['oglas']->korisnici_id.'-'.$podaci['oglas']->id.'-%')->get();

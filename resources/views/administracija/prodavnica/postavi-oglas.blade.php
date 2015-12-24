@@ -106,7 +106,7 @@
             <label name="lfoto" class="control-label col-sm-4" data-toggle="tooltip" title="Огласи без фотографија неће бити приказани">Фотографије*</label>
             <div class="col-sm-8">
                 <span class="btn btn-c btn-file">
-                    <i class="glyphicon glyphicon-cloud-upload"></i> Изабери фотографије <input type="file" name="foto[]" onchange="prikaziFoto(this);" accept="image/*" multiple>
+                    <i class="glyphicon glyphicon-cloud-upload"></i> Додај фотографије <input type="file" name="foto[]" onchange="prikaziFoto(this);" accept="image/*" multiple>
                 </span>
                 <br><br>
                 @if($proizvod)

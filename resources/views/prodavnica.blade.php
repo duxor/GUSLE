@@ -75,6 +75,12 @@
         <div class="col-sm-3 mb5"><img src="/img/6.jpg" style="width: 100%"></div>
         <div class="col-sm-3 mb5"><img src="/img/7.jpg" style="width: 100%"></div>
         <div class="col-sm-3 mb5"><img src="/img/8.jpg" style="width: 100%"></div>
+
+        <h2 class="col-sm-12"><a href="#">Најновији огласи</a></h2>
+        @foreach($najnoviji as $oglas)
+            <div class="col-sm-3 mb5"><a href="/oglas/{{$oglas->slug}}"><img src="{{$oglas->foto}}" style="width: 100%"></a></div>
+        @endforeach
+
         <h2 class="col-sm-12"><a href="#">Најновији огласи</a></h2>
         <div class="col-sm-3 mb5"><img src="/img/11.jpg" style="width: 100%"></div>
         <div class="col-sm-3 mb5"><img src="/img/12.jpg" style="width: 100%"></div>

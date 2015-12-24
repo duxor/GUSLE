@@ -40,4 +40,7 @@ class OsnovniKO extends Controller{
     public function getDogadjaj($slug){
         return DogadjajiKO::dogadjaj($slug);
     }
+    public function getOglas($username,$slug=null){
+        return ProdavnicaKO::getOglas($slug?$username:null,$slug?$slug:$username);
+    }
 }
