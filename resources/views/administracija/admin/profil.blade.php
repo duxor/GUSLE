@@ -1,5 +1,7 @@
 @extends('administracija.master.osnovni')
 @section('body')
+    {{Auth::User()->username}}
+    <a href="/{{Auth::User()->username}}/profil/uredi" class="btn btn-c"><i class="glyphicon glyphicon-pencil"></i> Уреди</a>
     <div class="row">
         <div class="col-sm-8">
             <h1><span class="glyphicon glyphicon-user"></span><strong> Профилни подаци:</strong></h1>
