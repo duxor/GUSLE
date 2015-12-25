@@ -21,11 +21,11 @@
                     @foreach($objave as $objava)
                         <tr>
                             <td class="col-sm-4">{{$objava->naziv}}</td>
-                            <td class="col-sm-7">{{$objava->sadrzaj}}</td>
+                            <td class="col-sm-7">{!!  $objava->sadrzaj !!}</td>
                             <td class="col-sm-1">
                                 <div class="row">
                                     <a class="col-sm-6" href="/{{$username}}/dogadjaji/izmeni/{{$objava->slug}}"><h4><i class="fa fa-edit"></i></h4></a>
-                                    <a class="col-sm-6" href="/{{$username}}/dogadjaji/ukloni-objavu/{{$objava->slug}}"><h4><i class="fa fa-trash"></i></h4></a>
+                                    <a id="obrisi" class="col-sm-6" href="/{{$username}}/dogadjaji/ukloni-objavu/{{$objava->slug}}"><h4><i class="fa fa-trash"></i></h4></a>
                                 </div>
                             </td>
                         </tr>
@@ -34,4 +34,5 @@
             </table>
         </div>
     </div>
+<div id="dialog"></div>
 @endsection

@@ -24,11 +24,11 @@
                         @endif
 
 
-                        {!! Form::model($dogadjaj,['action'=> ['DogadjajiKO@postIzmeni',$username, $dogadjaj->slug], 'files'=>'true', 'method'=>'post' ]) !!}
+                        {!! Form::model($dogadjaj,['action'=> ['DogadjajiKO@postDogadjaj',$username], 'files'=>'true', 'method'=>'post' ]) !!}
 
                             <div class="form-group">
                                 {!! Form::label('datum_dogadjaja',"Датум*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
-                                {!! Form::text('datum_dogadjaja',date( 'Y-m-d', strtotime($dogadjaj->datum_dogadjaja)),['class'=>'datepicker']) !!}
+                                {!! Form::text('datum_dogadjaja',$dogadjaj->datum_dogadjaja?date( 'Y-m-d', strtotime($dogadjaj->datum_dogadjaja)):date('Y-m-d'),['class'=>'datepicker']) !!}
                             </div>
                             <div class="form-group">
                                 {!! Form::label('naziv',"Назив*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
@@ -57,20 +57,30 @@
                                 {!! Form::label('tagovi',"Тагови (речи одвојени зарезом без размака)") !!}
                                 {!! Form::text('tagovi',null,['class'=>'form-control', 'placeholder'=>'Тагови']) !!}
                             </div>
-                            <div class="form-group">
-                                {!! Form::label('foto',"Слика") !!}
-                                {!! Form::file('foto', null,['class'=>'form-control', 'data-buttonText'=>'Find file']) !!}
+
+                            <input type="hidden" name='foto_pomocna' value="{{$dogadjaj->foto}}" >
+                            <span class="btn btn-c btn-file">
+                                <i class="glyphicon glyphicon-cloud-upload"></i> Додај фотографију
+                                <input type="file" id="imgInp" name="foto"  accept="image/*" multiple>
+                            </span>
+                            <br><br>
+                            <div class="row">
+                                <div class="col-sm-4 col-sm-offset-4">
+                                     <img id="blah" src="{{url($dogadjaj->foto)}}"  style="width:100%" />
+                                </div>
                             </div>
+                            <br><br>
+
                             <div id="aktivan" class="form-group">
                                 <label>Активан:</label>
-                                {!! Form::radio('aktivan', '1') !!}Да
-                                {!! Form::radio('aktivan', '0') !!}Не
+                                {!! Form::radio('aktivan','1') !!}Да
+                                {!! Form::radio('aktivan','0') !!}Не
                             </div>
                             <div class="form-group" align="center">
                                 <label for="">Mapa (Изаберите место дешавања догађаја)</label>
                                 <div id="map-canvas" style="width:500px;height:380px;"></div>
-                               {!! Form::hidden('x',$dogadjaj->x,['id'=>'P102_LATITUDE' ]) !!}
-                                {!! Form::hidden('y',$dogadjaj->y,['id'=>'P102_LONGITUDE' ]) !!}
+                                {!! Form::hidden('x',$dogadjaj->x?$dogadjaj->x:44.78669522814711,['id'=>'P102_LATITUDE' ]) !!}
+                                {!! Form::hidden('y',$dogadjaj->y?$dogadjaj->y:20.450384063720662,['id'=>'P102_LONGITUDE' ]) !!}
                             </div>
                             <div class="form-group" align="center">
                                 {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span>Сачувајте промене',[ 'class' => 'btn btn-default', 'type'=>'submit'])!!}
@@ -80,8 +90,43 @@
                 </div>
             </div>
         </div>
+            <style>
+                .btn-file {
+                    position: relative;
+                    overflow: hidden;
+                }
+                .btn-file input[type=file] {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    min-width: 100%;
+                    min-height: 100%;
+                    font-size: 100px;
+                    text-align: right;
+                    filter: alpha(opacity=0);
+                    opacity: 0;
+                    outline: none;
+                    background: white;
+                    cursor: inherit;
+                    display: block;
+                }
+            </style>
         <script>
             $(document).ready(function(){
+                //Prikaz slika
+                function prikaziFoto(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#blah').attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                $("#imgInp").change(function(){
+                    prikaziFoto(this);
+                });
+
                 //Kreiranje sluga
                 $('#slug_btn').click(function(){
                     var pomocna = $('#naziv').val();
@@ -151,7 +196,6 @@
                         document.getElementById("P102_LONGITUDE").value = marker.getPosition().lng();
                     });
                 }
-
                 google.maps.event.addDomListener(window, 'load', initialize);
             });
         </script>
