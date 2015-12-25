@@ -84,7 +84,7 @@
         </div>
         <div class="panel-group">
             <div class="panel panel-default panel-title">
-                <a href="/{{$korisnik->username}}/prodavnica">
+                <a href="/prodavnica">
                     <div class="panel-heading" id="headingOne">
                         <h4><i class="glyphicon glyphicon-shopping-cart"></i> Продавница</h4>
                     </div>

@@ -39,14 +39,14 @@ class KonfiguracioniPodaci extends Seeder{
             ['naziv'=>'Дуборезац'],
         ]);
         VrstaProizvoda::insert([
-            ['naziv'=>'Гусле'],
-            ['naziv'=>'Иконе'],
-            ['naziv'=>'Народне ношње'],
-            ['naziv'=>'Фруле'],
-            ['naziv'=>'Двојнице'],
-            ['naziv'=>'Други дувачки инструменти'],
-            ['naziv'=>'Дуборез'],
-            ['naziv'=>'Остало'],
+            ['naziv'=>'Гусле','slug'=>'gusle'],//1
+            ['naziv'=>'Дувачки инструменти','slug'=>'duvacki-insrumenti'],//2
+            ['naziv'=>'Иконе','slug'=>'ikone'],//3
+            ['naziv'=>'Народне ношње','slug'=>'narodne-nosnje'],//4
+            ['naziv'=>'Радови у флаши','slug'=>'radovi-u-flasi'],//5
+            ['naziv'=>'Дуборез за ловце','slug'=>'duborez-za-lovce'],//6
+            ['naziv'=>'Сувенири','slug'=>'suveniri'],//7
+            ['naziv'=>'Остало','slug'=>'ostalo'],//8
         ]);
         StanjeOglasa::insert([
             ['naziv'=>'Активан'],

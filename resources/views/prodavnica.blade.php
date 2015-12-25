@@ -1,31 +1,7 @@
-@extends(isset($master)?$master:'layouts.master')
+@extends($prijavljen?'administracija.master.osnovni':'layouts.master')
 @section('body')
-    <div class="pt60 container-fluid prodavnica">
-        <div class="col-sm-2 form-inline prodavnicaNav">
-            <div class="input-group" style="width: 100%">
-                <input type="text" class="form-control form-control-c b-c" placeholder="Претрага...">
-                <span class="input-group-btn">
-                    <button class="btn btn-c" type="button"><i class="glyphicon glyphicon-search"></i></button>
-                </span>
-            </div><br><br>
-            <div class="list-group b-c">
-              <a href="#" class="list-group-item">Гусле</a>
-              <a href="#" class="list-group-item">Дувачки инструменти</a>
-              <a href="#" class="list-group-item">Радови у флаши</a>
-              <a href="#" class="list-group-item">Иконе</a>
-              <a href="#" class="list-group-item">Дуборез на кундаку</a>
-              <a href="#" class="list-group-item">Ловачки ножеви</a>
-              <a href="#" class="list-group-item">Сувенири</a>
-              <a href="#" class="list-group-item">Народне ношње</a>
-            </div>
-            <div class="list-group b-c">
-              <a href="#" class="list-group-item active">Бесплатно постављање</a>
-              <a href="#" class="list-group-item">Продајем</a>
-              <a href="#" class="list-group-item">Купујем</a>
-              <a href="#" class="list-group-item">Жеље</a>
-              <a href="#" class="list-group-item">Помоћ</a>
-            </div>
-        </div>
+    <div class="pt{{$prijavljen?'30':'60'}} container-fluid prodavnica">
+        @include('layouts.prodavnica-nav')
         <div class="col-sm-7">
             <div id="slajder" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
@@ -34,27 +10,16 @@
                     <li data-target="#slajder" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                        <img src="/img/dusan-silni.jpg" alt="Цар Душан Силни">
+                <?php $i=0; ?>
+                @foreach($slajder as $slajd)
+                    <div class="item{{$i==0?' active':''}} slajderF"><?php $i=2;?>
+                        <img src="{{$slajd->foto}}" alt="{{$slajd->naziv}}">
                         <div class="carousel-caption">
-                            <h3>Славна српска историја</h3>
-                            <p>Само дело које вреди постаће део предања!</p>
+                            <h3>{{$slajd->naziv}}</h3>
+                            <p>Посетите оглас <a href="/oglas/{{$slajd->slug}}" class="btn btn-c">Оглас</a></p>
                         </div>
                     </div>
-                    <div class="item">
-                        <img src="/img/guslari-1.jpg" alt="Српска традиција">
-                        <div class="carousel-caption">
-                            <h3>Богата српска традиција</h3>
-                            <p>Без гусала разговора нема</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <img src="/img/srpska-majka.jpg" alt="Српска мајка">
-                        <div class="carousel-caption">
-                            <h3>Српска мајка</h3>
-                            <p>Српкиња је мене мајка родила</p>
-                        </div>
-                    </div>
+                @endforeach
                 </div>
                 <a class="left carousel-control" href="#slajder" role="button" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -84,15 +49,7 @@
             @endforeach
         @endif
 
-        <h2 class="col-sm-12"><a href="#">Најновији огласи</a></h2>
-        <div class="col-sm-3 mb5"><img src="/img/11.jpg" style="width: 100%"></div>
-        <div class="col-sm-3 mb5"><img src="/img/12.jpg" style="width: 100%"></div>
-        <div class="col-sm-3 mb5"><img src="/img/13.jpg" style="width: 100%"></div>
-        <div class="col-sm-3 mb5"><img src="/img/14.jpg" style="width: 100%"></div>
-        <div class="col-sm-3 mb5"><img src="/img/1.jpg" style="width: 100%"></div>
-        <div class="col-sm-3 mb5"><img src="/img/2.jpg" style="width: 100%"></div>
-        <div class="col-sm-3 mb5"><img src="/img/3.jpg" style="width: 100%"></div>
-        <div class="col-sm-3 mb5"><img src="/img/10.jpg" style="width: 100%"></div>
+
         <h2 class="col-sm-12"><a href="#">На попусту</a></h2>
         <div class="col-sm-3 mb5"><img src="/img/11.jpg" style="width: 100%"></div>
         <div class="col-sm-3 mb5"><img src="/img/12.jpg" style="width: 100%"></div>
@@ -104,28 +61,23 @@
         <div class="col-sm-3 mb5"><img src="/img/10.jpg" style="width: 100%"></div>
     </div>
     <style>
-        .btn-c{padding: 6px 10px;margin-left: 2px}
-        .b-c{border: 1px solid #1A0D0A;}
-        .prodavnicaNav .list-group-item:first-child{border-radius: 0}
         .prodavnica h2 a{ color: #1A0D0A }
         .prodavnica h2 a:focus, h2 a:hover { color: #777372; }
-        .prodavnicaNav a.list-group-item, button.list-group-item{color:#1A0D0A;}
-        .prodavnicaNav a.list-group-item:hover, button.list-group-item:hover{color:#fff;background-color: #1A0D0A}
-        .prodavnicaNav .list-group-item{border: none}
-        .prodavnicaNav .list-group-item.active, .list-group-item.active:focus{color:#fff;background-color: #1A0D0A}
-        .prodavnicaNav .list-group-item.active:hover{color:#1A0D0A;background-color: #fff;border-right: 5px solid #1A0D0A;}
         .mb5{margin-bottom: 15px}
         .imgDivLg{height: 200px;text-align: center;margin-bottom: 10px;position: relative;}
+        .imgDivLg:hover{background-color: #f6f6f6}
         .imgDivLg img{
             max-height: 100%;
             max-width: 100%;
-            cursor: pointer;
             margin-bottom: 5px;
 
             position: absolute;
             top: 50%;
             transform: translateY(-50%) translateX(-50%);
         }
-        .imgDivLg:hover{background-color: #f6f6f6}
+        .slajderF{max-height: 400px}
+        .slajderF img{margin: 0 auto;
+
+        }
     </style>
 @endsection

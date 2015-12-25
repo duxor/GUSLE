@@ -17,7 +17,7 @@ class PravaPristupaMid{
             if ($request->ajax())
                 return response('Zabranjen pristup.', 401);
             else
-                return redirect()->guest('auth/login');
+                return redirect()->guest('/prijava');
         else{
             if($this->auth->user()->aktivan!=1) return redirect('/nepotvrdjen');
             if(($strict ? $this->auth->user()->prava_pristupa_id==$pravo :$this->auth->user()->prava_pristupa_id>=$pravo ))

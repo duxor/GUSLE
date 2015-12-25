@@ -47,6 +47,7 @@
                             <li><a href="/{{$korisnik}}/poruke"><i class="glyphicon glyphicon-envelope"></i> Поруке <i id="brojNovihNav" class="badge pull-right">{{$brNovihPoruka}}</i></a></li>
                             <li><a href="#" data-toggle="tooltip" title="Претрага корисника портала" data-placement="right"><i class="glyphicon glyphicon-search"></i> Претрага</a></li>
                             <li><a href="/{{$korisnik}}/prodavnica/moji-oglasi"><i class="glyphicon glyphicon-shopping-cart"></i> Моји огласи</a></li>
+                            <li><a href="/{{$korisnik}}/dogadjaji/moje-objave"><i class="glyphicon glyphicon-list-alt"></i> Моје објаве</a></li>
                             <li><a href="/odjava"><i class="glyphicon glyphicon-off"></i> Одјави се</a></li>
                         </ul>
                     @else <a href="/prijava"><i class="glyphicon glyphicon-log-in"></i> Пријава</a> @endif</li>
@@ -54,8 +55,8 @@
             <ul class="nav navbar-nav navbar-right scrol">
                 <li><a href="/"><i class="glyphicon glyphicon-home"></i> Почетна</a></li>
                 <li><a href="/prodavnica"><i class="glyphicon glyphicon-shopping-cart"></i> Веб продавница</a></li>
-                <li><a href="/dogadjaji"><i class="glyphicon glyphicon-flag"></i> Догађаји</a></li>
-                <li><a href="/dogadjaji/kalendar"><i class="glyphicon glyphicon-calendar"></i> Календар догађаја</a></li>
+                <li><a href="/dogadjaji"><i class="glyphicon glyphicon-calendar"></i> Календар догађаја</a></li>
+                <li><a href="/dogadjaji/arhiva"><i class="glyphicon glyphicon-flag"></i> Архива</a></li>
                 <li><a href="/galerija"><i class="glyphicon glyphicon-picture"></i> Галерија</a></li>
                 <li><a href="/kontakt"><i class="glyphicon glyphicon-earphone"></i> Контакт</a></li>
             </ul>

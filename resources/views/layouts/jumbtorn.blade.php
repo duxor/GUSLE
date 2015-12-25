@@ -188,7 +188,6 @@
         margin: 15px 0 0 2%;
         float:left;
         color: #131313;
-        cursor: pointer;
     }
     .baner h3{
         position: absolute;

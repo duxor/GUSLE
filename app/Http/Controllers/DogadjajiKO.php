@@ -168,4 +168,10 @@ class DogadjajiKO extends Controller{
         }
     }
 
+    public function getArhiva(){
+        //Метода за приказ одгађаја који су протекли - завршени
+        //РУТА: /dogadjaji/arhiva
+        dd('Arhiva');
+    }
+
 }

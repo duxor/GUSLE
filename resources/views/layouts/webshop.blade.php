@@ -7,28 +7,28 @@
             <div class="thumbnail">
                 <img src="img/test/konjic-na-guslama.jpg" alt="Коњић на гуслама" width="400" height="300">
                 <p><strong>Гусле</strong></p>
-                <p>Гусле са врхунски урађеним детаљима. <a class="btn btn-default"><i class="glyphicon glyphicon-search"></i> Пронађи</a></p>
+                <p>Гусле са врхунски урађеним детаљима. <a href="/prodavnica/pretraga/gusle" class="btn btn-default"><i class="glyphicon glyphicon-search"></i> Пронађи</a></p>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="thumbnail">
                 <img src="img/test/frule.jpg" alt="Дувачки инструменти" width="400" height="300">
                 <p><strong>Дувачки инструменти</strong></p>
-                <p>Фруле, двојнице, гајде и други дувачки инструменти. <a class="btn btn-default"><i class="glyphicon glyphicon-search"></i> Пронађи</a></p>
+                <p>Фруле, двојнице, гајде и други дувачки инструменти. <a href="/prodavnica/pretraga/duvacki-instrumenti" class="btn btn-default"><i class="glyphicon glyphicon-search"></i> Пронађи</a></p>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="thumbnail">
                 <img src="img/test/suveniri.jpg" alt="Сувенири" width="400" height="300">
                 <p><strong>Сувенири</strong></p>
-                <p>Сувенири ручне израде у духу српске културе. <a class="btn btn-default"><i class="glyphicon glyphicon-search"></i> Пронађи</a></p>
+                <p>Сувенири ручне израде у духу српске културе. <a href="/prodavnica/pretraga/suveniri" class="btn btn-default"><i class="glyphicon glyphicon-search"></i> Пронађи</a></p>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="thumbnail">
                 <img src="img/test/narodna-nosnja.jpg" alt="Народне ношње" width="400" height="300">
                 <p><strong>Народне ношње</strong></p>
-                <p>Народне ношње различитих дезена из различитих поднебља. <a class="btn btn-default"><i class="glyphicon glyphicon-search"></i> Пронађи</a></p>
+                <p>Народне ношње различитих дезена из различитих поднебља. <a href="/prodavnica/pretraga/narodne-nosnje" class="btn btn-default"><i class="glyphicon glyphicon-search"></i> Пронађи</a></p>
             </div>
         </div>
     </div><br>
@@ -73,6 +73,6 @@
         </div>
     </div><br>
     <div class="text-center">
-        <button class="btn btn-default"><i class="glyphicon glyphicon-th"></i> Сви огласи</button>
+        <a href="/prodavnica" class="btn btn-default"><i class="glyphicon glyphicon-th"></i> Сви огласи</a>
     </div><br>
 </div>

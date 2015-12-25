@@ -120,6 +120,7 @@ class KreiranjeBaze extends Migration {
         Schema::create('vrsta_proizvoda', function(Blueprint $table){
             $table->bigIncrements('id');
             $table->string('naziv', 45)->unique();
+            $table->string('slug', 150)->unique();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
         });
