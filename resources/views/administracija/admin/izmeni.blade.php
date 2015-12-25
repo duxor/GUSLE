@@ -18,41 +18,37 @@
                         @endif
 
                             {!! Form::model($korisnik,['action'=> ['KorisniciKO@postUredi',$username], 'files'=>'true', 'method'=>'post','class'=>'form-horizontal','role'=>'form' ]) !!}
-
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
                             <div class="form-group">
                                 {!! Form::label('ime',"Име*", ['class'=>'col-md-4 control-label', 'data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
                                 <div class="col-md-6">
-                                    {!! Form::text('ime',Input::old('ime'),['class'=>'form-control','placeholder'=>'Име']) !!}
+                                    {!! Form::text('ime',null,['class'=>'form-control','placeholder'=>'Име']) !!}
                                 </div>
                             </div>
                             <div class="form-group">
                                 {!! Form::label('prezime',"Презиме*", ['class'=>'col-md-4 control-label', 'data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
                                 <div class="col-md-6">
-                                    {!! Form::text('prezime',Input::old('prezime'),['class'=>'form-control','placeholder'=>'Презиме']) !!}
+                                    {!! Form::text('prezime',null,['class'=>'form-control','placeholder'=>'Презиме']) !!}
                                 </div>
                             </div>
                             <div class="form-group">
                                 {!! Form::label('korisnicko_ime',"Корисничко име*", ['class'=>'col-md-4 control-label', 'data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
                                 <div class="col-md-6">
-                                    {!! Form::text('username',Input::old('username'),['class'=>'form-control','placeholder'=>'Корисничко име']) !!}
+                                    {!! Form::text('username',null,['class'=>'form-control','placeholder'=>'Корисничко име']) !!}
                                 </div>
                             </div>
                             <div class="form-group">
                                 {!! Form::label('email',"E-mail адреса*", ['class'=>'col-md-4 control-label', 'data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
                                 <div class="col-md-6">
-                                    {!! Form::email('email',Input::old('email'),['class'=>'form-control','placeholder'=>'E-mail адреса']) !!}
+                                    {!! Form::email('email',null,['class'=>'form-control','placeholder'=>'E-mail адреса']) !!}
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 {!! Form::label('adresa',"Адреса", ['class'=>'col-md-4 control-label']) !!}
                                 <div class="col-md-6">
-                                    {!! Form::text('adresa',Input::old('adresa'),['class'=>'form-control','placeholder'=>'Адреса']) !!}
+                                    {!! Form::text('adresa',null,['class'=>'form-control','placeholder'=>'Адреса']) !!}
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 {!! Form::label('grad',"Град", ['class'=>'col-md-4 control-label']) !!}
                                 <div class="col-md-6">
@@ -67,26 +63,34 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 {!! Form::label('telefon',"Телефон", ['class'=>'col-md-4 control-label']) !!}
                                 <div class="col-md-6">
                                     {!! Form::text('telefon',Input::old('telefon'),['class'=>'form-control','placeholder'=>'Телефон']) !!}
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 {!! Form::label('biografija',"Биографија", ['class'=>'col-md-4 control-label']) !!}
                                 <div class="col-md-6">
                                     {!! Form::textarea('bio',Input::old('bio'),['class'=>'form-control','placeholder'=>'Биографија']) !!}
                                 </div>
                             </div>
-                            <div class="form-group">
-                                {!! Form::label('slika',"Слика", ['class'=>'col-md-4 control-label']) !!}
-                                <div class="col-md-6">
-                                    {!! Form::file('foto',Input::old('foto'),['class'=>'form-control','placeholder'=>'Слика']) !!}
+                            <input type="hidden" name='foto_pomocna' value="{{$korisnik->foto}}" >
+                            <div class="row">
+                            <div class="col-sm-4 col-sm-offset-4">
+                            <span class="btn btn-c btn-file">
+                                <i class="glyphicon glyphicon-cloud-upload"></i> Додај фотографију
+                                <input type="file" id="imgInp" name="foto"  accept="image/*" multiple>
+                            </span>
+                            </div>
+                            </div>
+                            <br><br>
+                              <div class="row">
+                                <div class="col-sm-4 col-sm-offset-4">
+                                    <img id="blah" src="{{url($korisnik->foto)}}"  style="width:100%" />
                                 </div>
                             </div>
+                            <br><br>
 
                             <div class="form-group">
                                 <label class="col-md-4 control-label"></label>
@@ -95,19 +99,50 @@
                                     <a href="odredbe/pravilnik">  {!! Form::checkbox('uslovi_koriscenja','0',false,['id'=>'uslovi_koriscenja']) !!}Да  услове коришћења  </a>
                                 </div>
                             </div>
-
                             <div class="form-group" align="center">
                                 {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span>Региструјте се',[ 'name'=>'registracija','class' => 'btn btn-default','id'=>'registracija', 'type'=>'submit'])!!}
                             </div>
-
-
-                            </form>
+                            {!! Form::close() !!}
                     </div>
                 </div>
             </div>
         </div>
+        <style>
+            .btn-file {
+                position: relative;
+                overflow: hidden;
+            }
+            .btn-file input[type=file] {
+                position: absolute;
+                top: 0;
+                right: 0;
+                min-width: 100%;
+                min-height: 100%;
+                font-size: 100px;
+                text-align: right;
+                filter: alpha(opacity=0);
+                opacity: 0;
+                outline: none;
+                background: white;
+                cursor: inherit;
+                display: block;
+            }
+        </style>
         <script>
             $(document).ready(function(){
+                //Prikaz slika
+                function prikaziFoto(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#blah').attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                $("#imgInp").change(function(){
+                    prikaziFoto(this);
+                });
                 $('[data-toggle="tooltip"]').tooltip();
                 $('#dodaj_grad').click(function(){
                     $("#grad_select_id").hide();

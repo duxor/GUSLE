@@ -26,15 +26,57 @@ class KorisniciKO extends Controller
     public function getUredi($username){
         $korisnik = User::where('id',Auth::user()->id)->first();
         $gradovi = Grad::orderBy('id')->lists('naziv','id');
-       // dd($korisnik,$gradovi);
-        return view('administracija.admin.edit_profil')->with('korisnik',$korisnik)->with('gradovi',$gradovi)->with('username',$username);
+        return view('administracija.admin.izmeni')->with('korisnik',$korisnik)->with('gradovi',$gradovi)->with('username',$username);
     }
 
     //Измјена корисника - Ажурирање
     //Рута: /{username}/dogadjaji/izmeni/slug-dogadjaja
-    public function postUredi(Request $requests, $username)
+    public function postUredi(Request $request, $username)
     {
-        dd($requests);
+        if($request->foto) {
+            $image = $request->foto;
+            $image_name = $image->getClientOriginalName();
+            $image->move('img', $image_name);
+            $image_final = 'img/' . $image_name;
+            $int_image = Image::make($image_final);
+            $int_image->resize(300, null, function ($promenljiva) {
+                $promenljiva->aspectRatio();
+            });
+            $int_image->save($image_final);
+        }elseif($request->foto_pomocna != '') {
+            $image_final = $request->foto_pomocna;
+        }else{
+            $image_final = 'img/default/slika-dogadjaji.jpg';
+        }
+
+        if($request->novi_grad){
+            $pomocna = Grad::where('naziv',$request->novi_grad)->first();
+            if($pomocna){
+                $request->grad_id = $pomocna->id;
+            }else{
+                Grad::create(['naziv'=>$request->novi_grad]);
+                $pomocna = Grad::where('naziv',$request->novi_grad)->first();
+                $request->grad_id = $pomocna->id;
+            }
+
+        }
+
+        $korisnik = User::where('email',$request->email)->get()->first();
+
+        $korisnik->prezime = $request->prezime;
+        $korisnik->ime = $request->ime;
+        $korisnik->username = $request->username;
+        $korisnik->email = $request->email;
+        $korisnik->adresa = $request->adresa;
+        $korisnik->grad_id = $request->grad_id;
+        $korisnik->telefon = $request->telefon;
+        $korisnik->bio = $request->bio;
+        $korisnik->foto = $image_final;
+        $korisnik->token = $request->token;
+
+        $korisnik->update();
+
+        return redirect("/{{$username}}/profil");
     }
 
 
