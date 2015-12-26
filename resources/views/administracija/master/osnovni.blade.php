@@ -18,6 +18,7 @@
     {!!HTML::script('aj/js/bootstrap-datepicker.js')!!}
     {!!HTML::script('http://maps.google.com/maps/api/js')!!}
     {!!HTML::script('/js/forma.js')!!}
+    {!!HTML::script('/js/cirilo.js')!!}
 </head>
 <?php
     $korisnik=\Illuminate\Support\Facades\Auth::user();
@@ -43,7 +44,10 @@
                             <li class="list-group-item"><i class="glyphicon glyphicon-plus"></i> Постави оглас</li>
                         </a>
                         <a href="/{{$korisnik->username}}/prodavnica/moji-oglasi">
-                            <li class="list-group-item"><i class="glyphicon glyphicon-shopping-cart"></i> Моји огласи</li>
+                            <li class="list-group-item"><i class="glyphicon glyphicon-gift"></i> Продајем</li>
+                        </a>
+                        <a href="/{{$korisnik->username}}/prodavnica/kupujem">
+                            <li class="list-group-item"><i class="glyphicon glyphicon-shopping-cart"></i> Купујем</li>
                         </a>
                         <a href="/{{$korisnik->username}}/prodavnica/lista-zelja">
                             <li class="list-group-item"><i class="glyphicon glyphicon-heart"></i> Листа жеља</li>
@@ -138,6 +142,7 @@
     </style>
     <script>
         $(function(){$('[data-toggle=tooltip]').tooltip()})
+        $(function(){cirilo.init()})
     </script>
 </body>
 </html>

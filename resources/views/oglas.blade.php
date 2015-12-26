@@ -1,4 +1,4 @@
-<?php $prijavljen=\Illuminate\Support\Facades\Auth::check(); ?>
+<?php //$prijavljen=\Illuminate\Support\Facades\Auth::check(); ?>
 @extends(isset($master)?$master:'layouts.master')
 @section('body')
     <div class="container-fluid oglas {{isset($master)?'':'pt60'}}">
@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-xs-10">
                 <div class="row">
-                    <div class="col-xs-7">
+                    <div class="col-sm-7">
                         <div class="row imgDivLg bg-grey"><img src="{{$oglas->foto}}" id="pregledImg" alt="{{$oglas->naziv}}"></div>
                         <div class="row">
                             @foreach($foto as $k=>$f)
@@ -14,7 +14,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="col-xs-5">
+                    <div class="col-sm-5">
                         <div class="input-group-btn">
                             <button id="zelimBtn" class="btn btn-c" data-toggle="tooltip" title="Додај у листу жеља" onclick="oglasi.zelimToggle(this)"><i class="glyphicon glyphicon-heart"></i> Желим</button>
                             <button class="btn btn-c" style="background-color: #AB0404" data-toggle="tooltip" title="Пријави продавца због огласа" onclick="oglasi.prijavi()"><i class="glyphicon glyphicon-exclamation-sign"></i> Пријави</button>
@@ -24,12 +24,16 @@
                            Замена <b>{{$oglas->zamena?'Да':'Не'}}</b><br>
                            Стање предмета <b>{{$oglas->stanje}}</b><br></p>
                         <div class="input-group pt30">
-                            <input type="text" class="form-control form-control-c b-c" value="{{$oglas->cena}} дин" disabled>
+                            <input type="text" class="form-control form-control-c b-c" style="min-width: 100px" value="{{$oglas->cena}} дин" disabled>
+                            @if($oglas->narudzba==0&&$oglas->stanje_oglasa_id==1)
                             <div class="input-group-btn">
                                 <button class="btn btn-c" data-tooltip="tooltip" title="Важно: информације за купца" data-toggle="collapse-c" href="#kupacInfo"><i class="glyphicon glyphicon-info-sign"></i></button>
                                 <button class="btn btn-c" data-tooltip="tooltip" title="Контакт телефон" data-toggle="collapse-c" href="#kontaktInfo"><i class="glyphicon glyphicon-earphone"></i></button>
                                 <button class="btn btn-c" onclick="oglasi.kupi({{$oglas->id}})" data-toggle="collapse-c" href="#kupiOdmah"><i class="glyphicon glyphicon-shopping-cart"></i> {{$oglas->narudzba?'Наручи':'Купи'}} одмах</button>
                             </div>
+                            @else
+                                <b style="color: red">Предмет је продат</b>
+                            @endif
                         </div><br clear="all">
                         <div class="collapse" id="kupacInfo">
                             <div class="well well-c">
@@ -50,15 +54,18 @@
                                 <p><a href="/{{$username?$username:'admin'}}/poruke/kreiraj/{{$oglas->username}}" class="btn btn-c"><i class="glyphicon glyphicon-envelope"></i> Контактирај продавца</a></p>
                             </div>
                         </div>
-                        <div class="collapse" id="kupiOdmah">
-                            <div class="well well-c">
-                                <p><b>Купи одмах</b></p>
-                                <p>У циљу што квалитетнијег рада функционалност купи одмах је у фази тестирања, па сходно томе још увек није пуштена у рад. Контактирајте продавца и непосредно договорите куповину. Хвала на разумевању.<br>Техничка подршка</p>
-                                <p>{{$oglas->ime}} {{$oglas->prezime}} ({{$oglas->username}}):</p>
-                                <p><b><i class="glyphicon glyphicon-earphone"></i> {{$oglas->telefon?$oglas->telefon:'Корисник није поставио свој број телефона, контактирајте га приватном поруком.'}}</b></p>
-                                <p><a href="/{{$username?$username:'admin'}}/poruke/kreiraj/{{$oglas->username}}" class="btn btn-c"><i class="glyphicon glyphicon-envelope"></i> Контактирај продавца</a></p>
+                        @if($prijavljen)
+                            <div class="collapse" id="kupiOdmah">
+                                <div class="well well-c">
+                                    <p><b>Купи одмах</b></p>
+                                    <p>Након куповине у обавези сте да у контакту са продавцем договорите купопродају предмета. <b>Да ли сте сигурни да желите да извршите куповину?</b> Уколико имате било каквих недоумица <u>пре куповине</u> контактирајте продавца.</p>
+                                    <p>{{$oglas->ime}} {{$oglas->prezime}} ({{$oglas->username}}):</p>
+                                    <p><b><i class="glyphicon glyphicon-earphone"></i> {{$oglas->telefon?$oglas->telefon:'Корисник није поставио свој број телефона, контактирајте га приватном поруком.'}}</b></p>
+                                    <p><a href="/{{$username?$username:'admin'}}/poruke/kreiraj/{{$oglas->username}}" class="btn btn-c"><i class="glyphicon glyphicon-envelope"></i> Контактирај продавца</a></p>
+                                    <p><a href="/{{$username?$username:'admin'}}/prodavnica/kupujem/{{$oglas->slug}}" class="btn btn-c"><i class="glyphicon glyphicon-envelope"></i> Да, {{$oglas->narudzba?'наручи':'купи'}} предмет</a></p>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                         <u>Продавац</u><br>
                         <b>{{$oglas->ime}} {{$oglas->prezime}} ({{$oglas->username}})</b><br>
                         <b>{{$oglas->grad=='Недефинисан'?'Град није дефинисан. Контактирајте продавца и утврдите информацију.':$oglas->grad}}</b>
@@ -172,9 +179,9 @@
             },
             kupi:function(id){
                 @if($prijavljen)
-
+                    $('#kupiOdmah').collapse();
                 @else
-                    //window.location.assign('/prijava');
+                    window.location.assign('/prijava');
                 @endif
             }
         }

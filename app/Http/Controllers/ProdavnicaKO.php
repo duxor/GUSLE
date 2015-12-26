@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Kupovina;
 use App\ListaZelja;
 use App\Media;
 use App\Pregledi;
@@ -41,6 +42,7 @@ class ProdavnicaKO extends Controller{
                         $podaci=array_merge($podaci,['vrstaProizvoda'=>VrstaProizvoda::zaKombo(),'stanjeProizvoda'=>StanjeProizvoda::zaKombo()]);
                         return view('administracija.prodavnica.postavi-oglas')->with($podaci);
                         break;
+                    case'kupujem':
                     case'moji-oglasi':
                     case'lista-zelja':
                         $podaci=array_merge($podaci,['target'=>$target,'status'=>json_encode(StanjeOglasa::orderBy('id')->get(['naziv','id'])->toArray())]);
@@ -76,6 +78,11 @@ class ProdavnicaKO extends Controller{
     }
     public function getListaZelja($username){
         return $this->prodavnica($username,'lista-zelja');
+    }
+    public function getKupujem($username,$slug=null){
+        if($slug)
+            return view('administracija.prodavnica.kupovina')->with(['podaci'=>Proizvod::join('korisnici as k','k.id','=','korisnici_id')->join('grad as g','g.id','=','grad_id')->where('proizvod.aktivan',1)->where('proizvod.stanje_oglasa_id',1)->where('slug',$slug)->get(['proizvod.naziv','slug','narudzba',DB::raw('gusle_proizvod.cena-(cena*popust/100) as cena'),'proizvod.foto','username','prezime','ime','g.naziv as grad','k.telefon','proizvod.opis'])->first(),'username'=>$username]);
+        return $this->prodavnica($username,'kupujem');
     }
     public function postObjaviOglas($username){
         $update=Input::has('id');
@@ -169,6 +176,17 @@ class ProdavnicaKO extends Controller{
     public function postListaZelja($username){
         return json_encode(ListaZelja::join('proizvod as p','p.id','=','proizvod_id')->join('stanje_oglasa as so','so.id','=','p.stanje_oglasa_id')->where('lista_zelja.korisnici_id',Auth::user()->id)->where('lista_zelja.aktivan',1)->where('p.aktivan',1)->get(['p.id','p.naziv','p.slug',DB::raw('gusle_p.cena-(cena*popust/100) as cena'),'p.created_at','p.foto','so.naziv as status'])->toArray());
     }
+    public function postKupujem($username,$slug=null){
+        if($slug){
+            $return=Kupovina::kupiProizvod($slug,Input::get('napomena'));
+            if($return['test']==1) return redirect('/'.$username.'/prodavnica/kupujem');
+            return redirect()->back()->with($return['greska']);
+        }
+        return json_encode(Kupovina::join('proizvod as p','p.id','=','proizvod_id')->join('korisnici as k','k.id','=','p.korisnici_id')->join('grad as g','g.id','=','k.grad_id')->where('kupovina.korisnici_id',Auth::user()->id)->where('ocena',0)->get(['kupovina.id','p.naziv',DB::raw('gusle_p.cena-(cena*popust/100) as cena'),'kupovina.created_at','prezime','ime','username','adresa','g.naziv as grad','telefon','p.foto']));
+    }
+    public function postOceniProdavca(){
+        return Kupovina::oceniProdavca(Input::get('id'),Input::get('ocena'),Input::get('opisna_ocena'));
+    }
     public function postDodajUListuZelja($username,$idProizvoda=null){
         if(!$idProizvoda) $idProizvoda=Input::get('id');
         $kid=Auth::user()->id;
@@ -184,17 +202,18 @@ class ProdavnicaKO extends Controller{
     }
     public static function getOglas($username=null,$slug){
         $podaci=[];
-        $podaci['oglas']=Proizvod::join('stanje_proizvoda as s','s.id','=','proizvod.stanje_proizvoda_id')->join('korisnici as k','k.id','=','proizvod.korisnici_id')->join('grad as g','g.id','=','k.grad_id')->where('slug',$slug)->get(['proizvod.id','proizvod.naziv','slug',DB::raw('cena-(cena*popust/100) as cena'),'kolicina','narudzba','zamena','vrsta_proizvoda_id','s.naziv as stanje','korisnici_id','opis','proizvod.foto','username','prezime','ime','g.naziv as grad','k.telefon'])->first();
+        $podaci['oglas']=Proizvod::join('stanje_proizvoda as s','s.id','=','proizvod.stanje_proizvoda_id')->join('korisnici as k','k.id','=','proizvod.korisnici_id')->join('grad as g','g.id','=','k.grad_id')->where('slug',$slug)->get(['proizvod.id','proizvod.naziv','slug',DB::raw('cena-(cena*popust/100) as cena'),'kolicina','narudzba','zamena','vrsta_proizvoda_id','s.naziv as stanje','korisnici_id','opis','proizvod.foto','username','prezime','ime','g.naziv as grad','k.telefon','stanje_oglasa_id'])->first();
         Pregledi::pregledanOglas($podaci['oglas']->id,ProdavnicaKO::getIP());
         $podaci['foto']=Media::where('src','like','/img/prodavnica/prodavnica-'.$podaci['oglas']->korisnici_id.'-'.$podaci['oglas']->id.'-%')->get();
         if(Auth::check()){
                 $podaci=$podaci+[
                     'master'=>'administracija.master.osnovni',
                     'zelim'=>ListaZelja::where('korisnici_id',Auth::user()->id)->where('proizvod_id',$podaci['oglas']->id)->where('aktivan',1)->exists(),
-                    'username'=>$username];
+                    'username'=>Auth::user()->username,'prijavljen'=>1];
         }else $podaci=$podaci+[
                 'master'=>null,
                 'username'=>null,
+                'prijavljen'=>null,
                 'zelim'=>null];
         return view('oglas')->with($podaci);
     }

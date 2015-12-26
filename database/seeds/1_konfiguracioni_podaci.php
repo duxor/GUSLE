@@ -49,10 +49,10 @@ class KonfiguracioniPodaci extends Seeder{
             ['naziv'=>'Остало','slug'=>'ostalo'],//8
         ]);
         StanjeOglasa::insert([
-            ['naziv'=>'Активан'],
-            ['naziv'=>'Резервисан'],
-            ['naziv'=>'У фази испоруке'],
-            ['naziv'=>'Продат'],
+            ['naziv'=>'Активан'],//1
+            ['naziv'=>'Резервисан'],//2
+            ['naziv'=>'У фази испоруке'],//3
+            ['naziv'=>'Продат'],//4
         ]);
         StanjeProizvoda::insert([
             ['naziv'=>'Ново'],

@@ -154,8 +154,20 @@ class KreiranjeBaze extends Migration {
             $table->foreign('stanje_oglasa_id')->references('id')->on('stanje_oglasa');
             $table->unsignedBigInteger('korisnici_id');
             $table->foreign('korisnici_id')->references('id')->on('korisnici');
-            $table->text('opis');
+            $table->text('opis')->nullable();
             $table->string('foto',250)->nullable();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->nullable();
+        });
+        Schema::create('kupovina', function(Blueprint $table){
+            $table->bigIncrements('id');
+            $table->tinyInteger('ocena')->default(0);
+            $table->text('opisna_ocena')->nullable();
+            $table->text('napomena')->nullable();
+            $table->unsignedBigInteger('proizvod_id');
+            $table->foreign('proizvod_id')->references('id')->on('proizvod');
+            $table->unsignedBigInteger('korisnici_id');
+            $table->foreign('korisnici_id')->references('id')->on('korisnici');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
         });
@@ -250,6 +262,7 @@ class KreiranjeBaze extends Migration {
 	public function down(){
         //Schema::drop('users');
         Schema::drop('password_resets');
+        Schema::drop('kupovina');
         Schema::drop('pregledi');
         Schema::drop('lista_zelja');
         Schema::drop('mailbox');

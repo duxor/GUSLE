@@ -136,5 +136,5 @@ footer .glyphicon {
     border-radius:0;
 }
 body{ cursor: url(/img/cursor/srbski.cur), pointer; }
-a,button:hover,.btn,.carousel-control,.carousel-indicators>li,.imgDivLg img,select,label{ cursor: url(/img/cursor/srbskilink.cur), pointer; }
 input:hover{ cursor: url(/img/cursor/srbskitextbolji.cur), pointer; }
+a,button:hover,.btn,.carousel-control,.carousel-indicators>li,.imgDivLg img,select,label,input[type=checkbox]{ cursor: url(/img/cursor/srbskilink.cur), pointer; }
