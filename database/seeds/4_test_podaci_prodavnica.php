@@ -18,7 +18,7 @@ Za prodaju Gusle izradjene pred par godina od strane majstora Braneta Stanišic�
                 'foto'=>'/img/prodavnica/prodavnica-1-1-1450881799743-0.jpg'
             ],
             [//2
-                'naziv'=>'Gusle od javora',
+                'naziv'=>'Гусле од јавора',
                 'slug'=>'gusle-od-javora-1',
                 'cena'=>13000,
                 'vrsta_proizvoda_id'=>1,

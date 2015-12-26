@@ -64,27 +64,40 @@
                                             '<a href="'+mojaProdavnica.urlOglasa+data[i].slug+'"><img src="'+data[i].foto+'" alt="'+data[i].naziv+'"></a>'+
                                         '</div>'+
                                         '<div class="col-sm-9 col-xs-9 form-inline">'+
-                                            '<a href="'+mojaProdavnica.urlOglasa+data[i].slug+'"><b class="th150">'+data[i].naziv+'</b></a> <b class="th120">'+ data[i].cena+' дин</b><br>'+
+                                            '<a href="'+mojaProdavnica.urlOglasa+data[i].slug+'"><b class="th150">'+data[i].naziv+'</b></a> <b class="th120 cena-'+data[i].id+'">'+ data[i].cena+' дин</b><br>'+
                                             '<b><i class="glyphicon glyphicon-time"></i> '+(new Date(data[i].created_at).getDate())+'.'+(new Date(data[i].created_at).getMonth()+1)+'.'+(new Date(data[i].created_at).getFullYear())+'. '+(new Date(data[i].created_at).getHours())+':'+(new Date(data[i].created_at).getMinutes())+'</b><br>'+
                                             (mojaProdavnica.initTarget=='moji-oglasi'?
+                                            mojaProdavnica.popustDorp(data[i].id,data[i].popust,data[i].prva_cena)+
                                             mojaProdavnica.statusDrop(data[i].id,data[i].status)+
                                             '<a class="btn btn-c" href="'+mojaProdavnica.urlOglasa+data[i].slug+'/izmeni"><i class="glyphicon glyphicon-pencil"></i> Измени</a>':data[i].status)+
-                                            '<button class="btn btn-c-danger" onclick="mojaProdavnica.ukloni(\''+data[i].id+'\')"><i class="glyphicon glyphicon-trash"></i> Уклони</button>'+
+                                            '<button class="btn btn-c-danger" onclick="mojaProdavnica.ukloni(\''+data[i].id+'\')"><i class="glyphicon glyphicon-trash"></i> Уклони</button><br>'+
+                                            (mojaProdavnica.initTarget=='moji-oglasi'?'Број прегледа: '+(data[i].pregledi?data[i].pregledi:0):'')+
                                         '</div>'+
                                     '</div>';
                         else ispis+='Ни један производ се не налази у листи.';
                         $('#work-place').html(ispis);
+                        $('[data-toggle=tooltip]').tooltip();
                         $('.mojOglasStatus').change(function(){
                             mojaProdavnica.promijeniStatusOglasa($(this).data('id'),$(this).val())
+                        });
+                        $('.mojOglasPopust').change(function(){
+                            $('.cena-'+$(this).data('id')).html(($(this).data('cena')-$(this).data('cena')*$(this).val()/100)+' дин');
+                            mojaProdavnica.promijeniStatusPopusta($(this).data('id'),$(this).val())
                         });
                     }
                 });
             },
             ststusi:JSON.parse('{{$status}}'.replace(/&quot;/g,'"')),
             statusDrop:function(idOglasa,statusId){
-                var ispis='<select data-id="'+idOglasa+'" class="form-control form-control-c mojOglasStatus">';
+                var ispis='<select data-id="'+idOglasa+'" class="form-control form-control-c mojOglasStatus" data-toggle="tooltip" title="Статус огласа">';
                 for(var i=0; i<mojaProdavnica.ststusi.length; i++)
                     ispis+='<option value="'+mojaProdavnica.ststusi[i].id+'"'+(mojaProdavnica.ststusi[i].id==statusId?'selected="selected"':'')+'>'+mojaProdavnica.ststusi[i].naziv+'</option>';
+                return ispis+'</select>';
+            },
+            popustDorp:function(id,popust,prvaCena){
+                var ispis='<select data-id="'+id+'" data-cena="'+prvaCena+'" class="form-control form-control-c mojOglasPopust" data-toggle="tooltip" title="Попуст">';
+                for(var i=0;i<9;i++)
+                    ispis+='<option value="'+(i*10)+'"'+(popust/10==i?'selected="selected"':'')+'>'+(i*10)+'%</option>';
                 return ispis+'</select>';
             },
             ukloni:function(id){
@@ -95,9 +108,10 @@
                 });
             },
             promijeniStatusOglasa:function(id,status){
-                $.post(mojaProdavnica.urlPost+'promeni-status-oglasa',{_token:mojaProdavnica.token,id:id},function(data){
-                    console.log(data,status);
-                })
+                $.post(mojaProdavnica.urlPost+'promeni-status-oglasa',{_token:mojaProdavnica.token,id:id,status:status},function(){})
+            },
+            promijeniStatusPopusta:function(id,popust){
+                $.post(mojaProdavnica.urlPost+'promeni-popust-oglasa',{_token:mojaProdavnica.token,id:id,popust:popust},function(){})
             }
         }
     </script>

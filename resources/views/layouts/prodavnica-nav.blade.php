@@ -16,11 +16,11 @@
         <a href="/prodavnica/pretraga/ostalo" class="list-group-item">Остало</a>
     </div>
     <div class="list-group b-c">
-        <a href="#" class="list-group-item active">Бесплатно постављање</a>
-        <a href="#" class="list-group-item">Продајем</a>
-        <a href="#" class="list-group-item">Купујем</a>
-        <a href="#" class="list-group-item">Жеље</a>
-        <a href="#" class="list-group-item">Помоћ</a>
+        <a href="{{$prijavljen?'/username/prodavnica/postavi-oglas':'/prijava'}}" class="list-group-item active">Бесплатно постављање</a>
+        <a href="{{$prijavljen?'/username/prodavnica/moji-oglasi':'/prijava'}}" class="list-group-item">Продајем</a>
+        <a href="#" class="list-group-item" data-toggle="tooltip" title="У припреми">Купујем</a>
+        <a href="{{$prijavljen?'/username/prodavnica/lista-zelja':'/prijava'}}" class="list-group-item">Жеље</a>
+        <a href="#" class="list-group-item" data-toggle="tooltip" title="У припреми">Помоћ</a>
     </div>
 </div>
 <style>

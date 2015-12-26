@@ -142,6 +142,7 @@ class KreiranjeBaze extends Migration {
             $table->string('slug', 250);
             $table->integer('kolicina')->default(1);
             $table->float('cena');
+            $table->tinyInteger('popust')->default(0);
             $table->tinyInteger('narudzba')->default(0);
             $table->tinyInteger('zamena')->default(0);
             $table->tinyInteger('aktivan')->default(1);
@@ -155,6 +156,14 @@ class KreiranjeBaze extends Migration {
             $table->foreign('korisnici_id')->references('id')->on('korisnici');
             $table->text('opis');
             $table->string('foto',250)->nullable();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->nullable();
+        });
+        Schema::create('pregledi', function(Blueprint $table){
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('proizvod_id');
+            $table->foreign('proizvod_id')->references('id')->on('proizvod');
+            $table->string('ip', 45);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
         });
@@ -241,6 +250,7 @@ class KreiranjeBaze extends Migration {
 	public function down(){
         //Schema::drop('users');
         Schema::drop('password_resets');
+        Schema::drop('pregledi');
         Schema::drop('lista_zelja');
         Schema::drop('mailbox');
         Schema::drop('media');

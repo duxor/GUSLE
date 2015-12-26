@@ -17,8 +17,8 @@ class DogadjajiKO extends Controller{
 
     private $url='/dogadjaji';
     public function __construct(){
-        $this->middleware('PravaPristupaMid:2,0',['except'=>['getIndex']]);//za korisnike 2+ (sve registrovane)
-        $this->middleware('UsernameLinkMid:'.$this->url,['except'=>['postSlugTest']]);
+        $this->middleware('PravaPristupaMid:2,0',['except'=>['getIndex','getArhiva']]);//za korisnike 2+ (sve registrovane)
+        $this->middleware('UsernameLinkMid:'.$this->url,['except'=>['postSlugTest','getArhiva']]);
     }
     //  P R I K A Z I
     //Prikaz svih dogadjaja
