@@ -17,6 +17,9 @@ class Kupovina extends Model{
     }
 
     public static function oceniProdavca($idKupovine,$ocena,$opisnaOcena){
-        return Kupovina::where('korisnici_id',Auth::user()->id)->where('id',$idKupovine)->update(['ocena'=>$ocena,'opisna_ocena'=>$opisnaOcena]);
+        return Kupovina::where('korisnici_id',Auth::user()->id)->where('id',$idKupovine)->update(['ocena_prodavca'=>$ocena,'opisna_ocena_prodavca'=>$opisnaOcena]);
+    }
+    public static function oceniKupca($idKupovine,$ocena,$opisnaOcena){
+        return Kupovina::where('korisnici_id',Auth::user()->id)->where('id',$idKupovine)->update(['ocena_kupca'=>$ocena,'opisna_ocena_kupca'=>$opisnaOcena]);
     }
 }

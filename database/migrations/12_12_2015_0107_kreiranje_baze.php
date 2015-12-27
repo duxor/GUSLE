@@ -45,6 +45,7 @@ class KreiranjeBaze extends Migration {
             $table->tinyInteger('aktivan')->default(0);
             $table->string('foto',250)->nullable();
             $table->string('token',250)->nullable();
+            $table->string('facebook',250)->nullable();
             $table->rememberToken();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
@@ -160,8 +161,10 @@ class KreiranjeBaze extends Migration {
         });
         Schema::create('kupovina', function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->tinyInteger('ocena')->default(0);
-            $table->text('opisna_ocena')->nullable();
+            $table->tinyInteger('ocena_prodavca')->default(0);
+            $table->text('opisna_ocena_prodavca')->nullable();
+            $table->tinyInteger('ocena_kupca')->default(0);
+            $table->text('opisna_ocena_kupca')->nullable();
             $table->text('napomena')->nullable();
             $table->unsignedBigInteger('proizvod_id');
             $table->foreign('proizvod_id')->references('id')->on('proizvod');

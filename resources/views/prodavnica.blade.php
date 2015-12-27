@@ -60,23 +60,24 @@
             <h2 class="col-sm-12"><a href="#">Топ огласи</a></h2>
             @foreach($top as $k=>$oglas)
                 @if($k%4==0) @if($k!=0) </div> @endif <div class="row"> @endif
-                <div class="col-xs-3 mb5 imgDivLg" data-toggle="tooltip" title="{{$oglas->naziv}}: {{$oglas->cena}} дин"><a href="/oglas/{{$oglas->slug}}"><img src="{{$oglas->foto}}"></a></div>
+                <div class="col-sm-3 mb5 imgDivLg" data-toggle="tooltip" title="{{$oglas->naziv}}: {{$oglas->cena}} дин"><a href="/oglas/{{$oglas->slug}}"><img src="{{$oglas->foto}}"></a></div>
             @endforeach
         @endif
         @if(sizeof($najnoviji)>0)
             <h2 class="col-sm-12"><a href="#">Најновији огласи</a></h2>
             @foreach($najnoviji as $k=>$oglas)
                 @if($k%4==0) @if($k!=0) </div> @endif <div class="row"> @endif
-                <div class="col-xs-3 mb5 imgDivLg" data-toggle="tooltip" title="{{$oglas->naziv}}: {{$oglas->cena}} дин"><a href="/oglas/{{$oglas->slug}}" style="width: 900px;height: 506px"><img src="{{$oglas->foto}}"></a></div>
+                <div class="col-sm-3 mb5 imgDivLg" data-toggle="tooltip" title="{{$oglas->naziv}}: {{$oglas->cena}} дин"><a href="/oglas/{{$oglas->slug}}"><img src="{{$oglas->foto}}"></a></div>
             @endforeach
         @endif
         @if(sizeof($popust)>0)
             <h2 class="col-sm-12"><a href="#">На попусту</a></h2>
             @foreach($popust as $k=>$oglas)
                 @if($k%4==0) @if($k!=0) </div> @endif <div class="row"> @endif
-                <div class="col-xs-3 mb5 imgDivLg" data-toggle="tooltip" title="{{$oglas->naziv}}: {{$oglas->cena}} дин - Попуст {{$oglas->popust}}%"><a href="/oglas/{{$oglas->slug}}"><img src="{{$oglas->foto}}"></a><span class="popust{{$oglas->popust}}">{{$oglas->popust}}%</span></div>
+                <div class="col-sm-3 mb5 imgDivLg" data-toggle="tooltip" title="{{$oglas->naziv}}: {{$oglas->cena}} дин - Попуст {{$oglas->popust}}%"><a href="/oglas/{{$oglas->slug}}"><img src="{{$oglas->foto}}"></a><span class="popust{{$oglas->popust}}">{{$oglas->popust}}%</span></div>
             @endforeach
         @endif
+    </div>
     </div>
     <style>
         .prodavnica h2 a{ color: #1A0D0A }
@@ -94,8 +95,8 @@
             transform: translateY(-50%) translateX(-50%);
         }
         .slajderF{max-height: 400px}
-        .slajderF img{margin: 0 auto;}.imgDivLg a{width: 100%}
-        .prvaLinija,.imgDivLg{height: 100%;text-align: center;overflow: hidden;}
+        .slajderF img{margin: 0 auto;}
+        .prvaLinija,.imgDivLg{height: 190px;text-align: center;overflow: hidden;}
         .prvaLinija img,.imgDivLg img{width: 95%;min-height:100%;position: absolute;top:0;transform: translateX(-50%)}
         .popust10,.popust20,.popust30,.popust40,.popust50,.popust60,.popust70,.popust80{
             position: absolute;top: 0;left: 3%;font-weight: bold;padding: 3px;font-size: 130%;

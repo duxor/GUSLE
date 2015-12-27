@@ -84,15 +84,17 @@ footer .glyphicon {
 .objave img{width: 100%}
 .objave h3{margin-top: 0}
 .footer {
-    bottom: 0;
     width: 100%;
     background-color: #1A0D0A;
     color:#e1e1e1;
+    border-top: #000 solid;
+    padding-bottom: 10px;
+    margin-top: 20px;
 }
 .p30{padding: 30px 0;}
 .m100{margin-top: 100px;}
-.b{border-top: #000 solid;height: 60px;padding: 0}
-.b img{height: 100%}
+.b{padding: 0}
+.b img{height: 60px;margin-bottom: 5px}
 .dropdown-menu ul li a{color: #0f0f0f}
 .navbar-default .navbar-nav .open .dropdown-menu>li>a,.navbar-default .navbar-nav .open .dropdown-menu{
     background-color: #1A0D0A;
