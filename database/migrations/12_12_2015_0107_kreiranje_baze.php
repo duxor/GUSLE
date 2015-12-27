@@ -264,7 +264,7 @@ class KreiranjeBaze extends Migration {
         Schema::drop('stanje_proizvoda');
         Schema::drop('stanje_oglasa');
         Schema::drop('drustveni_korisnik');
-        Schema::drop('udruzenja');
+        Schema::drop('udruzenje');
         Schema::drop('objava');
         Schema::drop('vrsta_objave');
         Schema::drop('korisnicka_grupa');
