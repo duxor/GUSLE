@@ -243,15 +243,6 @@ class KreiranjeBaze extends Migration {
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
         });
-/*        Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password', 60);
-            $table->rememberToken();
-            $table->timestamps();
-        });*/
-
         Schema::create('password_resets', function (Blueprint $table) {
             $table->string('email')->index();
             $table->string('token')->index();
@@ -259,7 +250,6 @@ class KreiranjeBaze extends Migration {
         });
 	}
 	public function down(){
-        //Schema::drop('users');
         Schema::drop('password_resets');
         Schema::drop('kupovina');
         Schema::drop('pregledi');
@@ -274,8 +264,7 @@ class KreiranjeBaze extends Migration {
         Schema::drop('stanje_proizvoda');
         Schema::drop('stanje_oglasa');
         Schema::drop('drustveni_korisnik');
-        Schema::drop('drustvo');
-        Schema::drop('savez');
+        Schema::drop('udruzenja');
         Schema::drop('objava');
         Schema::drop('vrsta_objave');
         Schema::drop('korisnicka_grupa');
