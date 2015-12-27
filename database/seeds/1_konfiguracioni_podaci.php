@@ -10,6 +10,7 @@ use App\Grad;
 use App\Galerija;
 use App\VrstaSadrzaja;
 use App\StanjeOglasa;
+use App\Udruzenje;
 class KonfiguracioniPodaci extends Seeder{
     public function run(){
         PravaPristupa::insert([
@@ -68,6 +69,9 @@ class KonfiguracioniPodaci extends Seeder{
         VrstaSadrzaja::insert([
             ['naziv'=>'Фотографија'],
             ['naziv'=>'Видео'],
+        ]);
+        Udruzenje::insert([
+            ['vrsta_udruzenja_id'=>1,'naziv'=>'Самостално друштво','grad_id'=>1,'korisnici_id'=>1]
         ]);
     }
 }

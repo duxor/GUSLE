@@ -90,21 +90,20 @@ class KreiranjeBaze extends Migration {
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
         });
-        Schema::create('savez', function(Blueprint $table){
+        Schema::create('udruzenje', function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->string('naziv', 45);
-            //ZA PROSIRENJE
+            $table->tinyInteger('vrsta_udruzenja_id')->default(0);//[0=>'Друштво',1=>'Савез']
+            $table->string('naziv', 100);
+            $table->text('opis')->nullable();
+            $table->unsignedBigInteger('grad_id');
+            $table->foreign('grad_id')->references('id')->on('grad');
+            $table->string('adresa', 150)->nullable();
+            $table->string('x', 30)->nullable();
+            $table->string('y', 30)->nullable();
+            $table->unsignedBigInteger('savez_id')->nullable();
             $table->unsignedBigInteger('korisnici_id');
             $table->foreign('korisnici_id')->references('id')->on('korisnici');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->nullable();
-        });
-        Schema::create('drustvo', function(Blueprint $table){
-            $table->bigIncrements('id');
-            $table->string('naziv', 45);
-            //ZA PROSIRENJE
-            $table->unsignedBigInteger('savez_id');
-            $table->foreign('savez_id')->references('id')->on('savez');
+            $table->string('foto', 250)->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
         });
