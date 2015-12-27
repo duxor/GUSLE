@@ -55,7 +55,7 @@ class ProdavnicaKO extends Controller{
     public function pocetnaProdavnice(){
         return [
             'najnoviji'=>Proizvod::where('aktivan',1)->where('stanje_oglasa_id',1)->where('popust',0)->take(ProdavnicaKO::$brojNajnovijih)->orderBy('id','desc')->get(['slug','foto','naziv',DB::raw('cena-(cena*popust/100) as cena')]),
-            'slajder'=>Proizvod::where('aktivan',1)->where('stanje_oglasa_id',1)->get(['naziv','foto','slug',DB::raw('cena-(cena*popust/100) as cena')])->random($this->brojImgSlajdera),
+            'slajder'=>Proizvod::where('aktivan',1)->where('stanje_oglasa_id',1)->orderBy(DB::raw('RAND()'))->take($this->brojImgSlajdera)->get(['naziv','foto','slug',DB::raw('cena-(cena*popust/100) as cena')]),
             'prijavljen'=>Auth::check(),
             'popust'=>Proizvod::where('aktivan',1)->where('stanje_oglasa_id',1)->where('popust','>',0)->orderBy('created_at')->orderBy('id')->take($this->brojImgPopusta)->get(['naziv','slug','foto',DB::raw('cena-(cena*popust/100) as cena'),'popust']),
             'top'=>Proizvod::join('pregledi as p','p.proizvod_id','=','proizvod.id')

@@ -109,8 +109,8 @@ class KreiranjeBaze extends Migration {
         });
         Schema::create('drustveni_korisnik', function(Blueprint $table){
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('drustvo_id');
-            $table->foreign('drustvo_id')->references('id')->on('drustvo');
+            $table->unsignedBigInteger('udruzenje_id');
+            $table->foreign('udruzenje_id')->references('id')->on('udruzenje');
             $table->unsignedBigInteger('korisnici_id');
             $table->foreign('korisnici_id')->references('id')->on('korisnici');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
