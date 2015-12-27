@@ -171,7 +171,9 @@ class ProdavnicaKO extends Controller{
         return Proizvod::setPopust(Input::get('id'),Input::get('popust'));
     }
     public function postMojiOglasi($username){
-        return json_encode(Proizvod::where('korisnici_id',Auth::user()->id)->where('proizvod.aktivan',1)->get(['proizvod.id','proizvod.naziv','proizvod.slug',DB::raw('gusle_proizvod.cena-(cena*popust/100) as cena'),'proizvod.cena as prva_cena','proizvod.created_at','stanje_oglasa_id as status','foto','popust',DB::raw('(select count(gp.id) from gusle_pregledi as gp where proizvod_id=gusle_proizvod.id group by proizvod_id, ip) as pregledi')])->toArray());
+        return json_encode(Proizvod::leftjoin('kupovina as k','k.proizvod_id','=','proizvod.id')->leftjoin('korisnici as ko','ko.id','=','k.korisnici_id')->leftjoin('grad as g','g.id','=','ko.grad_id')->where(function($query){
+            $query->whereNull('k.ocena_kupca')->orWhere('k.ocena_kupca',0);
+        })->where('proizvod.korisnici_id',Auth::user()->id)->where('proizvod.aktivan',1)->get(['proizvod.id','proizvod.naziv','proizvod.slug',DB::raw('gusle_proizvod.cena-(cena*popust/100) as cena'),'proizvod.cena as prva_cena','proizvod.created_at','stanje_oglasa_id as status','proizvod.foto','popust',DB::raw('(select count(gp.id) from gusle_pregledi as gp where proizvod_id=gusle_proizvod.id group by proizvod_id, ip) as pregledi'),'prezime','ime','adresa','telefon','g.naziv as grad','username','k.id as kupovinaid','k.napomena'])->toArray());
     }
     public function postListaZelja($username){
         return json_encode(ListaZelja::join('proizvod as p','p.id','=','proizvod_id')->join('stanje_oglasa as so','so.id','=','p.stanje_oglasa_id')->where('lista_zelja.korisnici_id',Auth::user()->id)->where('lista_zelja.aktivan',1)->where('p.aktivan',1)->get(['p.id','p.naziv','p.slug',DB::raw('gusle_p.cena-(cena*popust/100) as cena'),'p.created_at','p.foto','so.naziv as status'])->toArray());
@@ -182,10 +184,10 @@ class ProdavnicaKO extends Controller{
             if($return['test']==1) return redirect('/'.$username.'/prodavnica/kupujem');
             return redirect()->back()->with($return['greska']);
         }
-        return json_encode(Kupovina::join('proizvod as p','p.id','=','proizvod_id')->join('korisnici as k','k.id','=','p.korisnici_id')->join('grad as g','g.id','=','k.grad_id')->where('kupovina.korisnici_id',Auth::user()->id)->where('ocena',0)->get(['kupovina.id','p.naziv',DB::raw('gusle_p.cena-(cena*popust/100) as cena'),'kupovina.created_at','prezime','ime','username','adresa','g.naziv as grad','telefon','p.foto']));
+        return json_encode(Kupovina::join('proizvod as p','p.id','=','proizvod_id')->join('korisnici as k','k.id','=','p.korisnici_id')->join('grad as g','g.id','=','k.grad_id')->where('kupovina.korisnici_id',Auth::user()->id)->where('ocena_prodavca',0)->get(['kupovina.id','p.naziv',DB::raw('gusle_p.cena-(cena*popust/100) as cena'),'kupovina.created_at','prezime','ime','username','adresa','g.naziv as grad','telefon','p.foto']));
     }
-    public function postOceniProdavca(){
-        return Kupovina::oceniProdavca(Input::get('id'),Input::get('ocena'),Input::get('opisna_ocena'));
+    public function postOceni(){
+        return Kupovina::oceni(Input::get('id'),Input::get('ocena'),Input::get('opisna_ocena'));
     }
     public function postDodajUListuZelja($username,$idProizvoda=null){
         if(!$idProizvoda) $idProizvoda=Input::get('id');

@@ -31,6 +31,7 @@
             'moji-oglasi':'Моји огласи',
             'lista-zelja':'Листа жеља',
             initTarget:'{{$target}}',
+            username:'{{$username}}',
             urlPost:'/{{$username}}/prodavnica/',
             urlOglasa:'/{{$username}}/oglas/',
             ukloniStrUrl:'-ukloni',
@@ -68,9 +69,12 @@
                                             '<a href="'+mojaProdavnica.urlOglasa+data[i].slug+'"><b class="th150">'+data[i].naziv+'</b></a> <b class="th120 cena-'+data[i].id+'">'+ data[i].cena+' дин</b><br>'+
                                             '<b><i class="glyphicon glyphicon-time"></i> '+(new Date(data[i].created_at).getDate())+'.'+(new Date(data[i].created_at).getMonth()+1)+'.'+(new Date(data[i].created_at).getFullYear())+'. '+(new Date(data[i].created_at).getHours())+':'+(new Date(data[i].created_at).getMinutes())+'</b><br>'+
                                             (mojaProdavnica.initTarget=='moji-oglasi'?
-                                                mojaProdavnica.popustDorp(data[i].id,data[i].popust,data[i].prva_cena)+
-                                                mojaProdavnica.statusDrop(data[i].id,data[i].status)+
-                                                '<a class="btn btn-c" href="'+mojaProdavnica.urlOglasa+data[i].slug+'/izmeni"><i class="glyphicon glyphicon-pencil"></i> Измени</a>':(mojaProdavnica.initTarget=='lista-zelja'?data[i].status:(
+                                                (data[i].status!=4?(
+                                                    mojaProdavnica.popustDorp(data[i].id,data[i].popust,data[i].prva_cena)+
+                                                    mojaProdavnica.statusDrop(data[i].id,data[i].status)+
+                                                    '<a class="btn btn-c" href="'+mojaProdavnica.urlOglasa+data[i].slug+'/izmeni"><i class="glyphicon glyphicon-pencil"></i> Измени</a>')
+                                                    :'<button class="btn btn-c" data-toggle="collapse" href="#kupac-'+data[i].id+'"><i class="glyphicon glyphicon-user"></i></button><div class="collapse" id="kupac-'+data[i].id+'"><div class="well well-c"><b><p>'+(data[i].napomena?'Напомена од купца: '+data[i].napomena:'')+' '+data[i].ime+' '+data[i].prezime+(data[i].adresa?'<br>'+data[i].adresa:'')+(data[i].grad?'<br>'+data[i].grad:'')+(data[i].telefon?'<br><i class="glyphicon glyphicon-earphone"></i> '+data[i].telefon:'')+'<br><a href="/'+mojaProdavnica.username+'/poruke/kreiraj/'+data[i].username+'" class="btn btn-c"><i class="glyphicon glyphicon-envelope"></i> Контактирај купца</a></p></b></div></div><button class="btn btn-c" data-toggle="collapse" href="#oceniCol"><i class="glyphicon glyphicon-equalizer"></i> Оцени купца</button><div class="collapse" id="oceniCol"><div class="well well-c"><b><p><select class="form-control form-control-c" name="ocena-'+data[i].kupovinaid+'"><option value="-1">Негативна</option><option value="1" selected="selected">Позитивна</option></select></p><p><textarea name="opisna_ocena-'+data[i].kupovinaid+'" data-serbian="true" class="form-control form-control-c" placeholder="Унесите ваша запажања и импресије везане за сарадњу са продавцем" style="width: 100%"></textarea><button class="btn btn-c" onclick="mojaProdavnica.oceni('+data[i].kupovinaid+')"><i class="glyphicon glyphicon-equalizer"></i> Оцени</button></b></div></div>')
+                                                :(mojaProdavnica.initTarget=='lista-zelja'?data[i].status:(
                                                 '<button class="btn btn-c" data-toggle="collapse" href="#oceniCol"><i class="glyphicon glyphicon-equalizer"></i> Оцени продавца</button><div class="collapse" id="oceniCol"><div class="well well-c"><b><p><select class="form-control form-control-c" name="ocena-'+data[i].id+'"><option value="-1">Негативна</option><option value="1" selected="selected">Позитивна</option></select></p><p><textarea name="opisna_ocena-'+data[i].id+'" data-serbian="true" class="form-control form-control-c" placeholder="Унесите ваша запажања и импресије везане за сарадњу са продавцем" style="width: 100%"></textarea><button class="btn btn-c" onclick="mojaProdavnica.oceni('+data[i].id+')"><i class="glyphicon glyphicon-equalizer"></i> Оцени</button></b></div></div>'
                                             )))+
                                             (mojaProdavnica.initTarget=='moji-oglasi'||mojaProdavnica.initTarget=='lista-zelja'?'<button class="btn btn-c-danger" onclick="mojaProdavnica.ukloni(\''+data[i].id+'\')"><i class="glyphicon glyphicon-trash"></i> Уклони</button><br>':'<button class="btn btn-c" data-toggle="collapse" href="#prodavacInfo"><i class="glyphicon glyphicon-user"></i> Продавац</button><div class="collapse" id="prodavacInfo"><div class="well well-c"><b><p>'+data[i].prezime+' '+data[i].ime+'</p>'+(data[i].adresa?'<p>'+data[i].adresa+'</p>':'')+'<p>'+data[i].grad+'</p><p><i class="glyphicon glyphicon-earphone"></i> '+data[i].telefon+'</p><p><a href="/{{$username}}/poruke/kreiraj/'+data[i].username+'" class="btn btn-c"><i class="glyphicon glyphicon-envelope"></i> Контактирај продавца</a></p></b></div></div>')+
@@ -92,7 +96,9 @@
                 });
             },
             oceni:function(id){
-                $.post(mojaProdavnica.urlPost+'oceni-prodavca',{_token:mojaProdavnica.token,id:id,ocena:$('[name=ocena-'+id+']').val(),opisna_ocena:$('[name=opisna_ocena-'+id+']').val()},function(){mojaProdavnica.ucitaj()})
+                $.post(mojaProdavnica.urlPost+'oceni',
+                    {_token:mojaProdavnica.token,id:id,ocena:$('[name=ocena-'+id+']').val(),opisna_ocena:$('[name=opisna_ocena-'+id+']').val()},
+                    function(){mojaProdavnica.ucitaj()})
             },
             ststusi:JSON.parse('{{$status}}'.replace(/&quot;/g,'"')),
             statusDrop:function(idOglasa,statusId){

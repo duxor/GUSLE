@@ -44,6 +44,8 @@ class KreiranjeBaze extends Migration {
             $table->tinyInteger('online')->default(1);
             $table->tinyInteger('aktivan')->default(0);
             $table->string('foto',250)->nullable();
+            $table->string('naslovna',250)->nullable();
+            $table->integer('ocena')->default(0);
             $table->string('token',250)->nullable();
             $table->string('facebook',250)->nullable();
             $table->rememberToken();

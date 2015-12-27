@@ -3,5 +3,5 @@
 use Illuminate\Database\Eloquent\Model;
 class DrustveniKorisnik extends Model{
     protected $table='drustveni_korisnik';
-    protected $fillable=['drustvo_id','korisnici_id'];
+    protected $fillable=['udruzenje_id','korisnici_id'];
 }
