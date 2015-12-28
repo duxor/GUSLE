@@ -36,6 +36,7 @@ Route::controllers([
     '/{username}/oglas/{slug?}/{akcija?}'=>'ProdavnicaKO',
     '/{username}/pretraga'=>'PretragaKO',
     '/{username}/dogadjaji'=>'DogadjajiKO',
+    '/{username}/udruzenja'=>'UdruzenjaKO',
     '/{username}/javna-diskusija'=>'JavnaDiskusijaKO',
 
     '/pretraga'=>'PretragaKO',

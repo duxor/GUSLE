@@ -126,7 +126,6 @@ class AuthController extends Controller
                             ->first();
                 $data['grad_id'] = $pomocna->id;
             }
-
         }
         //Dodavanje novog korisnika
         return User::create([
