@@ -12,7 +12,7 @@
                 <div class="carousel-inner" role="listbox">
                 <?php $nizIndex=[]; ?>
                 @foreach($slajder as $k=>$slajd)
-                    @if($k<sizeof($slajder)-1)
+                    @if($k<sizeof($slajder)-2)
                         <div class="item{{sizeof($nizIndex)==0?' active':''}} slajderF">
                             <img src="{{$slajd->foto}}" alt="{{$slajd->naziv}}">
                             <div class="carousel-caption">
@@ -48,18 +48,9 @@
             </a>
         </div>
         @endif
-        <h2 class="col-sm-9"><a href="#">Топ огласи</a></h2>
-        <div class="col-sm-3 mb5"><img src="/img/3.jpg" style="width: 100%"></div>
-        <div class="col-sm-3 mb5"><img src="/img/10.jpg" style="width: 100%"></div>
-        <div class="col-sm-3 mb5"><img src="/img/5.jpg" style="width: 100%"></div>
-        <div class="col-sm-3 mb5"><img src="/img/6.jpg" style="width: 100%"></div>
-        <div class="col-sm-3 mb5"><img src="/img/7.jpg" style="width: 100%"></div>
-        <div class="col-sm-3 mb5"><img src="/img/8.jpg" style="width: 100%"></div>
-
         @if(sizeof($top)>0)
-            <h2 class="col-sm-12"><a href="#">Топ огласи</a></h2>
+            <h2 class="col-sm-9"><a href="#">Топ огласи</a></h2>
             @foreach($top as $k=>$oglas)
-                @if($k%4==0) @if($k!=0) </div> @endif <div class="row"> @endif
                 <div class="col-sm-3 mb5 imgDivLg" data-toggle="tooltip" title="{{$oglas->naziv}}: {{$oglas->cena}} дин"><a href="/oglas/{{$oglas->slug}}"><img src="{{$oglas->foto}}"></a></div>
             @endforeach
         @endif
@@ -69,6 +60,7 @@
                 @if($k%4==0) @if($k!=0) </div> @endif <div class="row"> @endif
                 <div class="col-sm-3 mb5 imgDivLg" data-toggle="tooltip" title="{{$oglas->naziv}}: {{$oglas->cena}} дин"><a href="/oglas/{{$oglas->slug}}"><img src="{{$oglas->foto}}"></a></div>
             @endforeach
+            </div>
         @endif
         @if(sizeof($popust)>0)
             <h2 class="col-sm-12"><a href="#">На попусту</a></h2>
@@ -76,8 +68,8 @@
                 @if($k%4==0) @if($k!=0) </div> @endif <div class="row"> @endif
                 <div class="col-sm-3 mb5 imgDivLg" data-toggle="tooltip" title="{{$oglas->naziv}}: {{$oglas->cena}} дин - Попуст {{$oglas->popust}}%"><a href="/oglas/{{$oglas->slug}}"><img src="{{$oglas->foto}}"></a><span class="popust{{$oglas->popust}}">{{$oglas->popust}}%</span></div>
             @endforeach
+            </div>
         @endif
-    </div>
     </div>
     <style>
         .prodavnica h2 a{ color: #1A0D0A }

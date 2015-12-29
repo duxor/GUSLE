@@ -2,7 +2,7 @@
 @section('body')
     <div class="container-fluid">
         <div class="naslovna">
-            <img src="/img/guslari-1.jpg" alt="Профилна фотографија: Име Презиме">
+            <img src="/img/default/naslovna.jpg" alt="Профилна фотографија: Име Презиме">
         </div>
         <div class="col-sm-3 col-xs-12 trans">
             <div class="profilna"><img src="/img/kontakt/korisnik-3.jpg" alt="Профилна фотографија: Име Презиме"></div>

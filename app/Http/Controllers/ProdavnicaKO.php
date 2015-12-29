@@ -60,7 +60,7 @@ class ProdavnicaKO extends Controller{
             'popust'=>Proizvod::where('aktivan',1)->where('stanje_oglasa_id',1)->where('popust','>',0)->orderBy('created_at')->orderBy('id')->take($this->brojImgPopusta)->get(['naziv','slug','foto',DB::raw('cena-(cena*popust/100) as cena'),'popust']),
             'top'=>Proizvod::join('pregledi as p','p.proizvod_id','=','proizvod.id')
                 ->where('aktivan',1)->where('stanje_oglasa_id',1)
-                ->take(8)->orderBy('pregledi')->orderBy('cena','desc')->get([DB::raw('(select count(gp.id) from gusle_pregledi as gp where proizvod_id=gusle_proizvod.id group by proizvod_id, ip) as pregledi'),'cena','naziv','foto','slug'])
+                ->take(6)->orderBy('pregledi')->orderBy('cena','desc')->get([DB::raw('(select count(gp.id) from gusle_pregledi as gp where proizvod_id=gusle_proizvod.id group by proizvod_id, ip) as pregledi'),DB::raw('cena-(cena*popust/100) as cena'),'naziv','foto','slug'])
         ];
     }
     public function getIndex($username=null,$slug=null,$akcija=null){

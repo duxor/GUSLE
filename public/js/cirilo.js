@@ -4,15 +4,15 @@
 var cirilo={
     init:function(){
         $('[data-serbian=true]').focus(function(){
-            $(this).closest('div').append('<div class="alert alert-success srpsko-uputstvo"><footer><b>ћ .ц.</b> | <b>ч ,ц,</b> | <b>ђ .д,</b> | <b>љ .л, или q</b> | <b>њ .н, или w</b> | <b>џ .дз. или џ</b> | <b>ш .с.</b></footer></div>');
+            $(this).closest('div').append('<div class="alert srpsko-uputstvo"><footer><b>ћ .ц.</b> | <b>ч ,ц,</b> | <b>ђ .д,</b> | <b>љ .л, или q</b> | <b>њ .н, или w</b> | <b>џ .дз. или џ</b> | <b>ш .с.</b></footer></div>');
         });
         $('[data-serbian=true]').blur(function(){
             $('.srpsko-uputstvo').remove();
         });
         $('[data-serbian=true]').keypress(function(e){
             var
-                cirilica = 'абвгдезијклмнњопрстуфхцчћђжшљњџАБВГДЂЕЖЗИЈКЛМНОПРСТУФХЦЧЋЂЖШЏЉЊ',//Ђ Љ Њ Ж Ч Џ Ш
-                latinica = 'abvgdezijklmnnoprstufhcčćđžšqwxABVGDDEZZIJKLMNOPRSTUFHCČĆĐŽŠXQW',
+                cirilica = 'абвгдезијклмнњопрстуфхцчћђжшљњџАБВГДЂЕЖЗИЈКЛМНОПРСТУФХЦЧЋЂЖШЏЉЊзЗ',//Ђ Љ Њ Ж Ч Џ Ш
+                latinica = 'abvgdezijklmnnoprstufhcčćđžšqwxABVGDDEZZIJKLMNOPRSTUFHCČĆĐŽŠXQWyY',
                 slovo=String.fromCharCode(e.keyCode),
                 test=false,
                 cursorStart=$(this)[0].selectionStart;

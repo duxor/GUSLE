@@ -15,7 +15,7 @@
         <a href="/prodavnica/pretraga/suveniri" class="list-group-item">Сувенири</a>
         <a href="/prodavnica/pretraga/ostalo" class="list-group-item">Остало</a>
     </div>
-    <div class="list-group b-c">
+    <div class="list-group b-c mb150">
         <a href="{{$prijavljen?'/username/prodavnica/postavi-oglas':'/prijava'}}" class="list-group-item active">Бесплатно постављање</a>
         <a href="{{$prijavljen?'/username/prodavnica/moji-oglasi':'/prijava'}}" class="list-group-item">Продајем</a>
         <a href="#" class="list-group-item" data-toggle="tooltip" title="У припреми">Купујем</a>
@@ -31,5 +31,6 @@
     .prodavnicaNav .list-group-item.active, .list-group-item.active:focus{color:#fff;background-color: #1A0D0A}
     .prodavnicaNav .list-group-item.active:hover{color:#1A0D0A;background-color: #fff;border-right: 5px solid #1A0D0A;}
     .b-c{border: 1px solid #1A0D0A;}
+    .mb150{margin-bottom: 150px}
     .btn-c{padding: 6px 10px;margin-left: 2px}
 </style>

@@ -1,0 +1,3 @@
+{{$posiljalac}} ({{$email}}):
+
+{{$poruka}}

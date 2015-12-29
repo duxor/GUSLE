@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Proizvod;
+use Illuminate\Support\Facades\Input;
+use Mail;
 
 class OsnovniKO extends Controller{
     public function getIndex(){
@@ -13,6 +15,13 @@ class OsnovniKO extends Controller{
         return view('kontakt');
     }
     public function postKontakt(){
+        //poruka,vezanoza,email,posiljalac
+        $podaci=json_decode(Input::get('podaci'));
+        Mail::send('emails.kontakt', (array)$podaci, function ($poruka) use ($podaci) {
+            $poruka->from($podaci->email, $podaci->posiljalac)
+                ->to('kontakt@dusanperisic.com', 'Душан Перишић')
+                ->subject('Порука са: gusle.rs');
+        });
         return json_encode(['msg'=>'Порука је успешно послата.', 'check'=>1]);
     }
 
