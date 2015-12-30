@@ -1,10 +1,12 @@
 <div class="col-sm-2 form-inline prodavnicaNav">
+    {!!Form::open(['url'=>'/prodavnica/pretraga','id'=>'formPretraga'])!!}
     <div class="input-group" style="width: 100%">
-        <input type="text" class="form-control form-control-c b-c" placeholder="Претрага...">
+        {!!Form::text('pretraga',old('pretraga'),['class'=>'form-control form-control-c b-c','placeholder'=>'Претрага...'])!!}
         <span class="input-group-btn">
-            <button class="btn btn-c" type="button"><i class="glyphicon glyphicon-search"></i></button>
+            <button class="btn btn-c pretragaBtn"><i class="glyphicon glyphicon-search"></i></button>
         </span>
-    </div><br><br>
+    </div>
+    {!!Form::close()!!}<br><br>
     <div class="list-group b-c">
         <a href="/prodavnica/pretraga/gusle" class="list-group-item">Гусле</a>
         <a href="/prodavnica/pretraga/duvacki-instrumenti" class="list-group-item">Дувачки инструменти</a>

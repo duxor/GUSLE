@@ -26,9 +26,10 @@ class ProdavnicaKO extends Controller{
     public static $brojNajnovijih=8;
     private $brojImgSlajdera=5;
     private $brojImgPopusta=8;
+    private $brojOglasaPoStr=2;
     public function __construct(){
-        $this->middleware('PravaPristupaMid:2,0',['except'=>['getIndex','getOglas','getPretraga']]);//za korisnike 2+ (sve registrovane)
-        $this->middleware('UsernameLinkMid:'.$this->url,['except'=>['postSlugTest','getPretraga']]);
+        $this->middleware('PravaPristupaMid:2,0',['except'=>['getIndex','getOglas','getPretraga','postPretraga']]);//za korisnike 2+ (sve registrovane)
+        $this->middleware('UsernameLinkMid:'.$this->url,['except'=>['postSlugTest','getPretraga','postPretraga']]);
     }
     private function prodavnica($username=null,$target=null,$slug=null){
         if($username&&Auth::check())
@@ -228,7 +229,51 @@ class ProdavnicaKO extends Controller{
             return $_SERVER['REMOTE_ADDR'];
         }
     }
-    public function getPretraga($slug){
-        return view('prodavnica-pretraga')->with(['oglasi'=>Proizvod::join('vrsta_proizvoda as v','v.id','=','proizvod.vrsta_proizvoda_id')->join('korisnici as k','k.id','=','proizvod.korisnici_id')->join('grad as g','g.id','=','k.grad_id')->where('proizvod.aktivan',1)->where('stanje_oglasa_id',1)->where('v.slug',$slug)->orderBy('proizvod.created_at')->get(['proizvod.naziv','proizvod.slug',DB::raw('cena-(cena*popust/100) as cena'),'proizvod.foto','g.naziv as grad','proizvod.created_at']),'prijavljen'=>Auth::check()]);
+    public function getPretraga($slug=null){
+        return view('prodavnica-pretraga')->with(['prijavljen'=>Auth::check(),'ukupnoStr'=>ceil(Proizvod::join('vrsta_proizvoda as v','v.id','=','proizvod.vrsta_proizvoda_id')->join('korisnici as k','k.id','=','proizvod.korisnici_id')->join('grad as g','g.id','=','k.grad_id')->where('proizvod.aktivan',1)->where('stanje_oglasa_id',1)->where('v.slug',$slug)->count()/$this->brojOglasaPoStr),'slug'=>$slug]);
+    }
+    public function postPretraga($slug=null){
+        $podaci=[];
+        if(Input::has('novaPretraga') || !Input::has('stranica')|| Input::has('init'))
+            $podaci['ukupnoStr']=ceil(((!Input::has('novaPretraga')&&$slug)?
+                    Proizvod::join('vrsta_proizvoda as v','v.id','=','proizvod.vrsta_proizvoda_id')
+                        ->join('korisnici as k','k.id','=','proizvod.korisnici_id')
+                        ->join('grad as g','g.id','=','k.grad_id')
+                        ->where('proizvod.aktivan',1)->where('stanje_oglasa_id',1)->where('v.slug',$slug)->count():
+                Proizvod::join('vrsta_proizvoda as v','v.id','=','proizvod.vrsta_proizvoda_id')
+                    ->join('korisnici as k','k.id','=','proizvod.korisnici_id')
+                    ->join('grad as g','g.id','=','k.grad_id')
+                    ->where('proizvod.aktivan',1)
+                    ->where('stanje_oglasa_id',1)
+                    ->where('proizvod.naziv','like','%'.Input::get('pretraga').'%')
+                    ->count())/$this->brojOglasaPoStr);
+        if(Input::has('stranica')) {
+            switch(Input::has('orderBy')?Input::get('orderBy'):0){
+                case 0:$orderBy=['proizvod.created_at','DESC','proizvod.id','DESC'];break;
+                case 1:$orderBy=['proizvod.created_at','ASC','proizvod.id','ASC'];break;
+                case 2:$orderBy=['cena','ASC'];break;
+                case 3:$orderBy=['cena','DESC'];break;
+            }
+            $podaci['oglasi']=(!Input::has('novaPretraga')&&$slug)?
+                Proizvod::join('vrsta_proizvoda as v','v.id','=','proizvod.vrsta_proizvoda_id')
+                    ->join('korisnici as k','k.id','=','proizvod.korisnici_id')
+                    ->join('grad as g','g.id','=','k.grad_id')->where('proizvod.aktivan',1)->where('stanje_oglasa_id',1)->where('v.slug',$slug)
+                    ->orderBy($orderBy[0],$orderBy[1])->orderBy(isset($orderBy[2])?$orderBy[2]:$orderBy[0],isset($orderBy[3])?$orderBy[3]:$orderBy[1])
+                    ->skip($this->brojOglasaPoStr * Input::get('stranica'))->take($this->brojOglasaPoStr)
+                    ->get(['proizvod.naziv','proizvod.slug',DB::raw('cena-(cena*popust/100) as cena'),'proizvod.foto','g.naziv as grad','proizvod.created_at'])
+                :
+                Proizvod::join('vrsta_proizvoda as v', 'v.id', '=', 'proizvod.vrsta_proizvoda_id')
+                    ->join('korisnici as k', 'k.id', '=', 'proizvod.korisnici_id')
+                    ->join('grad as g', 'g.id', '=', 'k.grad_id')
+                    ->where('proizvod.aktivan', 1)
+                    ->where('stanje_oglasa_id', 1)
+                    ->where('proizvod.naziv', 'like', '%' . Input::get('pretraga') . '%')
+                    ->orderBy($orderBy[0],$orderBy[1])->orderBy(isset($orderBy[2])?$orderBy[2]:$orderBy[0],isset($orderBy[3])?$orderBy[3]:$orderBy[1])
+                    ->skip($this->brojOglasaPoStr * Input::get('stranica'))
+                    ->take($this->brojOglasaPoStr)
+                    ->get(['proizvod.naziv', 'proizvod.slug', DB::raw('cena-(cena*popust/100) as cena'), 'proizvod.foto', 'g.naziv as grad', 'proizvod.created_at']);
+            return json_encode($podaci);
+        }
+        return view('prodavnica-pretraga')->with(['prijavljen'=>Auth::check(),'ukupnoStr'=>$podaci['ukupnoStr'],'pretraga'=>Input::get('pretraga'),'slug'=>$slug]);
     }
 }

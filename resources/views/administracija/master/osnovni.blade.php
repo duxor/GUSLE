@@ -55,6 +55,9 @@
                         <a href="/{{$korisnik->username}}/dogadjaji/moje-objave">
                             <li class="list-group-item"><i class="glyphicon glyphicon-list-alt"></i> Моје објаве</li>
                         </a>
+                        <a href="/{{$korisnik->username}}/udruzenja">
+                            <li class="list-group-item"><i class="icon-users"></i> Удружења</li>
+                        </a>
                     </ul>
                 </div>
             </div>

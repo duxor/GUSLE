@@ -39,4 +39,10 @@ class User extends Model implements AuthenticatableContract,
     public static function oceni($korisnik,$ocena){
         return User::find($korisnik,['id','ocena'])->increment('ocena',$ocena);
     }
+    public static function brojZaMejling(){
+        return User::where('aktivan',1)->where('newsletter',1)->count();
+    }
+    public static function mejlingLista(){
+        return User::where('aktivan',1)->where('newsletter',1)->get(['email']);
+    }
 }
