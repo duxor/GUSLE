@@ -187,10 +187,11 @@ class KreiranjeBaze extends Migration {
         Schema::create('komentari', function(Blueprint $table){
             $table->bigIncrements('id');
             $table->text('sadrzaj');
-            $table->unsignedBigInteger('proizvod_id')->nullable();
-            $table->unsignedBigInteger('objava_id')->nullable();
-            $table->unsignedBigInteger('korisnici_id')->nullable();
-            $table->tinyInteger('odgovor_id')->default(0);
+            $table->tinyInteger('vrsta_veze_id')->default(0);//vrsta_veze_id=['Јавна дискусија','Производ','Објава']
+            $table->unsignedBigInteger('veza_id')->nullable();
+            $table->unsignedBigInteger('odgovor_id')->default(0);
+            $table->unsignedBigInteger('korisnici_id');
+            $table->foreign('korisnici_id')->references('id')->on('korisnici');
             $table->tinyInteger('odobren')->default(0);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();

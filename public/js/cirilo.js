@@ -2,11 +2,16 @@
  * Created by Dušan on 12/26/2015.
  */
 var cirilo={
-    init:function(){
+    init:function(idPrikaz,btn){
+        cirilo.reset();
         $('[data-serbian=true]').focus(function(){
-            $(this).closest('div').append('<div class="alert srpsko-uputstvo"><footer><b>ћ .ц.</b> | <b>ч ,ц,</b> | <b>ђ .д,</b> | <b>љ .л, или q</b> | <b>њ .н, или w</b> | <b>џ .дз. или џ</b> | <b>ш .с.</b></footer></div>');
+            if(btn) $(btn).css('opacity',0.5);
+            if(idPrikaz)
+                $(idPrikaz).html('<div class="alert srpsko-uputstvo"><footer><b>ћ .ц.</b> | <b>ч ,ц,</b> | <b>ђ .д,</b> | <b>љ .л, или q</b> | <b>њ .н, или w</b> | <b>џ .дз. или џ</b> | <b>ш .с.</b></footer></div>');
+            else $(this).closest('div').append('<div class="alert srpsko-uputstvo"><footer><b>ћ .ц.</b> | <b>ч ,ц,</b> | <b>ђ .д,</b> | <b>љ .л, или q</b> | <b>њ .н, или w</b> | <b>џ .дз. или џ</b> | <b>ш .с.</b></footer></div>');
         });
         $('[data-serbian=true]').blur(function(){
+            if(btn) $(btn).css('opacity',1);
             $('.srpsko-uputstvo').remove();
         });
         $('[data-serbian=true]').keypress(function(e){
@@ -36,8 +41,13 @@ var cirilo={
 
         })
     },
-    setCursor:function(input, start) {
+    setCursor:function(input, start){
         input.selectionStart=start+1;
         input.selectionEnd=start+1;
+    },
+    reset:function(){
+        $('[data-serbian=true]').off('focus');
+        $('[data-serbian=true]').off('blur');
+        $('[data-serbian=true]').off('keypress');
     }
 }

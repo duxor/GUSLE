@@ -19,6 +19,7 @@
     {!!HTML::script('http://maps.google.com/maps/api/js')!!}
     {!!HTML::script('/js/forma.js')!!}
     {!!HTML::script('/js/cirilo.js')!!}
+    <script>$(function(){cirilo.init()})</script>
 </head>
 <?php
     $korisnik=\Illuminate\Support\Facades\Auth::user();
@@ -145,7 +146,6 @@
     </style>
     <script>
         $(function(){$('[data-toggle=tooltip]').tooltip()})
-        $(function(){cirilo.init()})
     </script>
 </body>
 </html>

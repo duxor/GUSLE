@@ -1,7 +1,8 @@
 <div class="col-sm-2 form-inline prodavnicaNav">
     {!!Form::open(['url'=>'/prodavnica/pretraga','id'=>'formPretraga'])!!}
+    <div id="objasnjenje"></div>
     <div class="input-group" style="width: 100%">
-        {!!Form::text('pretraga',old('pretraga'),['class'=>'form-control form-control-c b-c','placeholder'=>'Претрага...'])!!}
+        {!!Form::text('pretraga',old('pretraga'),['class'=>'form-control form-control-c b-c','placeholder'=>'Претрага...','data-serbian'=>'true'])!!}
         <span class="input-group-btn">
             <button class="btn btn-c pretragaBtn"><i class="glyphicon glyphicon-search"></i></button>
         </span>
@@ -36,3 +37,4 @@
     .mb150{margin-bottom: 150px}
     .btn-c{padding: 6px 10px;margin-left: 2px}
 </style>
+<script>$(function(){cirilo.init('#objasnjenje')})</script>
