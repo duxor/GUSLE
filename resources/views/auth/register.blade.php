@@ -3,7 +3,7 @@
 <div class="container-fluid pt60">
 	<div class="row">
 		<div class="col-sm-8 col-md-offset-2">
-			<div class="panel panel-default panel-c">
+			<div class="panel panel-default">
 				<div class="panel-heading"><h3>Регистровање новог корисник</h3></div>
 				<div class="panel-body">
 					@if (count($errors) > 0)
@@ -97,42 +97,29 @@
 						<div class="form-group">
 							{!! Form::label('slika',"Слика", ['class'=>'col-md-4 control-label']) !!}
 							<div class="col-md-6">
-							    <span class="btn btn-c btn-file">
-							        <i class="glyphicon glyphicon-cloud-upload"></i> Изабери фотографију
-								    {!! Form::file('foto',['onchange'=>'prikaziFoto(this)']) !!}
-								</span>
-                                <div id="fotoPrikaz"></div>
+								{!! Form::file('foto',Input::old('foto'),['class'=>'form-control','placeholder'=>'Слика']) !!}
 							</div>
 						</div>
+
 						<div class="form-group">
 							<label class="col-md-4 control-label"></label>
 							<div class="col-md-6">
-								{!! Form::checkbox('uslovi_koriscenja','0',false,['id'=>'uslovi_koriscenja']) !!}
 								<h7 data-toggle='tooltip' title='Чекирајте поље за наставак'><strong>Прихватам</strong></h7>
-								<a href="odredbe/pravilnik"> услове коришћења</a>
+								<a href="odredbe/pravilnik">  {!! Form::checkbox('uslovi_koriscenja','0',false,['id'=>'uslovi_koriscenja']) !!}Да  услове коришћења  </a>
 							</div>
 						</div>
+
 						<div class="form-group" align="center">
-							{!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span>Региструјте се',[ 'name'=>'registracija','class' => 'btn btn-c','id'=>'registracija', 'type'=>'submit'])!!}
+							{!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span>Региструјте се',[ 'name'=>'registracija','class' => 'btn btn-default','id'=>'registracija', 'type'=>'submit'])!!}
 						</div>
+
+
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script>
-        function prikaziFoto(input) {
-            if (input.files && input.files[0]) {
-                $('#fotoPrikaz').html('');
-                for(var i=0;i<input.files.length;i++){
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        $('#fotoPrikaz').append('<div class="col-sm-4"><img src="'+e.target.result+'" style="width:100%"></div>');
-                    };
-                    reader.readAsDataURL(input.files[i]);
-                }
-            }
-        }
 		$(document).ready(function(){
 			$('[data-toggle="tooltip"]').tooltip();
 			$('#dodaj_grad').click(function(){
@@ -149,39 +136,6 @@
 		});
 	</script>
 </div>
-<style>
-.panel-c{
-    border-color: #1A0D0A;
-}
-.panel-c>.panel-heading{
-    background-color: #1A0D0A;
-    color:#fff;
-    border-color:#000;
-    font-weight: bold;
-}
-.panel-c a{
-    color: #1A0D0A;
-}
-.btn-file {
-    position: relative;
-    overflow: hidden;
-}
-.btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
-}
-</style>
 @endsection
 
 

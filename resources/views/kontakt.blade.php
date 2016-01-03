@@ -57,14 +57,14 @@
         <h2><i class="glyphicon glyphicon-earphone"></i> Контакт подаци</h2><hr>
         <div class="col-sm-6" style="border-right: 1px solid #eee">
             <h3>Контактирајте нас путем мејла</h3>
-            <div id="porukaDiv" style="display: none"></div>
+            <div id="poruka" style="display: none"></div>
             <div id="wait" style="display:none"><center><i class='icon-spin6 animate-spin' style="font-size: 350%"></i></center></div>
             <div id="kontaktF" class="form-horizontal">
                 {!!Form::hidden('_token',csrf_token())!!}
                 <div id="dposiljalac" class="form-group has-feedback">
                     <label name="ime" class="control-label col-sm-3" data-toggle="tooltip" title="Поље је обавезно за унос">Презиме и Име*</label>
                     <div class="col-sm-7">
-                        {!!Form::text('posiljalac',null,['id'=>'posiljalac','class'=>'form-control form-control-c','placeholder'=>'Презиме и Име','data-serbian'=>'true'])!!}
+                        {!!Form::text('posiljalac',null,['id'=>'posiljalac','class'=>'form-control form-control-c','placeholder'=>'Презиме и Име'])!!}
                         <span id="sposiljalac" class="glyphicon form-control-feedback"></span>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                 <div id="dporuka" class="form-group has-feedback">
                     <label name="porukal" class="control-label col-sm-3" data-toggle="tooltip" title="Поље је обавезно за унос">Порука*</label>
                     <div class="col-sm-7">
-                        {!!Form::textarea('poruka',null,['id'=>'poruka','class'=>'form-control form-control-c','placeholder'=>'Порука','data-serbian'=>'true'])!!}
+                        {!!Form::textarea('poruka',null,['id'=>'poruka','class'=>'form-control form-control-c','placeholder'=>'Порука'])!!}
                         <span id="sporuka" class="glyphicon form-control-feedback"></span>
                     </div>
                 </div>
@@ -103,12 +103,11 @@
                 <a href="mailto:gusle@gusle.rs">gusle@gusle.rs</a></p>
         </div>
     </div>
-    {!!HTML::script('/js/cirilo.js')!!}
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
     <script>
-        $(function(){cirilo.init()})
         function posalji(){
             if(SubmitForm.check('kontaktF')){
-                Komunikacija.posalji('/kontakt','kontaktF','porukaDiv','wait','kontaktF',null,1);
+                Komunikacija.posalji('/kontakt','kontaktF','poruka','wait','kontaktF',null,1);
             }
         }
         var myCenter = new google.maps.LatLng(44.798831,20.4465872);
@@ -121,6 +120,7 @@
                 mapTypeId:google.maps.MapTypeId.ROADMAP
             };
             var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+            //var marker = new google.maps.Marker({ position:myCenter}); //marker.setMap(map);
         }
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>

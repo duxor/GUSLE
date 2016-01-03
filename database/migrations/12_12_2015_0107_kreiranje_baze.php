@@ -31,7 +31,7 @@ class KreiranjeBaze extends Migration {
 			$table->string('ime', 45)->nullable();
 			$table->string('username', 45)->unique();
 			$table->string('password', 150)->default('P@ssw0rd');
-			$table->string('email', 80)->nullable();
+			$table->string('email', 45)->nullable();
             $table->string('adresa', 250)->nullable();
             $table->unsignedBigInteger('grad_id')->default(1);
             $table->foreign('grad_id')->references('id')->on('grad');
@@ -44,11 +44,8 @@ class KreiranjeBaze extends Migration {
             $table->tinyInteger('online')->default(1);
             $table->tinyInteger('aktivan')->default(0);
             $table->string('foto',250)->nullable();
-            $table->string('naslovna',250)->nullable();
-            $table->integer('ocena')->default(0);
             $table->string('token',250)->nullable();
             $table->string('facebook',250)->nullable();
-            $table->tinyInteger('newsletter')->default(1);
             $table->rememberToken();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();

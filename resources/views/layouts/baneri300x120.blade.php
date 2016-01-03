@@ -1,9 +1,0 @@
-<a href="#" data-toggle="tooltip" title="Банер 1"><img src="/img/default/baner300x120.jpg"></a>
-<a href="#" data-toggle="tooltip" title="Банер 2"><img src="/img/default/baner300x120.jpg"></a>
-<a href="#" data-toggle="tooltip" title="Банер 3"><img src="/img/default/baner300x120.jpg"></a>
-<a href="#" data-toggle="tooltip" title="Банер 4"><img src="/img/default/baner300x120.jpg"></a>
-<a href="#" data-toggle="tooltip" title="Банер 5"><img src="/img/default/baner300x120.jpg"></a>
-<a href="#" data-toggle="tooltip" title="Банер 6"><img src="/img/default/baner300x120.jpg"></a>
-<a href="#" data-toggle="tooltip" title="Банер 7"><img src="/img/default/baner300x120.jpg"></a>
-<a href="#" data-toggle="tooltip" title="Банер 8"><img src="/img/default/baner300x120.jpg"></a>
-<a href="#" data-toggle="tooltip" title="Банер 9"><img src="/img/default/baner300x120.jpg"></a>

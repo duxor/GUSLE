@@ -6,7 +6,6 @@ use App\Mailbox;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
-use Mail;
 class MejlingKO extends Controller {
     private $ruta;
     private $url='/poruke';
@@ -37,14 +36,11 @@ class MejlingKO extends Controller {
 	}
 	public function postPosaljiNewsletter(){
 		$podaci=json_decode(Input::get('podaci'));
-		$od_email=Auth::user()->email;
-		foreach(Korisnici::mejlingLista() as $zapis){
-			Mail::send('emails.mejling',(array)$podaci,function($poruka) use ($zapis,$podaci,$od_email){
-                $poruka->from($od_email)->to($zapis->email)->subject($podaci->naslov);
-            });
-		}
-        $korisnik=Auth::user();
-		Mailbox::insert(['korisnici_id'=>$korisnik->id,'od_id'=>$korisnik->id,'od_email'=>$od_email,'naslov'=>$podaci->naslov,'poruka'=>$podaci->poruka,'copy'=>1]);
+		$od_email=Korisnici::find(Session::get('id'),['email'])->email;
+		//foreach(Newsletter::where('nalog_id',$podaci->app)->get()->toArray() as $newsletter){
+			//mail($newsletter,$podaci->naslov,$podaci->poruka,'From: '.$od_email);
+		//}
+		Mailbox::insert(['korisnici_id'=>Session::get('id'),'od_id'=>Session::get('id'),'od_email'=>$od_email,'naslov'=>$podaci->naslov,'poruka'=>$podaci->poruka,'copy'=>1]);
 		return json_encode(['msg'=>'Порука је успешно послата.','check'=>1]);
 	}
 	public function postPronadjiUsername(){
@@ -98,9 +94,6 @@ class MejlingKO extends Controller {
 			return json_encode(['msg'=>'Десила се грешка.','check'=>0]);
 	}
 //Newsletter
-    public function postUcitajMejling(){
-        return json_encode(['broj'=>Korisnici::brojZaMejling()]);
-    }
 	public function getMejling(){
 		return $this->mailbox('newsletter');
 	}

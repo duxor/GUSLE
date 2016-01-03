@@ -90,7 +90,17 @@ $(document).ready(function(){
 @yield('body')
 <div class="footer text-center">
     <div class="b container-fluid">
-        @include('layouts.baneri300x150')
+        <a href="#" data-toggle="tooltip" title="Банер 1"><img src="/img/1.jpg"></a>
+        <a href="#" data-toggle="tooltip" title="Банер 2"><img src="/img/2.jpg"></a>
+        <a href="#" data-toggle="tooltip" title="Банер 3"><img src="/img/3.jpg"></a>
+        <a href="#" data-toggle="tooltip" title="Банер 4"><img src="/img/5.jpg"></a>
+        <a href="#" data-toggle="tooltip" title="Банер 5"><img src="/img/6.jpg"></a>
+        <a href="#" data-toggle="tooltip" title="Банер 6"><img src="/img/7.jpg"></a>
+        <a href="#" data-toggle="tooltip" title="Банер 7"><img src="/img/8.jpg"></a>
+        <a href="#" data-toggle="tooltip" title="Банер 8"><img src="/img/9.jpg"></a>
+        <a href="#" data-toggle="tooltip" title="Банер 9"><img src="/img/10.jpg"></a>
+        <a href="#" data-toggle="tooltip" title="Банер 10"><img src="/img/11.jpg"></a>
+        <a href="#" data-toggle="tooltip" title="Банер 11"><img src="/img/12.jpg"></a>
     </div><br clear="all">
     <div class="container">
         <div class="col-sm-3">
@@ -143,7 +153,7 @@ $(document).ready(function(){
 <script>
     function newsletterPrijava(){
         if(SubmitForm.check('newsletter'))
-            window.location='/username/profil';
+            $('#newsletter').hide().html('<div class="alert alert-success">Успешно сте додали емаил на мејлинг листу.</div>').fadeIn();
     }
 </script>
 </body>

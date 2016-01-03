@@ -56,7 +56,6 @@ var SubmitForm = {
         for(i=0; i< inputi.length; i++){
             $('#d'+inputi[i].name).removeClass('has-error has-success');
             $('#s'+inputi[i].name).removeClass('glyphicon-remove glyphicon-ok');
-            $('textarea[name=\''+inputi[i].name+'\']').val('');
             $('#'+inputi[i].name).val('');
             $('#'+inputi[i].name).text('');
         }
@@ -108,14 +107,13 @@ var SubmitForm = {
  */
 var Komunikacija = {
     posalji: function(url,podaciID,poruka,wait,hide,funkcija,reset){
-        var podaci=this.podaci('',null,podaciID,{}), token=podaci['_token'];
-        delete podaci['_token'];
+        var podaci=this.podaci('',null,podaciID,{});
         if($('#'+poruka).html().length>0) $('#'+poruka).html('');
         $('#'+hide).css('display','none');
         $('#'+wait).fadeIn();
         $.post(url,
             {
-                _token:token,
+                _token:podaci['_token'],
                 podaci:JSON.stringify(podaci)
             },
             function(data){
@@ -134,8 +132,7 @@ var Komunikacija = {
             var inputi = $('#' + podaciID + ' :input');
             i = inputi.length - 1;
         }
-        if(inputi[i].name)
-            podaci[inputi[i].name]=inputi[i].value;
+        podaci[inputi[i].name]=inputi[i].value;
         if(i==0) return podaci;
         return this.podaci(i-1,inputi,null,podaci);
     },

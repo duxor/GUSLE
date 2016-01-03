@@ -16,15 +16,14 @@ use Intervention\Image\Facades\Image;
 class DogadjajiKO extends Controller{
 
     private $url='/dogadjaji';
-    private $duzinaObjave=250;
     public function __construct(){
-        $this->middleware('PravaPristupaMid:2,0',['except'=>['getIndex','getArhiva','getTag','getDogadjaj']]);//za korisnike 2+ (sve registrovane)
+        $this->middleware('PravaPristupaMid:2,0',['except'=>['getIndex','getArhiva']]);//za korisnike 2+ (sve registrovane)
         $this->middleware('UsernameLinkMid:'.$this->url,['except'=>['postSlugTest','getArhiva']]);
     }
     //  P R I K A Z I
     //Prikaz svih dogadjaja
     public function getIndex(){
-        $dogadjaji= Objava::get(['naziv','slug','foto','datum_dogadjaja',DB::raw('substring(sadrzaj,1,'.$this->duzinaObjave.') as sadrzaj'),'tagovi']);
+        $dogadjaji= Objava::all();
         return view('dogadjaji')->with('dogadjaji',$dogadjaji);
     }
 
@@ -38,15 +37,15 @@ class DogadjajiKO extends Controller{
     //Prikaz jednog dogadjaja koriscenjem sluga
     //Рута: /dogadjaj/slug-dogadjaja
     public static function getDogadjaj($slug){
-        $dogadjaj = Objava::where('slug',$slug)->get()->first();
+        $dogadjaj = Objava::where('slug',$slug)->get();
         return view('objava.dogadjaj')->with('dogadjaj',$dogadjaj);
     }
 
     //Prikaz jednog dogadjaja koriscenjem taga
     //Рута: /dogadjaji/tag/tag-dogadjaja
     public function getTag($tag){
-        $dogadjaj = Objava::where('tagovi','LIKE', '%'.$tag.'%')->get(['naziv','slug','foto','datum_dogadjaja',DB::raw('substring(sadrzaj,1,'.$this->duzinaObjave.') as sadrzaj'),'tagovi']);
-        return view('dogadjaji')->with('dogadjaji',$dogadjaj);
+        $dogadjaj = Objava::where('tagovi','LIKE', '%'.$tag.'%')->get();
+        return view('objava.dogadjaj')->with('dogadjaj',$dogadjaj);
     }
 
 

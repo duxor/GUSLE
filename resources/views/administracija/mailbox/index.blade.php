@@ -42,25 +42,25 @@
                     mejling.nav.setActive('newsletter');
                     $('#show').hide();
                     $('#wait').show();
-                    $.post(mejling.root+'ucitaj-mejling',{_token:mejling.token},function(data){
-                        data=JSON.parse(data);
-                        $('#show').html(
-                        '<div id="zaSlanje" class="form-horizontal col-sm-12">'+
-                            '<input type="hidden" name="_token" value="'+mejling.token+'">'+
-                            '<div class="form-group">Број корисника пријављених за мејлинг: '+data.broj+'</div>'+
-                            '<div class="form-group">'+
-                                '<input name="naslov" class="form-control form-control-c" placeholder="Наслов поруке">'+
-                            '</div>'+
-                            '<div class="form-group">'+
-                                '<textarea name="poruka" class="form-control form-control-c" placeholder="Порука за слање" rows="7"></textarea>'+
-                            '</div>'+
-                            '<div class="form-group">'+
-                                '<button class="btn btn-lg btn-c" onclick="Komunikacija.posalji(\''+mejling.root+'posalji-newsletter\',\'zaSlanje\',\'porukaDiv\',\'wait\',\'show\')"><i class="glyphicon glyphicon-envelope"></i> Пошаљи</div>'+
-                            '</div>'+
-                        '</div>');
-                        $('#wait').hide();
-                        $('#show').fadeIn();
-                    })
+                    $('#show').html(
+                    '<div id="zaSlanje" class="form-horizontal col-sm-12">'+
+                        '<input type="hidden" name="_token" value="'+mejling.token+'">'+
+                        '<div class="form-group">Број пријављених корисника: UCITAJ_IZ_BAZE</div>'+
+                        '<div class="form-group">'+
+                            'IZABERI_APP_PODESAVANJA'+
+                        '</div>'+
+                        '<div class="form-group">'+
+                            '<input name="naslov" class="form-control form-control-c" placeholder="Наслов поруке">'+
+                        '</div>'+
+                        '<div class="form-group">'+
+                            '<textarea name="poruka" class="form-control form-control-c" placeholder="Порука за слање" rows="7"></textarea>'+
+                        '</div>'+
+                        '<div class="form-group">'+
+                            '<button class="btn btn-lg btn-c" onclick="Komunikacija.posalji(\''+mejling.root+'posalji-newsletter\',\'zaSlanje\',\'porukaDiv\',\'wait\',\'show\')"><i class="glyphicon glyphicon-envelope"></i> Пошаљи</div>'+
+                        '</div>'+
+                    '</div>');
+                    $('#wait').hide();
+                    $('#show').fadeIn();
                 },
             @endif
             nav:{

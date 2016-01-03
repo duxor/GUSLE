@@ -1,50 +1,48 @@
 @extends('layouts.master')
 @section('body')
     <div id="pocetna" class="pt60 container">
-        <h1><i class="glyphicon glyphicon-bell"></i> Актуелни догађаји</h1>
-        <h1>КАЛЕНДАР</h1>
-        <div class="col-sm-9">
+
+        <div class="row" >
+            <h1><i class="glyphicon glyphicon-bell"></i>Актуелни догађаји</h1>
+        <!--Leva************************************************** -->
+        <div class="col-sm-2">
+        </div>
+
+        <!--Sredina************************************************** -->
+        <div class="col-sm-8">
             @foreach($dogadjaji as $dogadjaj)
+                <h3 class="text-left">{{$dogadjaj->naziv  }}</h3>
+                <h7><i class="glyphicon glyphicon-time"></i>{!!$dogadjaj->datum_dogadjaja  !!}</h7>
                 <hr>
-                <h3><a href="/dogadjaji/dogadjaj/{{$dogadjaj->slug}}">{{$dogadjaj->naziv}}</a></h3>
+
                 <div class="row">
                     <div align="left" class="col-sm-5">
-                        <a  href="/dogadjaji/dogadjaj/{{$dogadjaj->slug}}">
-                            <img src="{{'/'.$dogadjaj->foto}}" alt="{{$dogadjaj->naziv}}" class="img-responsiveimg-thumbnail">
-                        </a>
+                        <img src="{{'/'.$dogadjaj->foto}}"  alt="SORRY" class="img-responsiveimg-thumbnail">
                     </div>
-                    <p class="col-sm-7">
-                        <p><b>
-                            <i class="glyphicon glyphicon-time"></i> {{date('d.m.Y. H:i',strtotime($dogadjaj->datum_dogadjaja))}}<br>
-                            <i class="glyphicon glyphicon-map-marker" data-toggle="tooltip" title="Погледај на мапи"></i> АДРЕСА ГРАД
-                        </b></p>
-                        {!!$dogadjaj->sadrzaj!!}...
-                        <a  href="/dogadjaji/dogadjaj/{{$dogadjaj->slug}}" class="btn btn-c btn-c-min"><i class="glyphicon glyphicon-sort-by-alphabet"></i> Читај даље</a>
-                    </p>
+                    <p class="col-sm-7">{!!  $dogadjaj->sadrzaj !!}</p>
                 </div>
                 <br>
                 <div class="row">
+                    <?php $tags = explode(',',$dogadjaj->tagovi)?>
                     <div class="col-sm-6" align="left">
-                        @foreach(explode(',',$dogadjaj->tagovi) as $tag)
-                            <a class="btn btn-c btn-c-min" href="/dogadjaji/tag/{{$tag}}">#{{$tag}}</a>
+                        @foreach($tags as $tag)
+                            <a class="btn btn-default btn-xs" href="/dogadjaji/tag/{{$tag}}"><label >{{$tag}}</label></a>
                         @endforeach
                     </div>
                     <div class="col-sm-6" align="right">
-
+                        <a  href="/dogadjaji/dogadjaj/{{$dogadjaj->slug}}" class="btn btn-default">Опширније</a>
                     </div>
                 </div>
             @endforeach
         </div>
-        <div class="col-sm-3 baneri">
-            @include('layouts.baneri300x120')
+
+        <!--Desna************************************************** -->
+        <div class="col-sm-2">
+        </div>
+
+
+
         </div>
     </div>
-    <style>
-        #pocetna h3 a, #pocetna h3 a:focus, #pocetna h3 a:hover{
-            color: #1A0D0A;
-        }
-        .baneri a img{margin-bottom: 5px}
-        .btn-c-min{padding: 1px 3px}
-    </style>
 @endsection
 

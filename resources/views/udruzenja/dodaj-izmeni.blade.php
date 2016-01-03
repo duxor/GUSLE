@@ -45,7 +45,7 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             {!!Form::text('novi_grad',null,['id'=>'grad_tex_id','class'=>'form-control','placeholder'=>'Унесите Ваш град','style'=>'display: none'])!!}
-                                            {!!Form::select('grad_id',$gradovi,$udruzenje->grad_id,['class'=>'form-control','id'=>'grad_select_id'])!!}
+                                            {!!Form::select('grad_id',$gradovi,1,['class'=>'form-control','id'=>'grad_select_id'])!!}
                                         </div>
                                         <div class="col-sm-6">
                                             <a id="dodaj_grad"> <span class="glyphicon glyphicon-plus"></span></a> <strong id="dodaj_grad_st">Унесите Ваш град</strong>

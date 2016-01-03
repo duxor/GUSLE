@@ -1,3 +1,0 @@
-{{$posiljalac}} ({{$email}}):
-
-{{$poruka}}

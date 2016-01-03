@@ -1,12 +1,10 @@
 <div class="col-sm-2 form-inline prodavnicaNav">
-    {!!Form::open(['url'=>'/prodavnica/pretraga','id'=>'formPretraga'])!!}
     <div class="input-group" style="width: 100%">
-        {!!Form::text('pretraga',old('pretraga'),['class'=>'form-control form-control-c b-c','placeholder'=>'Претрага...'])!!}
+        <input type="text" class="form-control form-control-c b-c" placeholder="Претрага...">
         <span class="input-group-btn">
-            <button class="btn btn-c pretragaBtn"><i class="glyphicon glyphicon-search"></i></button>
+            <button class="btn btn-c" type="button"><i class="glyphicon glyphicon-search"></i></button>
         </span>
-    </div>
-    {!!Form::close()!!}<br><br>
+    </div><br><br>
     <div class="list-group b-c">
         <a href="/prodavnica/pretraga/gusle" class="list-group-item">Гусле</a>
         <a href="/prodavnica/pretraga/duvacki-instrumenti" class="list-group-item">Дувачки инструменти</a>
@@ -17,7 +15,7 @@
         <a href="/prodavnica/pretraga/suveniri" class="list-group-item">Сувенири</a>
         <a href="/prodavnica/pretraga/ostalo" class="list-group-item">Остало</a>
     </div>
-    <div class="list-group b-c mb150">
+    <div class="list-group b-c">
         <a href="{{$prijavljen?'/username/prodavnica/postavi-oglas':'/prijava'}}" class="list-group-item active">Бесплатно постављање</a>
         <a href="{{$prijavljen?'/username/prodavnica/moji-oglasi':'/prijava'}}" class="list-group-item">Продајем</a>
         <a href="#" class="list-group-item" data-toggle="tooltip" title="У припреми">Купујем</a>
@@ -33,6 +31,5 @@
     .prodavnicaNav .list-group-item.active, .list-group-item.active:focus{color:#fff;background-color: #1A0D0A}
     .prodavnicaNav .list-group-item.active:hover{color:#1A0D0A;background-color: #fff;border-right: 5px solid #1A0D0A;}
     .b-c{border: 1px solid #1A0D0A;}
-    .mb150{margin-bottom: 150px}
     .btn-c{padding: 6px 10px;margin-left: 2px}
 </style>

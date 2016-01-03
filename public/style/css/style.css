@@ -140,4 +140,3 @@ footer .glyphicon {
 body{ cursor: url(/img/cursor/srbski.cur), pointer; }
 input:hover{ cursor: url(/img/cursor/srbskitextbolji.cur), pointer; }
 a,button:hover,.btn,.carousel-control,.carousel-indicators>li,.imgDivLg img,select,label,input[type=checkbox]{ cursor: url(/img/cursor/srbskilink.cur), pointer; }
-.srpsko-uputstvo{background-color: #fdfdfd;border-radius: 0;-moz-border-radius: 0}
