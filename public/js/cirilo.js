@@ -7,8 +7,11 @@ var cirilo={
         $('[data-serbian=true]').focus(function(){
             if(btn) $(btn).css('opacity',0.5);
             if(idPrikaz)
-                $(idPrikaz).html('<div class="alert srpsko-uputstvo"><footer><b>ћ .ц.</b> | <b>ч ,ц,</b> | <b>ђ .д,</b> | <b>љ .л, или q</b> | <b>њ .н, или w</b> | <b>џ .дз. или џ</b> | <b>ш .с.</b></footer></div>');
-            else $(this).closest('div').append('<div class="alert srpsko-uputstvo"><footer><b>ћ .ц.</b> | <b>ч ,ц,</b> | <b>ђ .д,</b> | <b>љ .л, или q</b> | <b>њ .н, или w</b> | <b>џ .дз. или џ</b> | <b>ш .с.</b></footer></div>');
+                $(idPrikaz).html('<div class="alert srpsko-uputstvo"><footer style="float:left;padding: 10px 10px 0 0"><b>ћ .ц.</b> | <b>ч ,ц,</b> | <b>ђ .д,</b> | <b>љ .л, или q</b> | <b>њ .н, или w</b> | <b>џ .дз. или џ</b> | <b>ш .с.</b></footer> <button class="btn btn-c"><i class="glyphicon glyphicon-floppy-disk"></i> Заврши унос</button></div>');
+            else if($(this).data('serbian-id'))
+                $($(this).data('serbian-id')).html('<div class="alert srpsko-uputstvo"><footer style="float:left;padding: 10px 10px 0 0"><b>ћ .ц.</b> | <b>ч ,ц,</b> | <b>ђ .д,</b> | <b>љ .л, или q</b> | <b>њ .н, или w</b> | <b>џ .дз. или џ</b> | <b>ш .с.</b></footer> <button class="btn btn-c"><i class="glyphicon glyphicon-floppy-disk"></i> Заврши унос</button></div>');
+            else
+                $(this).closest('div').append('<div class="alert srpsko-uputstvo"><footer><b>ћ .ц.</b> | <b>ч ,ц,</b> | <b>ђ .д,</b> | <b>љ .л, или q</b> | <b>њ .н, или w</b> | <b>џ .дз. или џ</b> | <b>ш .с.</b> <button class="btn btn-c"><i class="glyphicon glyphicon-floppy-disk"></i> Заврши унос</button></footer></div>');
         });
         $('[data-serbian=true]').blur(function(){
             if(btn) $(btn).css('opacity',1);
