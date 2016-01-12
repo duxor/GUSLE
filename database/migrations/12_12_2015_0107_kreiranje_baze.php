@@ -43,6 +43,7 @@ class KreiranjeBaze extends Migration {
 			$table->string('broj_licne_karte',45)->nullable();
             $table->tinyInteger('online')->default(1);
             $table->tinyInteger('aktivan')->default(0);
+            $table->string('aktivacioni_kod')->nullable();
             $table->string('foto',250)->nullable();
             $table->string('naslovna',250)->nullable();
             $table->integer('ocena')->default(0);

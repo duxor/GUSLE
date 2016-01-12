@@ -141,3 +141,34 @@ body{ cursor: url(/img/cursor/srbski.cur), pointer; }
 input:hover{ cursor: url(/img/cursor/srbskitextbolji.cur), pointer; }
 a,button:hover,.btn,.carousel-control,.carousel-indicators>li,.imgDivLg img,select,label,input[type=checkbox]{ cursor: url(/img/cursor/srbskilink.cur), pointer; }
 .srpsko-uputstvo{background-color: #fdfdfd;border-radius: 0;-moz-border-radius: 0}
+
+.panel-c{
+    border-color: #1A0D0A;
+}
+.panel-c>.panel-heading{
+    background-color: #1A0D0A;
+    color:#fff;
+    border-color:#000;
+    font-weight: bold;
+}
+.panel-c a{
+    color: inherit;
+}
+.btn-c,.btn-cz,.btn-c-danger {
+    padding: 10px 20px;
+    background-color: #1A0D0A;
+    border: 1px solid #1A0D0A;
+    color: #f1f1f1;
+    border-radius: 0;
+    transition: .2s;
+}
+.btn-cz {
+    background-color: #0F564C;
+}
+.btn-c-danger {
+    background-color: #AB0404;
+}
+.btn-c:hover, .btn-c:focus,.btn-cz:hover,.btn-cz:focus,.btn-c-danger:hover, .btn-c-danger:focus {
+    border: 1px solid #1A0D0A;
+    background-color: #fff;
+}

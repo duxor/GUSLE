@@ -80,6 +80,5 @@ class KorisniciKO extends Controller
     }
 
 
-
 }
 

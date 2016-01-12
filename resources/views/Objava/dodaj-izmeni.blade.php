@@ -3,11 +3,11 @@
     <div class="container-fluid pt60">
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
-                <div class="panel panel-default">
+                <div class="panel panel-default panel-c">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-sm-6"><h3 align="left">Ажурирање објаве</h3></div>
-                            <div class="col-sm-6"><h3 align="right"><a href="/{{$username}}/dogadjaji/moje-objave">Моје објаве</a></h3></div>
+                            <div class="col-sm-6"><h3 align="right"><a href="/{{$username}}/dogadjaji/moje-objave"><span class="glyphicon glyphicon-menu-left"></span>Моје објаве</a></h3></div>
                         </div>
                     </div>
 
@@ -82,8 +82,9 @@
                                 {!! Form::hidden('x',$dogadjaj->x?$dogadjaj->x:44.78669522814711,['id'=>'P102_LATITUDE' ]) !!}
                                 {!! Form::hidden('y',$dogadjaj->y?$dogadjaj->y:20.450384063720662,['id'=>'P102_LONGITUDE' ]) !!}
                             </div>
+
                             <div class="form-group" align="center">
-                                {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span>Сачувајте промене',[ 'class' => 'btn btn-default', 'type'=>'submit'])!!}
+                                {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span> Сачувајте промене',['class' => 'btn btn-c', 'type'=>'submit'])!!}
                             </div>
                         {!! Form::close() !!}
                     </div>

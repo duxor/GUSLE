@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Proizvod;
+use App\User;
 use Illuminate\Support\Facades\Input;
 use Mail;
 
@@ -52,4 +53,25 @@ class OsnovniKO extends Controller{
     public function getOglas($username,$slug=null){
         return ProdavnicaKO::getOglas($slug?$username:null,$slug?$slug:$username);
     }
+
+    public function getAktiviranjeNaloga($aktivacioni_kod){
+        if( ! $aktivacioni_kod)
+        {
+            throw new InvalidConfirmationCodeException;
+        }
+
+        $korisnk = User::whereAktivacioniKod($aktivacioni_kod)->first();
+
+       if ( ! $korisnk)
+         {
+             throw new InvalidConfirmationCodeException;
+         }
+
+        $korisnk->aktivan = 1;
+        $korisnk->aktivacioni_kod = null;
+        $korisnk->save();
+
+        return redirect("/");
+     }
+
 }

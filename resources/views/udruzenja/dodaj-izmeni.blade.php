@@ -3,11 +3,11 @@
     <div class="container-fluid pt60">
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
-                <div class="panel panel-default">
+                <div class="panel panel-default panel-c">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-sm-6"><h3 align="left">Креирање савеза-друштва</h3></div>
-                            <div class="col-sm-6"><h3 align="right"><a href="/{{$username}}/udruzenja">Преглед савеза-друштва</a></h3></div>
+                            <div class="col-sm-6"><h3 align="right"><a href="/{{$username}}/udruzenja"><span class="glyphicon glyphicon-menu-left"></span>Преглед савеза-друштва</a></h3></div>
                         </div>
                     </div>
 
@@ -83,7 +83,7 @@
 
 
                             <div class="form-group" align="center">
-                                {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span>Сачувајте промене',[ 'class' => 'btn btn-default', 'type'=>'submit'])!!}
+                                {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span> Сачувајте промене',['class' => 'btn btn-c', 'type'=>'submit'])!!}
                             </div>
 
                         {!! Form::close() !!}

@@ -27,6 +27,7 @@ Route::post('/zaboravljena-sifra', 'Auth\PasswordController@postEmail');
 Route::get('/zaboravljena-sifra/{token}', 'Auth\PasswordController@getReset');
 Route::post('/zaboravljena-sifra/{token}', 'Auth\PasswordController@postReset');
 
+
 Route::controllers([
     '/prodavnica'=>'ProdavnicaKO',
 

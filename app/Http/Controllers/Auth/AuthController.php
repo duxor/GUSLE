@@ -8,6 +8,8 @@ namespace App\Http\Controllers\Auth;
 use App\Grad;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -128,6 +130,14 @@ class AuthController extends Controller
             }
         }
         //Dodavanje novog korisnika
+        $aktivacioni_kod = str_random(30);
+        $podaci = array( 'aktivacioni_kod' => $aktivacioni_kod);
+
+        Mail::send('emails.aktiviranje_naloga', $podaci, function($message) {
+            $message->to(Input::get('email'), Input::get('username'))
+                ->subject('Активирање налога');
+        });
+
         return User::create([
             'prezime'=>$data['prezime'],
             'ime'=>$data['ime'],
@@ -136,12 +146,13 @@ class AuthController extends Controller
             'email' => $data['email'],
             'adresa'=>$data['adresa'],
             'grad_id'=>$data['grad_id'],
-            // 'prava_pristupa_id'=>$data['prava_pristupa_id'],
             'telefon'=>$data['telefon'],
             'opis'=>$data['bio'],
             'foto'=>$image_final,
+            'aktivacioni_kod'=> $aktivacioni_kod,
             'token'=>$data['_token']
         ]);
+
     }
 
 }
