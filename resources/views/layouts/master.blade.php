@@ -65,27 +65,30 @@
 </nav>
 <script>
 $(document).ready(function(){
-    $(".scrol a,.scrol").on('click', function(event) {
-        if($(this.hash).offset())
-            event.preventDefault();
-        var hash = this.hash;
-        $('html, body').animate({
-            scrollTop: $(hash).offset().top-60
-        }, 900, function(){
-            window.location.hash = hash;
-        });
-    });
-    $(window).scroll(function() {
-        $(".slideanim").each(function(){
-            var pos = $(this).offset().top;
-            var winTop = $(window).scrollTop();
-            if (pos < winTop + 600) {
-                $(this).addClass("slide");
-            }
-        });
-    });
-    $('[data-toggle=tooltip]').tooltip();
+    slajdovanje()
 })
+function slajdovanje(){
+        $(".scrol a,.scrol").on('click', function(event) {
+            if($(this.hash).offset())
+                event.preventDefault();
+            else console.log(1);
+            var hash = this.hash;
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top-60
+            }, 900, function(){
+                window.location.hash = hash;
+            });
+        });
+        $(window).scroll(function() {
+            $(".slideanim").each(function(){
+                var pos = $(this).offset().top;
+                var winTop = $(window).scrollTop();
+                if (pos < winTop + 600) {
+                    $(this).addClass("slide");
+                }
+            });
+        });
+}
 </script>
 @yield('body')
 <div class="footer text-center">

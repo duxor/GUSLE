@@ -24,8 +24,15 @@ class DogadjajiKO extends Controller{
     //  P R I K A Z I
     //Prikaz svih dogadjaja
     public function getIndex(){
-        $dogadjaji= Objava::get(['naziv','slug','foto','datum_dogadjaja',DB::raw('substring(sadrzaj,1,'.$this->duzinaObjave.') as sadrzaj'),'tagovi']);
-        return view('dogadjaji')->with('dogadjaji',$dogadjaji);
+        $dogadjaji= Objava::where('datum_dogadjaja','>=',date('Y-m-d'))->orderBy('datum_dogadjaja')->get(['naziv','slug','foto','datum_dogadjaja',DB::raw('substring(sadrzaj,1,'.$this->duzinaObjave.') as sadrzaj'),'tagovi']);
+        $test=true; $danasnji=date('Y-m-d');
+        $kalendar='{';
+        foreach($dogadjaji as $dogadjaj) {
+            $kalendar .= '"' . date('Y-m-d', strtotime($dogadjaj->datum_dogadjaja)) . '":{"number": "' . substr($dogadjaj->naziv, 0, 30) . '...","badgeClass":"badge-warning","id": "#' . $dogadjaj->slug . '","class": "active scrol","aclass":"kalendar-a"},';
+            if($danasnji==date('Y-m-d', strtotime($dogadjaj->datum_dogadjaja))) $test=false;
+        }
+        $kalendar .= ($test?'"'.date('Y-m-d').'":{"number":"","badgeClass":"badge-danger","class":"active-danger kalendar-dan "}':'').'}';
+        return view('dogadjaji')->with('dogadjaji',$dogadjaji)->with('kalendar',$kalendar);
     }
 
     //Prikaz svih dogadjaja ulogovanog korisnika
@@ -146,7 +153,16 @@ class DogadjajiKO extends Controller{
     public function getArhiva(){
         //Метода за приказ одгађаја који су протекли - завршени
         //РУТА: /dogadjaji/arhiva
-        dd('Arhiva');
+        $dogadjaji= Objava::where('datum_dogadjaja','<',date('Y-m-d'))->orderBy('datum_dogadjaja','desc')->get(['naziv','slug','foto','datum_dogadjaja',DB::raw('substring(sadrzaj,1,'.$this->duzinaObjave.') as sadrzaj'),'tagovi']);
+
+        $test=true; $danasnji=date('Y-m-d');
+        $kalendar='{';
+        foreach($dogadjaji as $dogadjaj) {
+            $kalendar .= '"' . date('Y-m-d', strtotime($dogadjaj->datum_dogadjaja)) . '":{"number": "' . substr($dogadjaj->naziv, 0, 30) . '...","badgeClass":"badge-warning","id": "#' . $dogadjaj->slug . '","class": "active scrol","aclass":"kalendar-a"},';
+            if($danasnji==date('Y-m-d', strtotime($dogadjaj->datum_dogadjaja))) $test=false;
+        }
+        $kalendar .= ($test?'"'.date('Y-m-d').'":{"number":"","badgeClass":"badge-danger","class":"active-danger kalendar-dan "}':'').'}';
+        return view('dogadjaji')->with('dogadjaji',$dogadjaji)->with('kalendar',$kalendar)->with('arhiva',1);
     }
 
 }
