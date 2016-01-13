@@ -30,6 +30,7 @@ Route::post('/zaboravljena-sifra/{token}', 'Auth\PasswordController@postReset');
 
 Route::controllers([
     '/prodavnica'=>'ProdavnicaKO',
+    '/udruzenja'=>'UdruzenjaKO',
 
     '/{username}/poruke'=>'MejlingKO',
     '/{username}/profil'=>'KorisniciKO',

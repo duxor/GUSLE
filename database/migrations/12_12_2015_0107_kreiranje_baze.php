@@ -99,6 +99,8 @@ class KreiranjeBaze extends Migration {
             $table->bigIncrements('id');
             $table->tinyInteger('vrsta_udruzenja_id')->default(0);//[0=>'Друштво',1=>'Савез']
             $table->string('naziv', 100);
+            $table->string('slug', 200)->unique();
+            $table->date('datum_osnivanja')->nullable();
             $table->text('opis')->nullable();
             $table->unsignedBigInteger('grad_id');
             $table->foreign('grad_id')->references('id')->on('grad');

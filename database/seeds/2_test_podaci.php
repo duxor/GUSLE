@@ -15,17 +15,17 @@ class TestPodaci extends Seeder{
             ['username'=>'zabranjen','password'=>bcrypt('zabranjen'),'email'=>'zabranjen@gmail.com','prava_pristupa_id'=>2,'foto'=>'','aktivan'=>1,'grad_id'=>3,'telefon'=>'0634567890','prezime'=>'Забрањен','ime'=>'Забрањеновић'],//5
         ]);
         Udruzenje::insert([//savezi
-            ['vrsta_udruzenja_id'=>1,'naziv'=>'Савез гуслара Србије','korisnici_id'=>2,'grad_id'=>2],//2
-            ['vrsta_udruzenja_id'=>1,'naziv'=>'Савез гуслара Републике Српске','korisnici_id'=>2,'grad_id'=>3],//3
-            ['vrsta_udruzenja_id'=>1,'naziv'=>'Савез gуслара "Душаново царство"','korisnici_id'=>2,'grad_id'=>4],//4
+            ['vrsta_udruzenja_id'=>1,'naziv'=>'Савез гуслара Србије',               'slug'=>'savez-guslara-srbije',             'korisnici_id'=>2,'grad_id'=>2,'datum_osnivanja'=>'2000-05-23'],//2
+            ['vrsta_udruzenja_id'=>1,'naziv'=>'Савез гуслара Републике Српске',     'slug'=>'savez-guslara-republike-srpske',   'korisnici_id'=>2,'grad_id'=>3,'datum_osnivanja'=>'1989-11-18'],//3
+            ['vrsta_udruzenja_id'=>1,'naziv'=>'Савез gуслара "Душаново царство"',   'slug'=>'savez-guslara-dusanovo-carstvo',   'korisnici_id'=>2,'grad_id'=>4,'datum_osnivanja'=>'2005-10-22'],//4
         ]);
         Udruzenje::insert([//drustva
-            ['vrsta_udruzenja_id'=>0,'naziv'=>'"Стара Херцеговина" Београд','savez_id'=>2,'korisnici_id'=>2,'grad_id'=>2],//5
-            ['vrsta_udruzenja_id'=>0,'naziv'=>'"Јован Чепић" Земун','savez_id'=>2,'korisnici_id'=>2,'grad_id'=>2],//6
-            ['vrsta_udruzenja_id'=>0,'naziv'=>'"Бајо Пивљанин" Земун','savez_id'=>2,'korisnici_id'=>2,'grad_id'=>2],//7
-            ['vrsta_udruzenja_id'=>0,'naziv'=>'"Мајор Милан Тепић" Београд','savez_id'=>3,'korisnici_id'=>2,'grad_id'=>2],//8
-            ['vrsta_udruzenja_id'=>0,'naziv'=>'"Старина Новак" Пале','savez_id'=>3,'korisnici_id'=>2,'grad_id'=>2],//9
-            ['vrsta_udruzenja_id'=>0,'naziv'=>'"Војвода Мина Радовић" Подгорица','savez_id'=>4,'korisnici_id'=>2,'grad_id'=>2],//10
+            ['vrsta_udruzenja_id'=>0,'naziv'=>'"Стара Херцеговина" Београд',        'slug'=>'stara-hercegovina-beograd',        'opis'=>'"Стара Херцеговина" Београд "Стара Херцеговина" Београд "Стара Херцеговина" Београд "Стара Херцеговина" Београд "Стара Херцеговина" Београд "Стара Херцеговина" Београд ','savez_id'=>2,'korisnici_id'=>2,'grad_id'=>2,'datum_osnivanja'=>'1988-02-28'],//5
+            ['vrsta_udruzenja_id'=>0,'naziv'=>'"Јован Чепић" Земун',                'slug'=>'jovan-cepic-zemun',                'opis'=>'"Јован Чепић" Земун "Јован Чепић" Земун "Јован Чепић" Земун "Јован Чепић" Земун "Јован Чепић" Земун "Јован Чепић" Земун','savez_id'=>2,'korisnici_id'=>2,'grad_id'=>2,'datum_osnivanja'=>'2011-06-30'],//6
+            ['vrsta_udruzenja_id'=>0,'naziv'=>'"Бајо Пивљанин" Земун',              'slug'=>'bajo-pivljanin-zemun',             'opis'=>'"Бајо Пивљанин" Земун "Бајо Пивљанин" Земун "Бајо Пивљанин" Земун "Бајо Пивљанин" Земун "Бајо Пивљанин" Земун "Бајо Пивљанин" Земун "Бајо Пивљанин" Земун','savez_id'=>2,'korisnici_id'=>2,'grad_id'=>2,'datum_osnivanja'=>'1955-05-21'],//7
+            ['vrsta_udruzenja_id'=>0,'naziv'=>'"Мајор Милан Тепић" Београд',        'slug'=>'major-milan-tepic-beograd',        'opis'=>'"Мајор Милан Тепић" Београд "Мајор Милан Тепић" Београд "Мајор Милан Тепић" Београд "Мајор Милан Тепић" Београд "Мајор Милан Тепић" Београд "Мајор Милан Тепић" Београд "Мајор Милан Тепић" Београд ','savez_id'=>3,'korisnici_id'=>2,'grad_id'=>2,'datum_osnivanja'=>'2000-11-16'],//8
+            ['vrsta_udruzenja_id'=>0,'naziv'=>'"Старина Новак" Пале',               'slug'=>'starina-novak-pale',               'opis'=>'"Старина Новак" Пале "Старина Новак" Пале "Старина Новак" Пале "Старина Новак" Пале "Старина Новак" Пале "Старина Новак" Пале "Старина Новак" Пале "Старина Новак" Пале ','savez_id'=>3,'korisnici_id'=>2,'grad_id'=>2,'datum_osnivanja'=>'1892-07-13'],//9
+            ['vrsta_udruzenja_id'=>0,'naziv'=>'"Војвода Мина Радовић" Подгорица',   'slug'=>'vojvoda-mina-radovic-podgorica',   'opis'=>'"Војвода Мина Радовић" Подгорица "Војвода Мина Радовић" Подгорица "Војвода Мина Радовић" Подгорица "Војвода Мина Радовић" Подгорица "Војвода Мина Радовић" Подгорица "Војвода Мина Радовић" Подгорица "Војвода Мина Радовић" Подгорица ','savez_id'=>4,'korisnici_id'=>2,'grad_id'=>2,'datum_osnivanja'=>'1998-03-25'],//10
         ]);
         DrustveniKorisnik::insert([
             ['udruzenje_id'=>2,'korisnici_id'=>3],

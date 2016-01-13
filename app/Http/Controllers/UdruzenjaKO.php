@@ -10,23 +10,26 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
 
 class UdruzenjaKO extends Controller
 {
-     private $url='/udruzenja';
+    private $url='/udruzenja';
+    private $duzinaOpisa=200;
     public function __construct(){
-        $this->middleware('PravaPristupaMid:2,0',['except'=>['getIndex',]]);//za korisnike 2+ (sve registrovane)
-        $this->middleware('UsernameLinkMid:'.$this->url,['except'=>['postSlugTest','getArhiva']]);
+        $this->middleware('PravaPristupaMid:2,0',['except'=>['getIndex','postUcitajPoVrsti','getPretraga','postClanovi']]);//za korisnike 2+ (sve registrovane)
+        $this->middleware('UsernameLinkMid:'.$this->url,['except'=>['postSlugTest','getArhiva','postUcitajPoVrsti','getPretraga','postClanovi']]);
     }
-
     //Prikaz svih saveza-drustva
-    public function getIndex($username)
-    {
-        $udruzenja= Udruzenje::all();
-        return view('udruzenja.udruzenja')->with('username',$username)->with('udruzenja',$udruzenja);
+    public function getIndex($username=null){
+        if($username){
+            $udruzenja= Udruzenje::all();
+            return view('udruzenja.udruzenja')->with('username',$username)->with('udruzenja',$udruzenja);
+        }else{
+            return view('udruzenja')->with('gradovi',Grad::zaKombo());
+        }
     }
-
     //Kreiranje novog saveza-drustva
      public function getKreirajUdruzenje($username){
         $gradovi=Grad::lists('naziv','id');
@@ -34,7 +37,6 @@ class UdruzenjaKO extends Controller
         $udruzenje = new Udruzenje();
         return view('udruzenja.dodaj-izmeni')->with('udruzenje', $udruzenje)->with('username', $username)->with('gradovi',$gradovi)->with('savezi',$savezi);
     }
-
     //Azururanje saveza-drustva
     public function getIzmeni($username,$naziv){
         $gradovi=Grad::lists('naziv','id');
@@ -42,7 +44,6 @@ class UdruzenjaKO extends Controller
         $udruzenje = Udruzenje::where('naziv',$naziv)->get()->first();
         return view('udruzenja.dodaj-izmeni')->with('udruzenje', $udruzenje)->with('username', $username)->with('gradovi',$gradovi)->with('savezi',$savezi);
     }
-
     //Memorisanje saveza-drustva
     public function postUdruzenje(Request $request, $username){
         if($request->foto) {
@@ -102,7 +103,6 @@ class UdruzenjaKO extends Controller
 
        return redirect("/{{$username}}/udruzenja");
     }
-
     //Prikaz svih saveza
     public function getSavezi(Request $request)
     {
@@ -113,7 +113,23 @@ class UdruzenjaKO extends Controller
             ]);
         }
     }
-
-
-
+    public function postUcitajPoVrsti(){
+        return json_encode(Udruzenje::join('grad as g','g.id','=','grad_id')
+            ->leftjoin('udruzenje as u','u.id','=','udruzenje.savez_id')
+            ->where('udruzenje.vrsta_udruzenja_id',Input::get('vrsta'))
+            ->where('udruzenje.grad_id','Like',Input::get('grad')==1?'%%':Input::get('grad'))
+            ->orderBy('udruzenje.naziv')
+            ->get(['udruzenje.naziv',
+                DB::raw('substring(gusle_udruzenje.opis,1,'.$this->duzinaOpisa.') as opis'),
+                'g.naziv as grad','udruzenje.foto','udruzenje.datum_osnivanja','udruzenje.slug']));
+    }
+    public function getPretraga($slug){
+        return view('udruzenja.udruzenje')->with('udruzenje',Udruzenje::join('grad as g','g.id','=','grad_id')->where('slug',$slug)->get(['udruzenje.naziv','datum_osnivanja','g.naziv as grad','foto','opis','vrsta_udruzenja_id','slug'])->first());
+    }
+    public function postClanovi(){
+        if(Input::get('vrsta')==1)
+            return json_encode(Udruzenje::join('udruzenje as u','u.id','=','udruzenje.savez_id')->where('u.slug',Input::get('slug'))
+                ->get(['udruzenje.naziv','udruzenje.foto','udruzenje.slug'])->toArray());
+        return json_encode([]);
+    }
 }
