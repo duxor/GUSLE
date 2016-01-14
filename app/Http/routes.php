@@ -31,20 +31,20 @@ Route::post('/zaboravljena-sifra/{token}', 'Auth\PasswordController@postReset');
 Route::controllers([
     '/prodavnica'=>'ProdavnicaKO',
     '/udruzenja'=>'UdruzenjaKO',
+    '/pretraga'=>'PretragaKO',
+    '/clan'=>'KorisniciKO',
+    '/administracija'=>'AdministracijaKO',
+    '/dogadjaji'=>'DogadjajiKO',
+    '/galerija'=>'GalerijaKO',
+    '/odradbe'=>'OsnovniKO',
 
     '/{username}/poruke'=>'MejlingKO',
     '/{username}/profil'=>'KorisniciKO',
     '/{username}/prodavnica'=>'ProdavnicaKO',
     '/{username}/oglas/{slug?}/{akcija?}'=>'ProdavnicaKO',
-    '/{username}/pretraga'=>'PretragaKO',
     '/{username}/dogadjaji'=>'DogadjajiKO',
     '/{username}/udruzenja'=>'UdruzenjaKO',
     '/{username}/javna-diskusija'=>'JavnaDiskusijaKO',
 
-    '/pretraga'=>'PretragaKO',
-    '/administracija'=>'AdministracijaKO',
-    '/dogadjaji'=>'DogadjajiKO',
-    '/galerija'=>'GalerijaKO',
-    '/odradbe'=>'OsnovniKO',
     '/'=>'OsnovniKO',
 ]);

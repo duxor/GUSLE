@@ -37,6 +37,10 @@
                 JD.uProcesu();
                 $.post(JD.root+'ucitaj',{_token:JD.token,stranica:JD.stranicenje.stranica},function(data){
                     data=JSON.parse(data);
+                    if(!data.length){
+                        $('#work-place').html('Није евидентирана ни једна дискусија ни став. Будите први који ће свије мишљење поделити са другима.');
+                        return;
+                    }
                     var ispis;
                     JD.uProcesuRemove();
                     $.each(data, function(i,diskusija){

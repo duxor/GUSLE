@@ -101,7 +101,7 @@
         </div>
         <div class="panel-group">
             <div class="panel panel-default panel-title">
-                <a href="/{{$korisnik->username}}/pretraga">
+                <a href="/pretraga/clanovi">
                     <div class="panel-heading" id="headingOne">
                         <h4><i class="glyphicon glyphicon-search"></i> Претрага</h4>
                     </div>

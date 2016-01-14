@@ -37,6 +37,8 @@ class KreiranjeBaze extends Migration {
             $table->foreign('grad_id')->references('id')->on('grad');
             $table->unsignedBigInteger('prava_pristupa_id')->default(2);
             $table->foreign('prava_pristupa_id')->references('id')->on('prava_pristupa');
+            $table->unsignedBigInteger('vrsta_korisnika_id')->default(1);
+            $table->foreign('vrsta_korisnika_id')->references('id')->on('vrsta_korisnika');
 			$table->string('telefon',45)->nullable();
 			$table->text('bio')->nullable();
 			$table->string('jmbg',45)->nullable();

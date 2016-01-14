@@ -27,17 +27,17 @@ class KonfiguracioniPodaci extends Seeder{
             ['naziv'=>'Краљево'],
             ['naziv'=>'Фоча'],
         ]);
-        Korisnici::insert([
-            ['username'=>'SuperAdmin','password'=>bcrypt('SuperAdmin'),'email'=>'super.admin@gmail.com','prava_pristupa_id'=>6,'foto'=>'/img/kontakt/korisnik-6.jpg','aktivan'=>1,'grad_id'=>2,'telefon'=>'065123456','prezime'=>'Супер','ime'=>'Фаца'],//1
-        ]);
         VrstaKorisnika::insert([
-            ['naziv'=>'Посматрач'],
+            ['naziv'=>'Посетилац портала'],
             ['naziv'=>'Гуслар'],
             ['naziv'=>'Градитељ гусала'],
             ['naziv'=>'Фрулаш'],
             ['naziv'=>'Градитељ фрула'],
             ['naziv'=>'Градитељ дувачких инструмената'],
             ['naziv'=>'Дуборезац'],
+        ]);
+        Korisnici::insert([
+            ['username'=>'SuperAdmin','password'=>bcrypt('SuperAdmin'),'email'=>'super.admin@gmail.com','prava_pristupa_id'=>6,'foto'=>'/img/kontakt/korisnik-6.jpg','aktivan'=>1,'grad_id'=>2,'telefon'=>'065123456','ime'=>'Супер','prezime'=>'Фаца'],//1
         ]);
         VrstaProizvoda::insert([
             ['naziv'=>'Гусле','slug'=>'gusle'],//1

@@ -8,11 +8,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
-class KorisniciKO extends Controller
-{
+class KorisniciKO extends Controller{
     public function __construct(){
-        $this->middleware('PravaPristupaMid:2,0',['except'=>'']);//za korisnike 2+ (sve registrovane)
-        $this->middleware('UsernameLinkMid:');//za korisnike 2+ (sve registrovane)
+        $this->middleware('PravaPristupaMid:2,0',['except'=>['getProfil']]);//za korisnike 2+ (sve registrovane)
+        $this->middleware('UsernameLinkMid:',['except'=>['getProfil']]);//za korisnike 2+ (sve registrovane)
     }
     public function getIndex(){
         if(Auth::check()){
@@ -20,7 +19,6 @@ class KorisniciKO extends Controller
             return view('administracija.admin.profil')->with('grad',$grad);
         }
     }
-
     //Измјена корисника - Ажурирање
     //Рута: /{username}/profil/uredi
     public function getUredi($username){
@@ -28,7 +26,6 @@ class KorisniciKO extends Controller
         $gradovi = Grad::orderBy('id')->lists('naziv','id');
         return view('administracija.admin.izmeni')->with('korisnik',$korisnik)->with('gradovi',$gradovi)->with('username',$username);
     }
-
     //Измјена корисника - Ажурирање
     //Рута: /{username}/dogadjaji/izmeni/slug-dogadjaja
     public function postUredi(Request $request, $username)
@@ -48,7 +45,6 @@ class KorisniciKO extends Controller
         }else{
             $image_final = 'img/default/slika-dogadjaji.jpg';
         }
-
         if($request->novi_grad){
             $pomocna = Grad::where('naziv',$request->novi_grad)->first();
             if($pomocna){
@@ -58,11 +54,8 @@ class KorisniciKO extends Controller
                 $pomocna = Grad::where('naziv',$request->novi_grad)->first();
                 $request->grad_id = $pomocna->id;
             }
-
         }
-
         $korisnik = User::where('email',$request->email)->get()->first();
-
         $korisnik->prezime = $request->prezime;
         $korisnik->ime = $request->ime;
         $korisnik->username = $request->username;
@@ -73,12 +66,11 @@ class KorisniciKO extends Controller
         $korisnik->bio = $request->bio;
         $korisnik->foto = $image_final;
         $korisnik->token = $request->token;
-
         $korisnik->update();
-
         return redirect("/{{$username}}/profil");
     }
-
-
+    public function getProfil($username){
+        return 'Профил: '.$username;
+    }
 }
 

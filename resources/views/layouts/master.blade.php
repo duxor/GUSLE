@@ -53,11 +53,12 @@
                     @else <a href="/prijava"><i class="glyphicon glyphicon-log-in"></i> Пријава</a> @endif</li>
             </ul>
             <ul class="nav navbar-nav navbar-right scrol">
-                <li><a href="/"><i class="glyphicon glyphicon-home"></i> Почетна</a></li>
+                <li data-toggle="tooltip" title="Почетна" data-placement="bottom"><a href="/"><i class="glyphicon glyphicon-home"></i></a></li>
+                <li data-toggle="tooltip" title="Пронађи гуслара, градитеља и друге чланове портала" data-placement="bottom"><a href="/pretraga/clanovi"><i class="glyphicon glyphicon-search"></i></a></li>
                 <li><a href="/prodavnica"><i class="glyphicon glyphicon-shopping-cart"></i> Веб продавница</a></li>
                 <li><a href="/dogadjaji"><i class="glyphicon glyphicon-calendar"></i> Календар догађаја</a></li>
                 <li><a href="/dogadjaji/arhiva"><i class="glyphicon glyphicon-flag"></i> Архива</a></li>
-                <li><a href="/galerija"><i class="glyphicon glyphicon-picture"></i> Галерија</a></li>
+                <li><a href="/udruzenja"><i class="icon-users-1"></i> Удружења</a></li>
                 <li><a href="/kontakt"><i class="glyphicon glyphicon-earphone"></i> Контакт</a></li>
             </ul>
         </div>
@@ -121,7 +122,7 @@ function slajdovanje(){
             <h3>Линкови</h3>
             <p class="list-group">
                 <a href="#" class="col-sm-12">О нама</a>
-                <a href="#" class="col-sm-12">Веб продавница</a>
+                <a href="#" class="col-sm-12">Продавница</a>
                 <a href="#" class="col-sm-12">Догађаји</a>
                 <a href="#" class="col-sm-12">Актуелности</a>
                 <a href="#" class="col-sm-12">Историјат</a>

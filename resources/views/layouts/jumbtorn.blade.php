@@ -120,7 +120,7 @@
                 <h3><i class="glyphicon glyphicon-book"></i> Историјат</h3>
                 <p>из историјских извора</p>
             </a>
-            <a href="#istorijat" title="Историјат" class="baner">
+            <a href="#drustva" title="Друштва" class="baner">
                 <img src="/img/templejt/baner-pocetna/baner-4.jpg">
                 <h3><i class="icon-users-1"></i> Друштва</h3>
                 <p>савези и друштва</p>

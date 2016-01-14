@@ -9,10 +9,10 @@ use App\DrustveniKorisnik;
 class TestPodaci extends Seeder{
     public function run(){
         Korisnici::insert([
-            ['username'=>'admin','password'=>bcrypt('admin'),'email'=>'admin@gmail.com','prava_pristupa_id'=>5,'foto'=>'/img/kontakt/korisnik-5.jpg','aktivan'=>1,'grad_id'=>3,'telefon'=>'065098765','prezime'=>'Админ','ime'=>'Админовић'],//2
-            ['username'=>'moderator','password'=>bcrypt('moderator'),'email'=>'administrator@gmail.com','prava_pristupa_id'=>4,'foto'=>'/img/kontakt/korisnik-4.jpg','aktivan'=>1,'grad_id'=>3,'telefon'=>'062345678','prezime'=>'Модератор','ime'=>'Модератовић'],//3
-            ['username'=>'korisnik','password'=>bcrypt('korisnik'),'email'=>'korisnik@gmail.com','prava_pristupa_id'=>2,'foto'=>'/img/kontakt/korisnik-3.jpg','aktivan'=>1,'grad_id'=>2,'telefon'=>'061234567','prezime'=>'Корисник','ime'=>'Корисниковић'],//4
-            ['username'=>'zabranjen','password'=>bcrypt('zabranjen'),'email'=>'zabranjen@gmail.com','prava_pristupa_id'=>2,'foto'=>'','aktivan'=>1,'grad_id'=>3,'telefon'=>'0634567890','prezime'=>'Забрањен','ime'=>'Забрањеновић'],//5
+            ['username'=>'admin','password'=>bcrypt('admin'),'email'=>'admin@gmail.com','prava_pristupa_id'=>5,'foto'=>'/img/kontakt/korisnik-5.jpg','aktivan'=>1,'grad_id'=>3,'telefon'=>'065098765','ime'=>'Админ','prezime'=>'Админовић'],//2
+            ['username'=>'moderator','password'=>bcrypt('moderator'),'email'=>'administrator@gmail.com','prava_pristupa_id'=>4,'foto'=>'/img/kontakt/korisnik-4.jpg','aktivan'=>1,'grad_id'=>3,'telefon'=>'062345678','ime'=>'Модератор','prezime'=>'Модератовић'],//3
+            ['username'=>'korisnik','password'=>bcrypt('korisnik'),'email'=>'korisnik@gmail.com','prava_pristupa_id'=>2,'foto'=>'/img/kontakt/korisnik-3.jpg','aktivan'=>1,'grad_id'=>2,'telefon'=>'061234567','ime'=>'Корисник','prezime'=>'Корисниковић'],//4
+            ['username'=>'zabranjen','password'=>bcrypt('zabranjen'),'email'=>'zabranjen@gmail.com','prava_pristupa_id'=>2,'foto'=>'','aktivan'=>1,'grad_id'=>3,'telefon'=>'0634567890','ime'=>'Забрањен','prezime'=>'Забрањеновић'],//5
         ]);
         Udruzenje::insert([//savezi
             ['vrsta_udruzenja_id'=>1,'naziv'=>'Савез гуслара Србије',               'slug'=>'savez-guslara-srbije',             'korisnici_id'=>2,'grad_id'=>2,'datum_osnivanja'=>'2000-05-23'],//2
