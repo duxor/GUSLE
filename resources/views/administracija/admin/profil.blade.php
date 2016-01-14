@@ -151,7 +151,7 @@
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
             <table class="table table-hover">
-            <tr><td><h4><span class="glyphicon glyphicon-user"></span> <strong>Име:</strong></h4></td><td><h4>{{Auth::User()->ime}}</h4></td>
+            <tr><td><h4><span class="glyphicon glyphicon-user"></span> <strong>Име:</strong></h4></td><td><h4></h4></td>
             </tr><tr><td><h4><span class="glyphicon glyphicon-user"></span> <strong>Презиме:</strong></h4></td><td><h4>{{Auth::User()->prezime}}</h4></td>
             </tr><tr><td><h4><span class="glyphicon glyphicon-envelope"></span> <strong>E-mail:</strong></h4></td><td><h4>{{Auth::User()->email}}</h4></td></tr>
             <tr><td><h4><span class="glyphicon glyphicon-earphone"></span> <strong>Контакт телефон:</strong></h4></td><td><h4>{{Auth::User()->telefon}}</h4></td></tr>

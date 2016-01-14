@@ -114,6 +114,7 @@
             </style>
         <script>
             $(document).ready(function(){
+
                 //Prikaz slika
                 function prikaziFoto(input) {
                     if (input.files && input.files[0]) {

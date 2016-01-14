@@ -3,7 +3,7 @@
     <div class="container-fluid pt60">
         <div class="row">
             <div class="col-sm-8 col-md-offset-2">
-                <div class="panel panel-default">
+                <div class="panel panel-default panel-c">
                     <div class="panel-heading"><h3>Регистровање новог корисник</h3></div>
                     <div class="panel-body">
                         @if (count($errors) > 0)
@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                             <div class="form-group" align="center">
-                                {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span>Региструјте се',[ 'name'=>'registracija','class' => 'btn btn-default','id'=>'registracija', 'type'=>'submit'])!!}
+                                {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span> Сачувајте промене',['class' => 'btn btn-c', 'type'=>'submit'])!!}
                             </div>
                             {!! Form::close() !!}
                     </div>
