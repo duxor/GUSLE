@@ -44,7 +44,7 @@
                 <hr>
                 <h3 id="{{$dogadjaj->slug}}"><a href="/dogadjaji/dogadjaj/{{$dogadjaj->slug}}">{{$dogadjaj->naziv}}</a></h3>
                 <div class="row">
-                    <div align="left" class="col-sm-5">
+                    <div class="col-sm-5">
                         <a  href="/dogadjaji/dogadjaj/{{$dogadjaj->slug}}">
                             <img src="{{'/'.$dogadjaj->foto}}" alt="{{$dogadjaj->naziv}}" class="img-responsiveimg-thumbnail">
                         </a>
@@ -54,19 +54,34 @@
                             @endforeach
                         </div>
                     </div>
-                    <p class="col-sm-7">
-                        <p><b>
+                    <div class="col-sm-7">
+                        <b>
                             <i class="glyphicon glyphicon-time"></i> {{date('d.m.Y. H:i',strtotime($dogadjaj->datum_dogadjaja))}}<br>
-                            <i class="glyphicon glyphicon-map-marker" data-toggle="tooltip" title="Погледај на мапи"></i> АДРЕСА ГРАД
-                        </b></p>
-                        {!!$dogadjaj->sadrzaj!!}...
-                        <a  href="/dogadjaji/dogadjaj/{{$dogadjaj->slug}}" class="btn btn-c btn-c-min"><i class="glyphicon glyphicon-sort-by-alphabet"></i> Читај даље</a>
-                    </p>
+                            <span data-modal="modal" data-toggle="tooltip" title="Погледај на мапи"><i class="glyphicon glyphicon-map-marker"></i> АДРЕСА ГРАД</span>
+                        </b>
+                        <p>
+                            {!!$dogadjaj->sadrzaj!!}...
+                            <a  href="/dogadjaji/dogadjaj/{{$dogadjaj->slug}}" class="btn btn-c btn-c-min"><i class="glyphicon glyphicon-sort-by-alphabet"></i> Читај даље</a>
+                        </p>
+                    </div>
                 </div>
             @endforeach
         </div>
         <div class="col-sm-3 baneri">
             @include('layouts.baneri300x120')
+        </div>
+    </div>
+    <div id="modal" class="modal fade pt60">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h2>Приказ на мапи</h2>
+                </div>
+                <div class="modal-body">
+                    МАПА СА ОЗНАЧЕНОМ ЛОКАЦИЈОМ у греј дизајну као на контакт страници
+                </div>
+            </div>
         </div>
     </div>
     <style>
@@ -79,6 +94,12 @@
         .kalendar{}
         .active-danger{background-color: #FFD89D}
         .responsive-calendar .active-danger a{color:#fff;font-weight: bold}
+        .col-sm-5>a>img{width: 100%}
+        .col-sm-7 b span{cursor: pointer}
+        .col-sm-7 p{text-align: justify}
     </style>
+    <script>
+        $(function(){$('[data-toggle=tooltip]').tooltip();$('[data-modal=modal]').click(function(){$('#modal').modal()})})
+    </script>
 @endsection
 
