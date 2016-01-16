@@ -15,8 +15,8 @@ class KorisniciKO extends Controller{
     }
     public function getIndex(){
         if(Auth::check()){
-            $grad = Grad::where('id',Auth::user()->grad_id)->first();
-            return view('administracija.admin.profil')->with('grad',$grad);
+            $clan = User::where('username',Auth::user()->username)->first();
+            return view('administracija.admin.profil')->with('clan', $clan);
         }
     }
     //Измјена корисника - Ажурирање
@@ -69,8 +69,14 @@ class KorisniciKO extends Controller{
         $korisnik->update();
         return redirect("/{{$username}}/profil");
     }
+
+
     public function getProfil($username){
-        return 'Профил: '.$username;
+        //return 'Профил: '.$username;
+        $clan = User::where('username',$username)->first();
+       // dd($clan);
+        return view('administracija.admin.profil')->with('clan', $clan);
+
     }
 }
 

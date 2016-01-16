@@ -27,9 +27,19 @@
                         {!! Form::model($dogadjaj,['action'=> ['DogadjajiKO@postDogadjaj',$username], 'files'=>'true', 'method'=>'post' ]) !!}
 
                             <div class="form-group">
-                                {!! Form::label('datum_dogadjaja',"Датум*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
-                                {!! Form::text('datum_dogadjaja',$dogadjaj->datum_dogadjaja?date( 'Y-m-d', strtotime($dogadjaj->datum_dogadjaja)):date('Y-m-d'),['class'=>'datepicker']) !!}
+                            <div id="datetimepicker1" class="input-append date">
+                                {!! Form::label('datum_dogadjaja',"Датум*", ['class'=>'col-sm-12','data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
+                                <div class="row">
+                                <div class="col-sm-3">
+                                    <input class="form-control" name="datum_dogadjaja" data-format="yyyy-MM-dd hh:mm:ss" type="text" value="{{$dogadjaj->datum_dogadjaja?date( 'Y-m-d h:m:s', strtotime($dogadjaj->datum_dogadjaja)):date('Y-m-d h:m:s')}}">
+                                </div>
+                                <div class="col-sm-9">
+                                    <span class="add-on"> <button type="button" class="btn btn-default btn-sm "><span class="glyphicon glyphicon-calendar"></span>Календар</button></span></span>
+                                </div>
+                                </div>
                             </div>
+                            </div>
+
                             <div class="form-group">
                                 {!! Form::label('naziv',"Назив*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
                                 {!! Form::text('naziv',null,['class'=>'form-control', 'placeholder'=>'Назив']) !!}
@@ -115,6 +125,11 @@
         <script>
             $(document).ready(function(){
 
+                $(function() {
+                    $('#datetimepicker1').datetimepicker({
+                        language: 'pt-BR'
+                    });
+                });
                 //Prikaz slika
                 function prikaziFoto(input) {
                     if (input.files && input.files[0]) {

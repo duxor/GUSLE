@@ -8,14 +8,17 @@
     {!!HTML::style('bootstrap-3.3.5-dist/css/bootstrap.min.css')!!}
     {!!HTML::style('aj/css/trumbowyg.min.css')!!}
     {!!HTML::style('aj/css/datepicker.css')!!}
+    {!!HTML::style('aj/css/bootstrap-datetimepicker.min.css')!!}
     {!!HTML::style('css/fontello.css')!!}
     {!!HTML::style('css/animation.css')!!}
     {!!HTML::style('style/css/style.css')!!}
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     {!!HTML::script('bootstrap-3.3.5-dist/js/jquery.min.js')!!}
     {!!HTML::script('bootstrap-3.3.5-dist/js/bootstrap.min.js')!!}
+    {!!HTML::script('aj/js/bootstrap-datetimepicker.min.jss')!!}
     {!!HTML::script('aj/js/trumbowyg.min.js')!!}
     {!!HTML::script('aj/js/bootstrap-datepicker.js')!!}
+    {!!HTML::script('aj/js/bootstrap-datetimepicker.min.js')!!}
     {!!HTML::script('http://maps.google.com/maps/api/js')!!}
     {!!HTML::script('/js/forma.js')!!}
     {!!HTML::script('/js/cirilo.js')!!}

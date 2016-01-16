@@ -77,7 +77,6 @@ class DogadjajiKO extends Controller{
     //Memorisanje godogadjaja
     //Рута: /{username}/dogadjaji/izmeni/slug-dogadjaja
     public function postDogadjaj($username, ObjavaRequest $request){
-      //  dd($request);
             if($request->foto) {
                 $image = $request->foto;
                 $image_name = $image->getClientOriginalName();

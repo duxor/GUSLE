@@ -5,27 +5,29 @@
             <img src="/img/default/naslovna.jpg" alt="Профилна фотографија: Име Презиме">
         </div>
         <div class="col-sm-3 col-xs-12 trans">
-            <div class="profilna"><img src="/img/kontakt/korisnik-3.jpg" alt="Профилна фотографија: Име Презиме"></div>
+            <div class="profilna"><img src="{!! $clan->foto !!}" alt="Профилна фотографија: Име Презиме"></div>
             <br>
-            {{--Приказује се само једно ос следећа два дугмета--}}
-            <button class="btn btn-c"><i class="glyphicon glyphicon-pencil"></i> Уреди профил</button>
-            <a href="/usernamePrijavljenogKorisnika/poruke/kreiraj/usernameVlasnikaProfila" class="btn btn-c"><i class="glyphicon glyphicon-envelope"></i> Контактирај корисника</a>
+            @if($clan->id == Auth()->user()->id)
+              <a href="/{{Auth::User()->username}}/profil/uredi" class="btn btn-c"><i class="glyphicon glyphicon-pencil"></i> Уреди профил</a>
+            @else
+                <a href="/usernamePrijavljenogKorisnika/poruke/kreiraj/usernameVlasnikaProfila" class="btn btn-c"><i class="glyphicon glyphicon-envelope"></i> Контактирај корисника</a>
+            @endif
         </div>
         <div class="info col-xs-12 col-sm-8">
             <h1>
-                Име Презиме
-                {{--следећи елементи се приказују зависно од оцјена корисника од стране другин, приликом продаје-куповине--}}
-                {{--ако је збир оцијена већи од нуле приказује се први, иначе други спан елеменат--}}
-                {{--број поред је тај збир (оцјене се -1 и 1)--}}
-                <span class="pull-right green"><i class="glyphicon glyphicon-thumbs-up"></i> 12</span>
-                <span class="pull-right red"><i class="glyphicon glyphicon-thumbs-down"></i> 12</span>
+                {!! $clan->ime !!} {!! $clan->prezime !!}
+                @if( $clan->ocena > 0 )
+                    <span class="pull-right green"><i class="glyphicon glyphicon-thumbs-up"></i> {!! $clan->ocena !!} </span>
+                @else
+                 <span class="pull-right red"><i class="glyphicon glyphicon-thumbs-down"></i> {!! $clan->ocena !!} </span>
+                @endif
             </h1><br clear="all">
             <p>
-                <i class="glyphicon glyphicon-envelope"></i> email@poddomen.domen<br>
-                <i class="glyphicon glyphicon-earphone"></i> 060/000-000<br>
+                <i class="glyphicon glyphicon-envelope"></i> {!! $clan->email !!}<br>
+                <i class="glyphicon glyphicon-earphone"></i> {!! $clan->telefon !!}<br>
                 <a href="#" target="_blank" rel="nofollow"><i class="fa fa-facebook"></i> Име Презиме</a>
             </p>
-            <p>Биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија биографија.</p>
+            <p>{!! $clan->bio !!}</p>
         </div>
         <br clear="all">
 
@@ -132,38 +134,4 @@
         .pagination>.active>a,.pagination>li>a, .pagination>li>span{color: #1A0D0A;border: 1px solid #1A0D0A}
         .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{background-color: #1A0D0A;color:#fff;}
     </style>
-
-
-
-{{--наредне брејкове уклонити након интеграције--}}
-<br><br><br><br>
-<!------------------------------------AJ----------------------------------------------------------------->
-    <div class="row">
-        <div class="col-sm-8">
-            <h1><span class="glyphicon glyphicon-user"></span><strong> Профилни подаци:</strong></h1>
-        </div>
-            <div class="col-sm-4">
-                <a href="/{{Auth::User()->username}}/profil/uredi"><h3><i class="glyphicon glyphicon-pencil"></i><strong> Уреди податке</strong></h3></a>
-            </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8">
-            <table class="table table-hover">
-            <tr><td><h4><span class="glyphicon glyphicon-user"></span> <strong>Име:</strong></h4></td><td><h4></h4></td>
-            </tr><tr><td><h4><span class="glyphicon glyphicon-user"></span> <strong>Презиме:</strong></h4></td><td><h4>{{Auth::User()->prezime}}</h4></td>
-            </tr><tr><td><h4><span class="glyphicon glyphicon-envelope"></span> <strong>E-mail:</strong></h4></td><td><h4>{{Auth::User()->email}}</h4></td></tr>
-            <tr><td><h4><span class="glyphicon glyphicon-earphone"></span> <strong>Контакт телефон:</strong></h4></td><td><h4>{{Auth::User()->telefon}}</h4></td></tr>
-            <tr><td><h4><span class="glyphicon glyphicon-home"></span> <strong>Адреса:</strong></h4></td><td><h4>{{Auth::User()->adresa}}</h4></td></tr>
-            <tr><td><h4><span class="glyphicon glyphicon-road"></span> <strong>Град:</strong></h4></td><td><h4>{{$grad->naziv}}</h4></td></tr>
-            <tr><td><h4><span class="glyphicon glyphicon-book"></span> <strong>Биографија:</strong></h4></td><td><h4>{{Auth::User()->bio}}</h4></td></tr>
-            </table>
-        </div>
-        <div class="col-sm-2"></div>
-    </div>
-    <a class="btn btn-block btn-social btn-twitter">
-        <span class="fa fa-facebook"></span> btn-facebook
-    </a>
-<!------------------------------------AJ----------------------------------------------------------------->
 @endsection
