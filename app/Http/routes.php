@@ -36,7 +36,7 @@ Route::controllers([
     '/administracija'=>'AdministracijaKO',
     '/dogadjaji'=>'DogadjajiKO',
     '/galerija'=>'GalerijaKO',
-    '/odradbe'=>'OsnovniKO',
+    '/odredbe'=>'OsnovniKO',
 
     '/{username}/poruke'=>'MejlingKO',
     '/{username}/profil'=>'KorisniciKO',
