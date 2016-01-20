@@ -1,22 +1,25 @@
 <?php
 namespace App\Http\Controllers;
 use App\Grad;
+use App\Media;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use Intervention\Image\Facades\Image;
 
 class KorisniciKO extends Controller{
     public function __construct(){
         $this->middleware('PravaPristupaMid:2,0',['except'=>['getProfil']]);//za korisnike 2+ (sve registrovane)
-        $this->middleware('UsernameLinkMid:',['except'=>['getProfil']]);//za korisnike 2+ (sve registrovane)
+        $this->middleware('UsernameLinkMid:profil',['except'=>['getProfil','postSacuvajImg']]);//za korisnike 2+ (sve registrovane)
     }
     public function getIndex(){
         if(Auth::check()){
-            $clan = User::where('username',Auth::user()->username)->first();
-            return view('administracija.admin.profil')->with('clan', $clan);
+            $clan = User::join('grad as g','g.id','=','korisnici.grad_id')->where('username',Auth::user()->username)
+                ->get(['korisnici.id','username', 'email', 'prezime','ime','adresa','g.naziv as grad','telefon','bio','foto','naslovna','ocena'])->first();
+            return view('administracija.admin.profil')->with('clan', $clan)->with('mojProfil',$clan->id==Auth()->user()->id?'true':null);
         }
     }
     //Измјена корисника - Ажурирање
@@ -77,6 +80,44 @@ class KorisniciKO extends Controller{
        // dd($clan);
         return view('administracija.admin.profil')->with('clan', $clan);
 
+    }
+    public function postSacuvajImg(){
+        if (empty($_FILES['upload-img'])) {
+            echo json_encode(['error'=>'Није изабран ни један фајл.']);
+            return;
+        }
+        $folder = 'img/korisnici/';
+        if(!is_dir($folder)) mkdir($folder);
+        $user=Auth::user();
+        $url=Input::get('vrsta').'-'.$user->username.'-'.$user->id.'.'.Input::file('upload-img')[0]->getClientOriginalExtension();
+        switch(Input::get('vrsta')){
+            case'profilna':
+            case'naslovna':
+                if(Input::file('upload-img')[0]->isValid()){
+                    Input::file('upload-img')[0]->move($folder, $url);
+                    $url='/'.$folder.$url;
+                    User::where('id',$user->id)->update([
+                        (Input::get('vrsta')=='profilna'?'foto':'naslovna')=>$url
+                    ]);
+                }
+                else{
+                    echo json_encode(['error'=>'Десила се грешка.']);
+                    return;
+                }
+                break;
+            case'portfolio':
+                $defaultBroj=round(microtime(true) * 1000);
+                foreach(Input::file('upload-img') as $k=>$foto){
+                    $url=Input::get('vrsta').'-'.$user->username.'-'.$user->id.'-'.$defaultBroj.'-'.$k.'.'.Input::file('upload-img')[0]->getClientOriginalExtension();
+                    if($foto->isValid()){
+                        Input::file('upload-img')[0]->move($folder, $url);
+                        Media::insert([['src'=>'/'.$folder.$url]]);
+                    }
+                }
+                break;
+        }
+        echo json_encode(['success'=>'Чување је извршено.','url'=>$url,'vrsta'=>Input::get('vrsta')]);
+        return;
     }
 }
 
