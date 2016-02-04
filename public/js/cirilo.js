@@ -21,16 +21,21 @@ var cirilo={
             var
                 cirilica = 'абвгдезијклмнњопрстуфхцчћђжшљњџАБВГДЂЕЖЗИЈКЛМНОПРСТУФХЦЧЋЂЖШЏЉЊзЗ',//Ђ Љ Њ Ж Ч Џ Ш
                 latinica = 'abvgdezijklmnnoprstufhcčćđžšqwxABVGDDEZZIJKLMNOPRSTUFHCČĆĐŽŠXQWyY',
-                slovo=String.fromCharCode(e.keyCode),
+                slovo=String.fromCharCode(e.charCode||e.keyCode),
                 test=false,
                 cursorStart=$(this)[0].selectionStart;
-            if(latinica.indexOf(String.fromCharCode(e.keyCode))>=0)
+            if(latinica.indexOf(slovo)>=0){
+                test=true;
                 slovo=cirilica.charAt(latinica.indexOf(slovo));
-            $(this).val(
-                $(this).val().substring(0,cursorStart)+
-                slovo+
-                $(this).val().substring($(this)[0].selectionEnd)
-            );
+            }
+            if($.inArray(slovo,['.',','])>-1||test){
+                test=true;
+                $(this).val(
+                    $(this).val().substring(0,cursorStart)+
+                    slovo+
+                    $(this).val().substring($(this)[0].selectionEnd)
+                );
+            }
             $(this).val($(this).val()
                 .replace(/\.ц\./g,'ћ').replace(/\.Ц\./g,'Ћ')
                 .replace(/,ц,/g,'ч').replace(/,Ц,/g,'Ч')
@@ -40,8 +45,7 @@ var cirilo={
                 .replace(/\.дз\./g,'џ').replace(/\.ДЗ./g,'Џ')
                 .replace(/\.с\./g,'ш').replace(/\.С\./,'Ш'));
             cirilo.setCursor($(this)[0],cursorStart);
-            e.preventDefault();
-
+            if(test) e.preventDefault();
         })
     },
     setCursor:function(input, start){

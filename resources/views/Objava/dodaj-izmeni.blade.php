@@ -1,8 +1,12 @@
 @extends('administracija.master.osnovni')
 @section('body')
+    {!!HTML::script('/js/cirilo.js')!!}
+    {!!HTML::script('/js/moment.js')!!}
+    {!!HTML::script('/js/datetimepicker.js')!!}
+    {!!HTML::style('/css/datetimepicker.css')!!}
     <div class="container-fluid pt60">
         <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
+            <div class="col-sm-12">
                 <div class="panel panel-default panel-c">
                     <div class="panel-heading">
                         <div class="row">
@@ -10,7 +14,6 @@
                             <div class="col-sm-6"><h3 align="right"><a href="/{{$username}}/dogadjaji/moje-objave"><span class="glyphicon glyphicon-menu-left"></span>Моје објаве</a></h3></div>
                         </div>
                     </div>
-
                     <div class="panel-body">
                         @if (count($errors) > 0)
                             <div class="alert alert-danger">
@@ -22,50 +25,69 @@
                                 </ul>
                             </div>
                         @endif
-
-
-                        {!! Form::model($dogadjaj,['action'=> ['DogadjajiKO@postDogadjaj',$username], 'files'=>'true', 'method'=>'post' ]) !!}
-
-                            <div class="form-group">
-                            <div id="datetimepicker1" class="input-append date">
-                                {!! Form::label('datum_dogadjaja',"Датум*", ['class'=>'col-sm-12','data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
-                                <div class="row">
-                                <div class="col-sm-3">
-                                    <input class="form-control" name="datum_dogadjaja" data-format="yyyy-MM-dd hh:mm:ss" type="text" value="{{$dogadjaj->datum_dogadjaja?date( 'Y-m-d h:m:s', strtotime($dogadjaj->datum_dogadjaja)):date('Y-m-d h:m:s')}}">
+                        {!! Form::model($dogadjaj,['action'=> ['DogadjajiKO@postDogadjaj',$username], 'files'=>'true', 'method'=>'post','class'=>'form-horizontal','id'=>'forma']) !!}
+                            <div class="col-sm-6">
+                                <label>Датум догађања</label>
+                                <div style="overflow:hidden;">
+                                    <div class="form-group">
+                                        <div class="row datetimepicker12">
+                                            <input name="datum_dogadjaja"  type='text' class="form-control" id='datetimepicker12' value="{{$dogadjaj->datum_dogadjaja?date( 'Y-m-d h:m:s', strtotime($dogadjaj->datum_dogadjaja)):date('Y-m-d h:m:s')}}" style="display: none"/>
+                                        </div>
+                                    </div>
+                                    <script type="text/javascript">
+                                        $(function () {
+                                            $('#datetimepicker12').datetimepicker({
+                                                inline: true,
+                                                sideBySide: true,
+                                                locale: 'sr-cyrl',
+                                                format: 'Y-MM-DD HH:mm'
+                                            });
+                                        });
+                                    </script>
                                 </div>
-                                <div class="col-sm-9">
-                                    <span class="add-on"> <button type="button" class="btn btn-default btn-sm "><span class="glyphicon glyphicon-calendar"></span>Календар</button></span></span>
+                                <div class="form-group">
+                                    {!! Form::label('naziv',"Назив*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос','class'=>'control-label col-sm-2'])!!}
+                                    <div class="col-sm-10">{!! Form::text('naziv',null,['class'=>'form-control form-control-c', 'placeholder'=>'Назив','data-serbian'=>'true']) !!}</div>
                                 </div>
+                                <div class="form-group">
+                                    {!! Form::label('naziv',"Слуг*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос','class'=>'control-label col-sm-2'])!!}
+                                    <div class="col-sm-10">{!! Form::text('slug',null,['class'=>'form-control form-control-c','id'=>'slug_txt', 'placeholder'=>"Слуг",'disabled'])!!}</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-2 col-sm-offset-2">{!!Form::button('Креирајте слуг',['class'=>'btn btn-c btn-c-min','id'=>'slug_btn'])!!}</div>
+                                </div>
+                                <div class="form-group">
+                                    {!!Form::label('vrsta_dogadjaja',"Врста*",['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос','class'=>'control-label col-sm-2'])!!}
+                                    <div class="col-sm-10">{!!Form::select('vrsta_objave_id',$vrste_objave, $dogadjaj->vrsta_objave_id,['class'=>'form-control form-control-c'])!!}</div>
+                                </div>
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Кључне речи у објави који се пишу одвојени зарезом без размака" class="control-label col-sm-2">Тагови <i class="glyphicon glyphicon-question-sign"></i></label>
+                                    <div class="col-sm-10">{!!Form::text('tagovi',null,['class'=>'form-control form-control-c','placeholder'=>'Тагови','data-serbian'=>'true'])!!}</div>
                                 </div>
                             </div>
-                            </div>
-
-                            <div class="form-group">
-                                {!! Form::label('naziv',"Назив*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
-                                {!! Form::text('naziv',null,['class'=>'form-control', 'placeholder'=>'Назив']) !!}
-                            </div>
-                            <div class="form-group">
-                                <div class="form-group col-sm-12">
-                                    {!! Form::label('naziv',"Слуг*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
+                            <div class="col-sm-6">
+                                <label>Локација догађаја</label>
+                                <div id="map-canvas" style="width:100%;height:380px;"></div>
+                                {!! Form::hidden('x',$dogadjaj->x?$dogadjaj->x:44.78669522814711,['id'=>'P102_LATITUDE' ]) !!}
+                                {!! Form::hidden('y',$dogadjaj->y?$dogadjaj->y:20.450384063720662,['id'=>'P102_LONGITUDE' ]) !!}
+                                <div class="form-group" style="margin-top: 20px">
+                                    <label data-toggle="tooltip" title="Адреса на којој се реализује догађај" class="control-label col-sm-2">Адреса</label>
+                                    <div class="col-sm-10">
+                                        {!!Form::text('adresa',null,['class'=>'form-control form-control-c','placeholder'=>'Адреса','data-serbian'=>'true'])!!}
+                                    </div>
                                 </div>
-                                <div class="form-group col-sm-3">
-                                    {!! Form::button('Креирајте слуг',['class'=>'form-control', 'id'=>'slug_btn']) !!}
+                                <div class="form-group">
+                                    <label data-toggle="tooltip" title="Град у коме се реализује догађај" class="control-label col-sm-2">Град</label>
+                                    <div class="col-sm-10">
+                                        {!!Form::select('grad',$gradovi,null,['class'=>'form-control form-control-c'])!!}
+                                    </div>
                                 </div>
-                                <div class="form-group col-sm-9">
-                                    {!! Form::text('slug',null,['class'=>'form-control', 'id'=>'slug_txt', 'placeholder'=>"Слуг"]) !!}
-                                </div>
                             </div>
+                            <br clear="all">
+{{------------------------------- --}}
                             <div class="form-group">
-                                {!! Form::label('vrsta_dogadjaja',"Врста*", ['data-toggle'=>'tooltip','title'=>'Поље је обавезно за унос']) !!}
-                                 {!! Form::select('vrsta_objave_id', $vrste_objave, $dogadjaj->vrsta_objave_id,['class'=>'form-control']) !!}
-                            </div>
-                            <div class="form-group">
-                                {!! Form::label('sadrzaj',"Садржај") !!}
-                                {!! Form::textarea('sadrzaj',null,['class'=>'editor', 'id'=>'editor','placeholder'=>'Садржај']) !!}
-                            </div>
-                            <div class="form-group">
-                                {!! Form::label('tagovi',"Тагови (речи одвојени зарезом без размака)") !!}
-                                {!! Form::text('tagovi',null,['class'=>'form-control', 'placeholder'=>'Тагови']) !!}
+                                {!!Form::label('sadrzaj',"Садржај",['class'=>'control-label col-sm-1'])!!}
+                                <div class="col-sm-12">{!!Form::textarea('sadrzaj',null,['class'=>'editor','id'=>'editor','placeholder'=>'Садржај'])!!}</div>
                             </div>
 
                             <input type="hidden" name='foto_pomocna' value="{{$dogadjaj->foto}}" >
@@ -75,8 +97,8 @@
                             </span>
                             <br><br>
                             <div class="row">
-                                <div class="col-sm-4 col-sm-offset-4">
-                                     <img id="blah" src="{{url($dogadjaj->foto)}}"  style="width:100%" />
+                                <div class="col-sm-4">
+                                     <img id="blah" src="{{$dogadjaj->foto?$dogadjaj->foto:'/img/default/objava.jpg'}}"  style="width:100%" />
                                 </div>
                             </div>
                             <br><br>
@@ -86,15 +108,9 @@
                                 {!! Form::radio('aktivan','1') !!}Да
                                 {!! Form::radio('aktivan','0') !!}Не
                             </div>
-                            <div class="form-group" align="center">
-                                <label for="">Mapa (Изаберите место дешавања догађаја)</label>
-                                <div id="map-canvas" style="width:500px;height:380px;"></div>
-                                {!! Form::hidden('x',$dogadjaj->x?$dogadjaj->x:44.78669522814711,['id'=>'P102_LATITUDE' ]) !!}
-                                {!! Form::hidden('y',$dogadjaj->y?$dogadjaj->y:20.450384063720662,['id'=>'P102_LONGITUDE' ]) !!}
-                            </div>
 
                             <div class="form-group" align="center">
-                                {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span> Сачувајте промене',['class' => 'btn btn-c', 'type'=>'submit'])!!}
+                                {!! Form::button('<span class="glyphicon glyphicon-floppy-save"></span> Сачувајте промене',['class' => 'btn btn-c', 'type'=>'button','onclick'=>'submituj()'])!!}
                             </div>
                         {!! Form::close() !!}
                     </div>
@@ -121,15 +137,16 @@
                     cursor: inherit;
                     display: block;
                 }
+                .btn-c-min{padding: 4px 10px}
+                .bootstrap-datetimepicker-widget .row,.datetimepicker12{margin:0px}
+
             </style>
         <script>
+            function submituj(){
+                $('#slug_txt').removeAttr('disabled');
+                $('#forma').submit();
+            }
             $(document).ready(function(){
-
-                $(function() {
-                    $('#datetimepicker1').datetimepicker({
-                        language: 'pt-BR'
-                    });
-                });
                 //Prikaz slika
                 function prikaziFoto(input) {
                     if (input.files && input.files[0]) {
@@ -176,14 +193,7 @@
 
                 //Kreiranje trumbowinga
                 $('.editor').trumbowyg();
-
-                //Kreiranje mape
-                $('.datepicker').datepicker({
-                    format: 'yyyy-mm-dd',
-                    startDate: '-3d'
-                });
                 var map;
-
                 var x =  $('#P102_LATITUDE').val();
                 var y = $('#P102_LONGITUDE').val();
                 function initialize() {
@@ -195,7 +205,6 @@
                         mapTypeId: google.maps.MapTypeId.ROADMAP
                     }
                     map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
-
                     var marker = new google.maps.Marker({
                         draggable: true,
                         position: myLatlng,

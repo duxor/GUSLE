@@ -46,7 +46,7 @@
                 <div class="row">
                     <div class="col-sm-5">
                         <a  href="/dogadjaji/dogadjaj/{{$dogadjaj->slug}}">
-                            <img src="{{'/'.$dogadjaj->foto}}" alt="{{$dogadjaj->naziv}}" class="img-responsiveimg-thumbnail">
+                            <img src="{{$dogadjaj->foto}}" alt="{{$dogadjaj->naziv}}" class="img-responsiveimg-thumbnail">
                         </a>
                         <div class="tagovi">
                             @foreach(explode(',',$dogadjaj->tagovi) as $tag)
@@ -57,11 +57,11 @@
                     <div class="col-sm-7">
                         <b>
                             <i class="glyphicon glyphicon-time"></i> {{date('d.m.Y. H:i',strtotime($dogadjaj->datum_dogadjaja))}}<br>
-                            <span data-modal="modal" data-toggle="tooltip" title="Погледај на мапи"><i class="glyphicon glyphicon-map-marker"></i> АДРЕСА ГРАД</span>
+                            <span data-modal="modal" data-x="{{$dogadjaj->x}}" data-y="{{$dogadjaj->y}}" data-toggle="tooltip" title="Погледај на мапи"><i class="glyphicon glyphicon-map-marker"></i> {{$dogadjaj->adresa}} {{$dogadjaj->grad}}</span>
                         </b>
                         <p>
                             {!!$dogadjaj->sadrzaj!!}...
-                            <a  href="/dogadjaji/dogadjaj/{{$dogadjaj->slug}}" class="btn btn-c btn-c-min"><i class="glyphicon glyphicon-sort-by-alphabet"></i> Читај даље</a>
+                            <a href="/dogadjaji/dogadjaj/{{$dogadjaj->slug}}" class="btn btn-c btn-c-min"><i class="glyphicon glyphicon-sort-by-alphabet"></i> Читај даље</a>
                         </p>
                     </div>
                 </div>
@@ -80,6 +80,7 @@
                 </div>
                 <div class="modal-body">
                     МАПА СА ОЗНАЧЕНОМ ЛОКАЦИЈОМ у греј дизајну као на контакт страници
+                    <div id="mapa" style="width:100%;height:380px;"></div>
                 </div>
             </div>
         </div>
@@ -99,7 +100,49 @@
         .col-sm-7 p{text-align: justify}
     </style>
     <script>
-        $(function(){$('[data-toggle=tooltip]').tooltip();$('[data-modal=modal]').click(function(){$('#modal').modal()})})
+        var map;
+        var myCenter=new google.maps.LatLng(44.78669522814711, 20.450384063720662);
+        var marker=new google.maps.Marker({
+            position:myCenter
+        });
+        function initialize() {
+            var mapProp = {
+                center:myCenter,
+                zoom: 14,
+                draggable: false,
+                scrollwheel: false,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+            };
+            map=new google.maps.Map(document.getElementById("mapa"),mapProp);
+            marker.setMap(map);
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.setContent(contentString);
+                infowindow.open(map, marker);
+          });
+        };
+        google.maps.event.addDomListener(window, 'load', initialize);
+        google.maps.event.addDomListener(window, "resize", resizingMap());
+        function resizeMap(_x,_y) {
+           if(typeof map =="undefined") return;
+           setTimeout( function(){resizingMap(_x,_y);} , 400);
+        }
+        function resizingMap(_x,_y) {
+           if(typeof map =="undefined") return;
+           var center = map.getCenter();
+           google.maps.event.trigger(map, "resize");
+           map.setCenter(center);
+
+        }
+        $(function(){
+                google.maps.event.addDomListener(window, 'load', initialize);
+            $('[data-toggle=tooltip]').tooltip();
+            $('[data-modal=modal]').click(function(){
+                $('#modal').modal();
+                map.setCenter(new google.maps.LatLng($(this).data('x'),$(this).data('y')));
+                marker.setPosition(new google.maps.LatLng($(this).data('x'),$(this).data('y')));
+                resizeMap($(this).data('x'),$(this).data('y'));
+            })
+        })
     </script>
 @endsection
 

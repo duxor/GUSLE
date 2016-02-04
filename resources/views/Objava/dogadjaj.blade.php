@@ -6,7 +6,7 @@
             <hr>
             <div class="row">
                 <div align="left" class="col-sm-5">
-                    <img src="{{'/'.$dogadjaj->foto}}" alt="{{$dogadjaj->naziv}}" class="img-responsiveimg-thumbnail" style="margin-bottom: 10px">
+                    <img src="{{$dogadjaj->foto}}" alt="{{$dogadjaj->naziv}}" class="img-responsiveimg-thumbnail" style="margin-bottom: 10px">
                     @foreach(explode(',',$dogadjaj->tagovi) as $tag)
                         <a class="btn btn-c btn-c-min" href="/dogadjaji/tag/{{$tag}}">#{{$tag}}</a>
                     @endforeach
@@ -32,6 +32,7 @@
         <div class="col-sm-3 baneri"> @include('layouts.baneri300x120') </div>
     </div>
     <style>
+        .row>.col-sm-5>img{width:100%}
         .baneri a img{margin-bottom: 5px}
         .btn-c-min{padding: 1px 3px}
     </style>

@@ -90,10 +90,14 @@ class KreiranjeBaze extends Migration {
             $table->foreign('korisnici_id')->references('id')->on('korisnici');
             $table->tinyInteger('aktivan')->default(1);
             $table->tinyInteger('potvrdjen')->default(0);
-            $table->string('x',45)->nullable();
-            $table->string('y',45)->nullable();
+            $table->string('komentar',250)->nullable();
+            $table->string('x',45)->nullable()->default('44.78669522814711');
+            $table->string('y',45)->nullable()->default('20.450384063720662');
             $table->unsignedBigInteger('vrsta_objave_id');
             $table->foreign('vrsta_objave_id')->references('id')->on('vrsta_objave');
+            $table->string('adresa',250)->nullable();
+            $table->unsignedBigInteger('grad_id')->default(1);
+            $table->foreign('grad_id')->references('id')->on('grad');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->nullable();
         });

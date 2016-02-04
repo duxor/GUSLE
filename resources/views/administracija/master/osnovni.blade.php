@@ -7,8 +7,10 @@
     <title>Гусле Администрација</title>
     {!!HTML::style('bootstrap-3.3.5-dist/css/bootstrap.min.css')!!}
     {!!HTML::style('aj/css/trumbowyg.min.css')!!}
+    {{--
     {!!HTML::style('aj/css/datepicker.css')!!}
     {!!HTML::style('aj/css/bootstrap-datetimepicker.min.css')!!}
+    --}}
     {!!HTML::style('css/fontello.css')!!}
     {!!HTML::style('css/animation.css')!!}
     {!!HTML::style('style/css/style.css')!!}
@@ -16,8 +18,10 @@
     {!!HTML::script('bootstrap-3.3.5-dist/js/jquery.min.js')!!}
     {!!HTML::script('bootstrap-3.3.5-dist/js/bootstrap.min.js')!!}
     {!!HTML::script('aj/js/trumbowyg.min.js')!!}
+    {{--
     {!!HTML::script('aj/js/bootstrap-datepicker.js')!!}
-    {!!HTML::script('aj/js/bootstrap-datetimepicker.min.js')!!}
+    {!!HTML::script('aj/js/datetimepicker.js')!!}
+    --}}
     {!!HTML::script('http://maps.google.com/maps/api/js')!!}
     {!!HTML::script('/js/forma.js')!!}
     {!!HTML::script('/js/cirilo.js')!!}
@@ -83,6 +87,18 @@
                 </a>
             </div>
         </div>
+        @if($korisnik->prava_pristupa_id>2)
+            <?php $nepotvrdjenih=\App\Objava::brojNepotvrdjenih(); ?>
+            <div class="panel-group">
+                <div class="panel panel-default panel-title">
+                    <a href="/{{$korisnik->username}}/dogadjaji/nepotvrdjeni">
+                        <div class="panel-heading" id="headingOne">
+                            <h4><i class="glyphicon glyphicon-floppy-remove"></i> Непотврђене објаве @if($nepotvrdjenih>0) <span class="badge">{{$nepotvrdjenih}}</span> @endif </h4>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        @endif
         <div class="panel-group">
             <div class="panel panel-default panel-title">
                 <a href="/{{$korisnik->username}}/dogadjaji/objavi-dogadjaj">

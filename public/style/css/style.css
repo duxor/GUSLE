@@ -154,7 +154,7 @@ a,button:hover,.btn,.carousel-control,.carousel-indicators>li,.imgDivLg img,sele
 .panel-c a{
     color: inherit;
 }
-.btn-c,.btn-cz,.btn-c-danger {
+.btn-c,.btn-cz,.btn-c-danger,.btn-c-default {
     padding: 10px 20px;
     background-color: #1A0D0A;
     border: 1px solid #1A0D0A;
@@ -168,7 +168,11 @@ a,button:hover,.btn,.carousel-control,.carousel-indicators>li,.imgDivLg img,sele
 .btn-c-danger {
     background-color: #AB0404;
 }
-.btn-c:hover, .btn-c:focus,.btn-cz:hover,.btn-cz:focus,.btn-c-danger:hover, .btn-c-danger:focus {
+.btn-c-default {
+    background-color: #0055ab;
+}
+.btn-c:hover, .btn-c:focus,.btn-cz:hover,.btn-cz:focus,.btn-c-danger:hover, .btn-c-danger:focus,.btn-c-default:hover, .btn-c-default:focus {
     border: 1px solid #1A0D0A;
     background-color: #fff;
 }
+.btn-c-min{padding: 2px 10px}

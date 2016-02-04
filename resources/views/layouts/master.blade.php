@@ -17,7 +17,7 @@
     {!!HTML::script('bootstrap-3.3.5-dist/js/bootstrap.min.js')!!}
     {!!HTML::script('aj/js/trumbowyg.min.js')!!}
     {!!HTML::script('aj/js/bootstrap-datepicker.js')!!}
-    {!!HTML::script('aj/js/bootstrap-datetimepicker.min.js')!!}
+    {{--{!!HTML::script('aj/js/datetimepicker.js')!!}--}}
     {!!HTML::script('http://maps.google.com/maps/api/js')!!}
     {!!HTML::script('/js/forma.js')!!}
 </head>
