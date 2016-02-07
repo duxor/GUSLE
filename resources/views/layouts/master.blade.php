@@ -20,6 +20,7 @@
     {{--{!!HTML::script('aj/js/datetimepicker.js')!!}--}}
     {!!HTML::script('http://maps.google.com/maps/api/js')!!}
     {!!HTML::script('/js/forma.js')!!}
+    {!!HTML::script('/js/cirilo.js')!!}
 </head>
 
 <body data-target=".navbar">
@@ -74,7 +75,6 @@ function slajdovanje(){
         $(".scrol a,.scrol").on('click', function(event) {
             if($(this.hash).offset())
                 event.preventDefault();
-            else console.log(1);
             var hash = this.hash;
             $('html, body').animate({
                 scrollTop: $(hash).offset().top-60
