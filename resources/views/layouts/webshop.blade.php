@@ -34,6 +34,22 @@
     </div><br>
 
     <h2>Последњи додати огласи</h2>
+
+    <div class="row text-center slideanim">
+        @foreach($oglasi as $oglas)
+            <a href="/oglas/{{$oglas->slug}}">
+                <div class="col-sm-2">
+                    <div class="thumbnail">
+                        <div class="imgDivLg">
+                            <img src="{{$oglas->foto}}" alt="{{$oglas->naziv}}">
+                        </div>
+                        <p><strong>{{$oglas->naziv}}</strong></p>
+                    </div>
+                </div>
+            </a>
+        @endforeach
+    </div>
+    {{--
     <div class="row text-center slideanim">
         <div class="col-sm-2">
             <div class="thumbnail">
@@ -71,8 +87,19 @@
                 <p><strong>Крст и икона</strong></p>
             </div>
         </div>
-    </div><br>
+    </div>
+    --}}
+    <br>
     <div class="text-center">
         <a href="/prodavnica" class="btn btn-default"><i class="glyphicon glyphicon-th"></i> Сви огласи</a>
     </div><br>
 </div>
+
+<style>
+    .imgDivLg{height: 200px;text-align: center;margin-bottom: 10px;position: relative}
+    .imgDivLg img{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%) translateX(-50%);
+    }
+</style>

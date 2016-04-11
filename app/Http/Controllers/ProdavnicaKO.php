@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Komentari;
 class ProdavnicaKO extends Controller{
     private $url='/prodavnica';
     private $imgFolder='img/prodavnica/';
@@ -27,6 +28,7 @@ class ProdavnicaKO extends Controller{
     private $brojImgSlajdera=5;
     private $brojImgPopusta=8;
     private $brojOglasaPoStr=2;
+    private $brKomentPoStr=20;
     public function __construct(){
         $this->middleware('PravaPristupaMid:2,0',['except'=>['getIndex','getOglas','getPretraga','postPretraga']]);//za korisnike 2+ (sve registrovane)
         $this->middleware('UsernameLinkMid:'.$this->url,['except'=>['postSlugTest','getPretraga','postPretraga']]);
@@ -275,5 +277,17 @@ class ProdavnicaKO extends Controller{
             return json_encode($podaci);
         }
         return view('prodavnica-pretraga')->with(['prijavljen'=>Auth::check(),'ukupnoStr'=>$podaci['ukupnoStr'],'pretraga'=>Input::get('pretraga'),'slug'=>$slug]);
+    }
+    public function postUcitajKoment(){
+        return json_encode(Komentari::getKomentariOglasa($this->brKomentPoStr,Input::get('stranica'),Input::get('id')));
+    }
+    public function postObjaviKoment(){
+        return json_encode(Komentari::sacuvajKomentarOglasa(Input::get('sadrzaj'),Input::get('oglas_id')));
+    }
+    public function postSacuvajKoment(){
+        return json_encode(Komentari::sacuvajOdgovorOglasa(Input::get('oglas_id'),Input::get('komentar_id'),Input::get('sadrzaj')));
+    }
+    public function postStranicenjeBrojStranica(){
+        return ceil(Komentari::brojStranicaDiskusije()/$this->brKomentPoStr);
     }
 }

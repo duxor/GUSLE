@@ -13,4 +13,7 @@ class Proizvod extends Model{
     public static function setPopust($id,$popust){
         return Proizvod::where('korisnici_id',Auth::user()->id)->where('id',$id)->update(['popust'=>$popust]);
     }
+    public static function getPoslednjiOglasi($broj_oglasa){
+        return Proizvod::where('stanje_oglasa_id',1)->orderBy('id','desc')->take($broj_oglasa)->get(['naziv','slug','cena','foto']);
+    }
 }

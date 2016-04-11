@@ -17,7 +17,6 @@ use Intervention\Image\Facades\Image;
 
 class DogadjajiKO extends Controller{
     private $url='/dogadjaji';
-    private $duzinaObjave=250;
     private function closetags($html) {
         preg_match_all('#<(?!meta|img|br|hr|input\b)\b([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $html, $result);
         $openedtags = $result[1];
@@ -51,7 +50,7 @@ class DogadjajiKO extends Controller{
             ->where('potvrdjen',1)
             ->orderBy('datum_dogadjaja')
             ->get(['objava.naziv','slug','foto','datum_dogadjaja',
-                DB::raw('substring(sadrzaj,1,'.$this->duzinaObjave.') as sadrzaj'),'tagovi','adresa','g.naziv as grad','x','y']);
+                DB::raw('substring(sadrzaj,1,'.Objava::$duzinaObjave.') as sadrzaj'),'tagovi','adresa','g.naziv as grad','x','y']);
         $test=true; $danasnji=date('Y-m-d');
         $kalendar='{';
         foreach($dogadjaji as $k=>$dogadjaj) {
@@ -69,7 +68,7 @@ class DogadjajiKO extends Controller{
             ->where('potvrdjen',1)
             ->orderBy('datum_dogadjaja','desc')
             ->get(['naziv','slug','foto','datum_dogadjaja',
-                DB::raw('substring(sadrzaj,1,'.$this->duzinaObjave.') as sadrzaj'),'tagovi']);
+                DB::raw('substring(sadrzaj,1,'.Objava::$duzinaObjave.') as sadrzaj'),'tagovi']);
 
         $test=true; $danasnji=date('Y-m-d');
         $kalendar='{';
@@ -95,7 +94,7 @@ class DogadjajiKO extends Controller{
     //Prikaz jednog dogadjaja koriscenjem taga
     //Рута: /dogadjaji/tag/tag-dogadjaja
     public function getTag($tag){
-        $dogadjaj = Objava::where('tagovi','LIKE', '%'.$tag.'%')->get(['naziv','slug','foto','datum_dogadjaja',DB::raw('substring(sadrzaj,1,'.$this->duzinaObjave.') as sadrzaj'),'tagovi']);
+        $dogadjaj = Objava::where('tagovi','LIKE', '%'.$tag.'%')->get(['naziv','slug','foto','datum_dogadjaja',DB::raw('substring(sadrzaj,1,'.Objava::$duzinaObjave.') as sadrzaj'),'tagovi']);
         return view('dogadjaji')->with('dogadjaji',$dogadjaj);
     }
     // K R E I R A NJ E   I   I Z M E N A

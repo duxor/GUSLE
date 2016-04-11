@@ -79,7 +79,6 @@
                     <h2>Приказ на мапи</h2>
                 </div>
                 <div class="modal-body">
-                    МАПА СА ОЗНАЧЕНОМ ЛОКАЦИЈОМ у греј дизајну као на контакт страници
                     <div id="mapa" style="width:100%;height:380px;"></div>
                 </div>
             </div>
@@ -98,6 +97,12 @@
         .col-sm-5>a>img{width: 100%}
         .col-sm-7 b span{cursor: pointer}
         .col-sm-7 p{text-align: justify}
+        #mapa{
+            width: 100%;
+            height: 400px;
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+        }
     </style>
     <script>
         var map;

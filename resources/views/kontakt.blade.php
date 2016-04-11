@@ -137,5 +137,4 @@
         .col-sm-4 p{text-align: justify}
     </style>
     <h2 class="text-center"><a href="#pocetna" title="На врх" class="scrol"><span class="glyphicon glyphicon-chevron-up"></span></a></h2>
-    <i class='icon-spin6 animate-spin' style="font-size: 1px;rgba(0,0,0,0)"></i>
 @endsection

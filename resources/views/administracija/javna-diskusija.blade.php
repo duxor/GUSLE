@@ -45,8 +45,7 @@
                     JD.uProcesuRemove();
                     $.each(data, function(i,diskusija){
                         if(Number.isInteger(parseInt(i))){
-                            var datum=new Date(diskusija.created_at);
-                            datum=datum.getDate()+'.'+(datum.getMonth()+1)+'.'+datum.getFullYear()+'. '+datum.getHours()+':'+datum.getMinutes();
+                            var datum=diskusija.created_at.substr(8,2)+'.'+diskusija.created_at.substr(5,2)+'.'+diskusija.created_at.substr(0,4)+'. '+diskusija.created_at.substr(11,5);
                             ispis=
                                 '<hr>' +
                                 '<div class="row">' +
@@ -56,8 +55,9 @@
                                     diskusija.sadrzaj+' <button class="btn btn-c btn-c-min" data-toggle="tooltip" title="Остави коментар" onclick="JD.komentarisi('+diskusija.id+')"><i class="glyphicon glyphicon-comment"></i> Коментариши</button>'+
                                 '</div><div class="odgovori odgovori-'+diskusija.id+'">';
                             $.each(diskusija.odgovori, function(ii,odgovor){
-                                var ddatum=new Date(odgovor.created_at);
-                                ddatum=ddatum.getDate()+'.'+(ddatum.getMonth()+1)+'.'+ddatum.getFullYear()+'. '+ddatum.getHours()+':'+ddatum.getMinutes();
+                                var ddatum=odgovor.created_at.substr(8,2)+'.'+odgovor.created_at.substr(5,2)+'.'+odgovor.created_at.substr(0,4)+'. '+odgovor.created_at.substr(11,5);
+                                //new Date(odgovor.created_at);alert(odgovor.created_at);
+                                //ddatum=ddatum.getDate()+'.'+(ddatum.getMonth()+1)+'.'+ddatum.getFullYear()+'. '+ddatum.getHours()+':'+ddatum.getMinutes();
                                 ispis+=
                                     '<div class="row"><hr>' +
                                         '<a href="'+JD.profilUrl+odgovor.username+'"><img src="'+odgovor.foto+'" alt="'+odgovor.ime+' '+odgovor.prezime+'" class="img-circle pull-left"></a>'+

@@ -94,16 +94,17 @@ function slajdovanje(){
 }
 </script>
 @yield('body')
+<i class="icon-spin6 animate-spin" style="font-size: 1px;rgba(0,0,0,0)"></i>
 <div class="footer text-center">
     <div class="b container-fluid">
         @include('layouts.baneri300x150')
     </div><br clear="all">
     <div class="container">
         <div class="col-sm-3">
-            <!--<img src="/img/logo.png">-->
+            {{--<img src="/img/logo.png">--}}
             <div class="col-sm-9">
                 <h2>Гусле портал</h2>
-                <a href="#" data-toggle="tooltip" title="Пријавите се и добијајте обавештења о актуелностима путем СМС-а">Број за смс +381612825434</a><br>
+                <a data-toggle="tooltip" title="Пријавите се и добијајте обавештења о актуелностима путем СМС-а">Број за смс +381612825434</a><br>
                 <a href="mailto:gusle@gusle.rs">gusle@gusle.rs</a><br>
                 11080 Земун - Београд<br>
                 Србија
@@ -123,24 +124,23 @@ function slajdovanje(){
         <div class="col-sm-3" style="text-align: left;">
             <h3>Линкови</h3>
             <p class="list-group">
-                <a href="#" class="col-sm-12">О нама</a>
-                <a href="#" class="col-sm-12">Продавница</a>
-                <a href="#" class="col-sm-12">Догађаји</a>
-                <a href="#" class="col-sm-12">Актуелности</a>
-                <a href="#" class="col-sm-12">Историјат</a>
-                <a href="#" class="col-sm-12">Галерија</a>
-                <a href="#" class="col-sm-12">Контакт</a>
+                <a href="/o-nama" class="col-sm-12">О нама</a>
+                <a href="/prodavnica" class="col-sm-12">Продавница</a>
+                <a href="/dogadjaji" class="col-sm-12">Догађаји</a>
+                <a href="/dogadjaji/arhiva" class="col-sm-12">Архва</a>
+                <a href="/udruzenja" class="col-sm-12">Удружења</a>
+                <a href="/kontakt" class="col-sm-12">Контакт</a>
             </p>
         </div>
         <div class="col-sm-3" style="text-align: left;">
             <h3>Одредбе и правила</h3>
             <p class="list-group">
-                <a href="/odradbe/o-nama" class="col-sm-12">О презентацији</a>
-                <a href="/odradbe/reklamiranje" class="col-sm-12">Поставите банер</a>
-                <a href="/odradbe/pravilnik" class="col-sm-12">Правилник</a>
-                <a href="/odradbe/prodavnica" class="col-sm-12">Продавница</a>
-                <a href="/odradbe/privatnost" class="col-sm-12">Приватност</a>
-                <a href="/odradbe/pomoc" class="col-sm-12">Помоћ</a>
+                <a href="/odredbe/o-nama" class="col-sm-12">О презентацији</a>
+                <a href="/odredbe/reklamiranje" class="col-sm-12">Поставите банер</a>
+                <a href="/odredbe/pravilnik" class="col-sm-12">Правилник</a>
+                <a href="/odredbe/prodavnica" class="col-sm-12">Продавница</a>
+                <a href="/odredbe/privatnost" class="col-sm-12">Приватност</a>
+                <a href="/odredbe/pomoc" class="col-sm-12">Помоћ</a>
             </p>
         </div>
     </div>
@@ -148,8 +148,14 @@ function slajdovanje(){
 </div>
 <script>
     function newsletterPrijava(){
-        if(SubmitForm.check('newsletter'))
-            window.location='/username/profil';
+        if(SubmitForm.check('newsletter')){
+            var email=$('#email_for_newsletter').val();
+            $('#newsletter').html('<center><i class="icon-spin6 animate-spin" style="font-size: 350%;rgba(0,0,0,0)"></i></center>');
+            $.post('/newsletter-dodaj',{_token:'{{csrf_token()}}',email:email},function(data){
+                data=JSON.parse(data);
+                $('#newsletter').html('<p class="alert '+(data.check==1?'alert-success':'alert-danger')+'">'+data.msg+'</p>')
+            })
+        }
     }
 </script>
 </body>
